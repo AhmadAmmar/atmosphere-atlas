@@ -1,0 +1,5 @@
+# Needed only to re-download and re-process the source data (python build_atlas.py --refresh-data).
+# Building the page from the processed data in data/processed needs nothing but the Python standard library.
+numpy>=1.24
+netCDF4>=1.6
+Pillow>=10.0

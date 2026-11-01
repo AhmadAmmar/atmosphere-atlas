@@ -1,0 +1,31 @@
+"""The chapters of the atlas, in reading order."""
+from .model import Chapter
+
+CHAPTERS = [
+    Chapter("sun", "The Sun and the seasons",
+            "Why the tropics are hot, the poles are cold, and why the year has seasons.", "sun"),
+    Chapter("air", "The atmosphere",
+            "What air is made of, how it is layered, and how heat and moisture behave inside it.", "layers"),
+    Chapter("wind", "Why the wind blows",
+            "Pressure, the Coriolis effect and friction: the forces that steer every breeze.", "wind"),
+    Chapter("circulation", "The global circulation",
+            "Hadley, Ferrel and Polar cells, trade winds, westerlies, jet streams and monsoons.", "cells"),
+    Chapter("ocean", "The restless ocean",
+            "Currents, gyres, upwelling and the slow overturning that links every ocean.", "waves"),
+    Chapter("weather", "Weather systems",
+            "Air masses, fronts, highs and lows, clouds, thunderstorms and tornadoes.", "front"),
+    Chapter("storms", "Hurricanes, typhoons and cyclones",
+            "How tropical cyclones form, how they are measured and where they strike.", "cyclone"),
+    Chapter("modes", "Climate rhythms",
+            "El Niño, La Niña and the other great swings that rearrange weather worldwide.", "pulse"),
+    Chapter("water", "Water on the move",
+            "The water cycle, atmospheric rivers, floods, droughts and ice.", "drop"),
+    Chapter("climate", "Climate and climate change",
+            "Climate zones, extremes and the evidence that the planet is warming.", "thermo"),
+    Chapter("sky", "Light in the sky",
+            "Blue skies, rainbows, halos and auroras explained.", "rainbow"),
+    Chapter("observe", "Observing and forecasting",
+            "How we measure the atmosphere, read weather maps and predict what comes next.", "satellite"),
+    Chapter("practical", "Moisture, motion and weather maps, step by step",
+            "Atmospheric moisture, atmospheric motion and weather-map analysis: every question of the practical, worked through with interactive diagrams.", "book"),
+]

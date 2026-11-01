@@ -1,0 +1,180 @@
+% ---------------------------------------------------------------------------------------------------------------
+% The Atmosphere: Practical Companion -- shared style for every part and every edition.
+% The Practical 3 folder keeps an identical copy as preamble.tex (for its slide-deck figure scripts);
+% run sync_style.py after editing this file.
+% ---------------------------------------------------------------------------------------------------------------
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage[english]{babel}
+\usepackage{microtype}
+\usepackage[a4paper,top=2.4cm,bottom=2.4cm,inner=2.5cm,outer=2.2cm]{geometry}
+\usepackage{amsmath,amssymb,mathtools}
+\usepackage{booktabs,array,tabularx,longtable,colortbl,multirow}
+\usepackage{enumitem}
+\usepackage{xcolor}
+\usepackage{xspace}
+\usepackage{needspace}
+\usepackage{tikz,pgfplots}
+\usepgfplotslibrary{fillbetween,groupplots}
+\pgfplotsset{compat=1.17}
+\usetikzlibrary{arrows.meta,calc,decorations.markings,decorations.pathreplacing,decorations.pathmorphing,patterns,positioning,shapes.geometric,shapes.symbols,backgrounds,fit,intersections}
+\usepackage[most]{tcolorbox}
+\usepackage{caption,subcaption}
+\usepackage{fancyhdr}
+\usepackage{pdflscape}
+\usepackage{titlesec}
+\usepackage{setspace}
+\usepackage{refcount}
+\usepackage[round,authoryear]{natbib}
+\usepackage{xr-hyper}
+\usepackage[hidelinks,pdfusetitle]{hyperref}
+\usepackage{url}
+
+\captionsetup{font=small,labelfont=bf,labelsep=period,justification=raggedright,singlelinecheck=false}
+\setlist{itemsep=2pt,topsep=4pt,parsep=0pt}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{6pt plus 1pt minus 1pt}
+\renewcommand{\arraystretch}{1.15}
+\numberwithin{equation}{chapter}
+\setlength{\bibsep}{4pt}
+
+% ------------------------------------------------------------------ colours (colour-blind friendly) --------------
+\definecolor{fblue}{HTML}{0072B2}
+\definecolor{fred}{HTML}{D55E00}
+\definecolor{fgreen}{HTML}{009E73}
+\definecolor{forange}{HTML}{E69F00}
+\definecolor{fpurple}{HTML}{CC79A7}
+\definecolor{fsky}{HTML}{56B4E9}
+\definecolor{fgrey}{HTML}{6B6B6B}
+\definecolor{fnavy}{HTML}{1B3A6B}
+\definecolor{tempcol}{HTML}{D55E00}
+\definecolor{tempcold}{HTML}{0072B2}
+\definecolor{fig9label}{HTML}{1B3A6B}
+\colorlet{lightblue}{fblue!10}
+\colorlet{lightgreen}{fgreen!10}
+\colorlet{lightorange}{forange!14}
+\colorlet{lightred}{fred!9}
+
+% ------------------------------------------------------------------ units and short-hands -----------------------
+\newcommand{\degC}{\ensuremath{^{\circ}\mathrm{C}}\xspace}
+\newcommand{\degF}{\ensuremath{^{\circ}\mathrm{F}}\xspace}
+\renewcommand{\deg}{\ensuremath{^{\circ}}\xspace}
+\newcommand{\gkg}{\ensuremath{\mathrm{g\,kg^{-1}}}\xspace}
+\newcommand{\hPa}{\ensuremath{\mathrm{hPa}}\xspace}
+\newcommand{\mb}{\ensuremath{\mathrm{mb}}\xspace}
+\newcommand{\ms}{\ensuremath{\mathrm{m\,s^{-1}}}\xspace}
+\newcommand{\kt}{\ensuremath{\mathrm{kt}}\xspace}
+\newcommand{\ws}{\ensuremath{w_{s}}}
+\newcommand{\es}{\ensuremath{e_{s}}}
+\newcommand{\Vg}{\ensuremath{V_{g}}}
+\newcommand{\pgf}{pressure gradient force}
+\newcommand{\Td}{\ensuremath{T_{d}}}
+\newcommand{\Wm}{\ensuremath{\mathrm{W\,m^{-2}}}\xspace}
+\newcommand{\Wmum}{\ensuremath{\mathrm{W\,m^{-2}\,\mu m^{-1}}}\xspace}
+\newcommand{\um}{\ensuremath{\mu\mathrm{m}}\xspace}
+\newcommand{\umK}{\ensuremath{\mu\mathrm{m\,K}}\xspace}
+\newcommand{\Kkm}{\ensuremath{\mathrm{K\,km^{-1}}}\xspace}
+\newcommand{\Ckm}{\ensuremath{^{\circ}\mathrm{C\,km^{-1}}}\xspace}
+\newcommand{\sigSB}{\ensuremath{\sigma}}
+\newcommand{\lmax}{\ensuremath{\lambda_{\max}}}
+\newcommand{\Qref}[1]{Question~#1}
+
+% ------------------------------------------------------------------ references across parts -----------------------
+% \xref{label} and \xeqref{label}: a reference that may point into another part of the companion. In the full
+% companion every label is local. In a single-practical edition, labels of other parts are read from the full
+% companion (prefix ext-) and their links open the full companion at that place.
+\providecommand{\xref}[1]{\ifcsname r@#1\endcsname\ref{#1}\else\ref{ext-#1}\fi}
+\providecommand{\xeqref}[1]{\ifcsname r@#1\endcsname\eqref{#1}\else(\ref{ext-#1})\fi}
+
+% ------------------------------------------------------------------ boxes ---------------------------------------
+\tcbset{boxstyle/.style={enhanced,breakable,boxrule=0.6pt,arc=2pt,left=7pt,right=7pt,top=5pt,bottom=5pt,
+  fonttitle=\bfseries\sffamily\small,before skip=8pt,after skip=10pt,before=\par\Needspace{6\baselineskip}}}
+\newtcolorbox{keybox}[1][Key idea]{boxstyle,colback=lightblue,colframe=fblue,title={#1}}
+\newtcolorbox{workedbox}[1][Worked example]{boxstyle,colback=white,colframe=fnavy,coltitle=white,colbacktitle=fnavy,title={#1}}
+\newtcolorbox{answerbox}[1][Answer]{boxstyle,colback=lightgreen,colframe=fgreen!80!black,title={#1}}
+\newtcolorbox{askbox}[1][A question that comes up]{boxstyle,colback=lightorange,colframe=forange!90!black,title={#1}}
+\newtcolorbox{warnbox}[1][Take care]{boxstyle,colback=lightred,colframe=fred,title={#1}}
+\newtcolorbox{tryit}[1][Try it yourself]{boxstyle,colback=gray!8,colframe=gray!70,title={#1}}
+\newtcolorbox{derivbox}[1][Derivation]{boxstyle,colback=white,colframe=fblue!70!black,borderline={0.4pt}{2pt}{fblue!40,dashed},title={#1}}
+\newtcolorbox{questionbox}[1][The question]{boxstyle,colback=fnavy!5,colframe=fnavy!60,title={#1}}
+
+% "where" lists: what each symbol in the equation above stands for, its unit and the value used
+\newenvironment{where}{\par\Needspace*{4\baselineskip}\vspace{-2pt}\small\noindent\textit{where}\par\nopagebreak\vspace{1pt}%
+  \noindent\tabularx{\linewidth}{@{\hspace{1.2em}}>{$}l<{$}@{\hspace{0.8em}}X@{\hspace{0.8em}}>{\raggedright\arraybackslash}p{0.33\linewidth}@{}}}%
+  {\endtabularx\par\vspace{2pt}}
+
+% ------------------------------------------------------------------ headings -----------------------------------
+\titleformat{\part}[display]{\centering\bfseries\sffamily\Huge\color{fnavy}}{\partname\ \thepart}{14pt}{\Huge}
+\titleformat{\chapter}[display]{\raggedright\bfseries\sffamily\Huge\color{fnavy}}{\chaptertitlename\ \thechapter}{10pt}{\Huge}[\vspace{-2pt}\color{fblue}\titlerule]
+\titleformat{\section}{\bfseries\sffamily\Large\color{fnavy}}{\thesection}{0.7em}{}
+\titleformat{\subsection}{\bfseries\sffamily\large\color{fnavy}}{\thesubsection}{0.7em}{}
+\titleformat{\subsubsection}{\bfseries\sffamily\normalsize\color{fnavy}}{}{0pt}{}
+\titlespacing*{\chapter}{0pt}{-20pt}{22pt}
+
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[LE]{\sffamily\small\leftmark}
+\fancyhead[RO]{\sffamily\small\rightmark}
+\fancyfoot[C]{\sffamily\small\thepage}
+\renewcommand{\headrulewidth}{0.3pt}
+\fancypagestyle{plain}{\fancyhf{}\fancyfoot[C]{\sffamily\small\thepage}\renewcommand{\headrulewidth}{0pt}}
+
+% ------------------------------------------------------------------ plotting helpers -----------------------------
+% Planck curve scaled to its own peak, as a function of wavelength x (micrometres): T is the temperature in kelvin
+\pgfmathdeclarefunction{planckn}{2}{%
+  \pgfmathparse{(2897.77/(#2*#1))^5*142.32/(exp(4.9651*2897.77/(#2*#1))-1)}}
+% Spectral emission on the scale of the Practical 2 data (about 316 times the spectral radiance in W m-2 sr-1 um-1)
+\pgfmathdeclarefunction{sheetplanck}{2}{%
+  \pgfmathparse{316*1.191042e8/(#1^5*(exp(14387.77/(#1*#2))-1))}}
+\pgfplotsset{guide/.style={grid=both,grid style={gray!22},every axis label/.style={font=\small},tick label style={font=\small},
+  legend style={font=\footnotesize,draw=gray!50,fill=white,fill opacity=0.92,text opacity=1}}}
+
+% A noon-sun sketch at one site (Practical 2): #1 sun angle (degrees), #2 title, #3 last line.
+% The beam is drawn 0.5 cm wide in every sketch, so the sketches can be compared directly.
+\newcommand{\sunsketch}[3]{%
+\begin{tikzpicture}[line cap=round]
+  \pgfmathsetmacro{\sbeta}{#1}
+  \pgfmathsetmacro{\strue}{1/sin(\sbeta)}
+  \pgfmathsetmacro{\sgl}{0.5*\strue}
+  \fill[gray!18] (-0.6,-0.3) rectangle (5.2,0);
+  \draw[very thick] (-0.6,0) -- (5.2,0);
+  \draw[dashed,gray] (0,0) -- (0,2.9) node[above,font=\scriptsize,text=gray!70!black] {vertical};
+  \fill[forange!30,opacity=0.7] ($(0,0)+(\sbeta:2.8)$) -- (0,0) -- (\sgl,0) -- ($(\sgl,0)+(\sbeta:2.8)$) -- cycle;
+  \foreach \xx in {0,\sgl}{\draw[-{Stealth[length=2.2mm]},thick,forange!90!black] ($(\xx,0)+(\sbeta:2.8)$) -- (\xx,0);}
+  \draw[fred,line width=2.4pt] (0,0) -- (\sgl,0);
+  \draw[fblue,very thick] (0.42,0) arc (0:\sbeta:0.42);
+  \draw[fgreen!60!black,thick] (90:1.25) arc (90:\sbeta:1.25);
+  \pgfmathsetmacro{\zz}{90-\sbeta}
+  \node[font=\footnotesize,anchor=north west,align=left,text width=5.4cm] at (-0.6,-0.4)
+    {\textbf{#2}\\[1pt]\textcolor{fgreen!45!black}{zenith angle $\theta_z=\pgfmathprintnumber[fixed,precision=1]{\zz}^\circ$} (green arc)\\
+     \textcolor{fblue}{sun angle $\beta=#1^\circ$} (blue arc)\\
+     \textcolor{fred}{spreading $=\pgfmathprintnumber[fixed,precision=2]{\strue}$ units} (red strip)\\ #3};
+\end{tikzpicture}}
+
+% ------------------------------------------------------------------ the weather map frame (Practical 3) -----------
+\tikzset{
+  mapstate/.style={draw=gray!65,line width=0.25pt},
+  isobar/.style={draw=forange!85!black,line width=0.9pt},
+  isolabel/.style={font=\fontsize{6.5}{6.5}\selectfont\bfseries,fill=white,inner sep=0.5pt,text=orange!60!black},
+  lowmark/.style={font=\fontsize{24}{24}\selectfont\bfseries,text=fred},
+  lowval/.style={font=\fontsize{6.5}{6.5}\selectfont\bfseries,text=fred,anchor=west},
+  cloudfill/.style={fill=gray!45,opacity=0.35},
+  cloudline/.style={draw=gray!65!black,dash pattern=on 3pt off 2pt,line width=0.9pt},
+  precipfill/.style={fill=fsky,opacity=0.45},
+  streamline/.style={draw=fgreen!85!black,line width=1.1pt},
+  exampleline/.style={draw=gray!70,line width=1.5pt},
+  fcold/.style={draw=fblue,fill=fblue,line width=1pt},
+  fwarm/.style={draw=fred,fill=fred,line width=1pt},
+}
+% \mapbase{<tikz options>}{<contents drawn on top of the states>}   (the Figure 8 / 10 frame; width 16.4 cm)
+\newcommand{\mapbase}[3][]{%
+  \begin{tikzpicture}[x=#2,y=-#2,line cap=round,line join=round,#1]
+    \clip (170,520) rectangle (990,1150);
+    \input{generated/map_states.tex}
+    #3
+  \end{tikzpicture}}
+\newcommand{\mapsz}{0.0196cm}
+
+\usepackage{listings}
+\lstset{language=Python,basicstyle=\ttfamily\footnotesize,breaklines=true,columns=fullflexible,keepspaces=true,frame=single,rulecolor=\color{gray!50},showstringspaces=false,upquote=true,xleftmargin=2pt,xrightmargin=2pt}
+\usepackage{float}

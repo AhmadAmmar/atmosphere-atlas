@@ -1,0 +1,83 @@
+\section{Derivations for the curious}\label{p3-app:derivations}
+
+Nothing in this appendix is needed to answer the questions, but each result is used in the chapters. They are short.
+
+\subsection{Mixing ratio and vapour pressure}
+
+Treat the dry air and the water vapour as ideal gases at the same temperature $T$ and volume. Their densities are $\rho_d=(p-e)/(R_dT)$ and $\rho_v=e/(R_vT)$, where $p$ is the total pressure, $e$ the vapour pressure and $R_d$, $R_v$ the gas constants of dry air and of water vapour. The mixing ratio is
+\[
+w=\frac{\rho_v}{\rho_d}=\frac{R_d}{R_v}\,\frac{e}{p-e}=\varepsilon\,\frac{e}{p-e},\qquad \varepsilon=\frac{R_d}{R_v}=\frac{18.02}{28.96}=0.622 .
+\]
+Multiplied by 1000 this is the \gkg\ of Table~\ref{p3-tab:table1}: $w=622\,e/(p-e)$.
+
+\subsection{Saturation vapour pressure}
+
+The Clausius--Clapeyron equation relates the change of the saturation vapour pressure of water to temperature:
+\[
+\frac{d e_s}{dT}=\frac{L_v\,e_s}{R_v\,T^{2}},
+\]
+where $L_v=2.5\times10^{6}$\,J\,kg$^{-1}$ is the latent heat of vaporisation. At 15\,\degC\ this gives $\frac{1}{e_s}\frac{de_s}{dT}=6.9\,\%\ \mathrm{K^{-1}}$, which is why the curve of Figure~\ref{p3-fig:es} is steep and bends upward. Integrating with a constant $L_v$ gives an exponential in $-1/T$; fitting the result over the range of the atmosphere gives the convenient empirical form
+\[
+e_s(T)=6.112\exp\!\left[\frac{17.67\,T}{T+243.5}\right]\ \mathrm{hPa}\qquad (T\ \text{in }\degC),
+\]
+which reproduces the values of Table~\ref{p3-tab:table1} to better than 0.2\,\% between $-20$ and 40\,\degC.
+
+\subsection{The dew point}
+
+The dew point is the temperature at which the saturation vapour pressure equals the actual vapour pressure $e$. Setting $e_s(T_d)=e$ in the empirical form and solving for $T_d$ gives, with $x=\ln(e/6.112)$,
+\[
+T_d=\frac{243.5\,x}{17.67-x}.
+\]
+For the sample of Question~6, $w=21.78$\,\gkg, $p=995.5$\,hPa: $e=21.78\times995.5/(622+21.78)=33.68$\,hPa, $x=1.7066$, $T_d=26.03$\,\degC.
+
+\subsection{Cloud base from the dew point}
+
+A rising unsaturated parcel cools at the dry adiabatic rate $\Gamma_d=g/c_p=9.8$\,K\,km$^{-1}$. Its dew point falls more slowly, because the vapour pressure falls with the pressure: about 1.8\,K\,km$^{-1}$. The gap $T-T_d$ therefore closes at $9.8-1.8=8$\,K\,km$^{-1}$, so the parcel saturates after rising $(T-T_d)/8$ km $\approx125\,(T-T_d)$ m.
+
+\subsection{The hypsometric equation}
+
+The vertical balance (hydrostatic balance) says that pressure falls with height by the weight of the air: $dp=-\rho g\,dz$. Using the ideal gas law $\rho=p/(R_dT)$,
+\[
+dz=-\frac{R_dT}{g}\frac{dp}{p}.
+\]
+Integrating from $p_1$ (lower) to $p_2$ (upper) with the mean temperature $\overline{T}$ of the layer,
+\[
+z_2-z_1=\frac{R_d\overline{T}}{g}\ln\frac{p_1}{p_2}.
+\]
+Thickness is proportional to the mean temperature: that is why pressure surfaces rise over warm air.
+
+\subsection{The pressure gradient force on a pressure surface}
+
+At a fixed height the horizontal pressure gradient force per unit mass is $-\frac{1}{\rho}\frac{\partial p}{\partial n}$. On a surface of constant pressure, the height varies with position, and the hydrostatic relation $\partial p/\partial z=-\rho g$ converts the horizontal pressure gradient at fixed height into a height gradient along the surface:
+\[
+-\frac{1}{\rho}\left(\frac{\partial p}{\partial n}\right)_z=-g\left(\frac{\partial z}{\partial n}\right)_p .
+\]
+The density has disappeared: the force depends only on the slope of the pressure surface. This is why questions about the slope of the surfaces are questions about the force.
+
+\subsection{The geostrophic wind}
+
+For a wind $V$ blowing along the isobars, the pressure gradient force $g\,\Delta z/\Delta n$ and the Coriolis force $fV$ act at right angles to the wind and to each other's line, in opposite directions. Setting them equal,
+\[
+fV_g=g\frac{\Delta z}{\Delta n}\quad\Longrightarrow\quad V_g=\frac{g}{f}\frac{\Delta z}{\Delta n}.
+\]
+In terms of pressure: $V_g=\Delta p/(\rho f\,\Delta n)$.
+
+\subsection{The steady wind with friction}
+
+Take $x$ east, $y$ north, a pressure gradient force $(P_x,P_y)$, Coriolis acceleration $(fv,-fu)$ and a linear drag $(-ku,-kv)$. In a steady state the three add to zero:
+\[
+P_x+fv-ku=0,\qquad P_y-fu-kv=0 .
+\]
+Solving the pair for $u$ and $v$,
+\[
+u=\frac{kP_x+fP_y}{k^2+f^2},\qquad v=\frac{kP_y-fP_x}{k^2+f^2}.
+\]
+For the low on the north side and isobars running east--west ($P_x=0$, $P_y=P>0$) this gives $u=fP/(k^2+f^2)$ and $v=kP/(k^2+f^2)$: a wind with a component towards the low. The angle to the isobars satisfies $\tan\alpha=v/u=k/f$ and the speed is $\sqrt{u^2+v^2}=P/\sqrt{k^2+f^2}=V_g\cos\alpha$, with $V_g=P/f$. For $k=0$ this is the geostrophic wind.
+
+\subsection{Pressure at a height between two reported levels}
+
+In Question~4 the pressure at 9000\,m was estimated from the reported levels. Between two levels with pressures $p_a$ and $p_b$ at heights $z_a$ and $z_b$, the pressure was interpolated linearly in $\ln p$:
+\[
+\ln p=\ln p_a+(\ln p_b-\ln p_a)\frac{z-z_a}{z_b-z_a},
+\]
+which is the exact result for an isothermal layer. Above the highest level an isothermal extension $p=p_{300}\exp[-g(z-z_{300})/(R_dT)]$ was used.

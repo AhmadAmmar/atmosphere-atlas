@@ -1,0 +1,225 @@
+\chapter{Why air moves: the three forces}\label{p3-ch:forces}
+
+\textit{This chapter is the background for the motion questions.}
+
+\section{Newton's law for a parcel of air}
+
+Wind is air that is moving, and air moves for the same reason anything moves: forces act on it. Newton's second law says that the acceleration of a parcel equals the total force on it divided by its mass. It is convenient to talk about the force \emph{per unit mass} (that is, as an acceleration, in m\,s$^{-2}$), so we never need the mass of the parcel.
+
+For large-scale winds only three horizontal forces matter:
+\begin{enumerate}[label=\textbf{\arabic*.},itemsep=2pt]
+\item the \textbf{pressure gradient force}, which starts the air moving;
+\item the \textbf{Coriolis force}, which steers it once it is moving;
+\item \textbf{friction}, which slows it near the ground.
+\end{enumerate}
+If the three add up to zero the wind is steady, and the whole of Part~II is about what happens when they do.
+
+\section{Pressure, and why it falls with height}
+
+The pressure at any level is the weight of the air above it, spread over one square metre. At sea level that weight is about 10 tonnes per square metre, which is a pressure of about 1013\,hPa. Climb, and there is less air above you, so the pressure drops. Half the atmosphere's mass lies below about 5.5\,km, so the pressure there is about 500\,hPa; at the cruising height of airliners it is about 250\,hPa.
+
+\begin{figure}[ht]
+\centering
+\begin{tikzpicture}
+\begin{axis}[width=0.7\textwidth,height=7.2cm,xlabel={Pressure (hPa)},ylabel={Height (km)},xmin=0,xmax=1500,ymin=0,ymax=14,grid=both,grid style={gray!22},
+  every axis label/.style={font=\small},tick label style={font=\small},xtick={0,200,400,600,800,1000}]
+  \addplot[fblue,very thick,domain=0:13,samples=60]({1013.25*exp(-x/8)},{x});
+  \fill[fred] (axis cs:850,1.5) circle (2.6pt); \node[font=\footnotesize,anchor=west] at (axis cs:875,1.5) {850\,hPa, $\approx$1.5\,km};
+  \fill[fred] (axis cs:700,3.0) circle (2.6pt); \node[font=\footnotesize,anchor=west] at (axis cs:725,3.0) {700\,hPa, $\approx$3.0\,km};
+  \fill[fred] (axis cs:500,5.5) circle (2.6pt); \node[font=\footnotesize,anchor=west] at (axis cs:525,5.5) {500\,hPa, $\approx$5.5\,km};
+  \fill[fred] (axis cs:300,9.2) circle (2.6pt); \node[font=\footnotesize,anchor=west] at (axis cs:325,9.2) {300\,hPa, $\approx$9.2\,km};
+  \fill[fred] (axis cs:200,11.8) circle (2.6pt); \node[font=\footnotesize,anchor=west] at (axis cs:225,11.8) {200\,hPa, $\approx$11.8\,km};
+\end{axis}
+\end{tikzpicture}
+\caption{Pressure falls roughly exponentially with height, by a factor of $e$ every 8\,km or so: the halving rule of Part~I (Chapter~\xref{p1-ch:pressure}). The red dots mark the standard pressure levels used on upper-air charts; those used here (850, 500 and 300\,hPa) are at about 1.5, 5.5 and 9\,km.}
+\end{figure}
+
+\section{The pressure gradient force}
+
+Pressure also varies from place to place at the same height. Air is pushed from where the pressure is higher towards where it is lower, just as water runs downhill. The push is the \textbf{pressure gradient force} (PGF). Per unit mass it is
+\begin{equation}
+\text{PGF}=-\frac{1}{\rho}\,\frac{\Delta p}{\Delta n},\label{p3-eq:pgf}
+\end{equation}
+\begin{where}
+\text{PGF} & pressure gradient force per unit mass (m\,s$^{-2}$) & calculated\\
+\rho & air density (kg\,m$^{-3}$) & about 1.2 near the ground\\
+\Delta p/\Delta n & pressure change per unit distance measured \emph{across} the isobars (Pa\,m$^{-1}$) & from the map\\
+\end{where}
+The minus sign means that the force points down the gradient, from high to low pressure \citep[ch.~1]{holton2013}.
+
+\begin{itemize}
+\item \textbf{Direction:} from higher to lower pressure, at right angles to the isobars.
+\item \textbf{Magnitude:} proportional to the pressure difference between two points, and inversely proportional to the distance between them. Closely spaced isobars mean a strong force and a strong wind.
+\end{itemize}
+
+\begin{figure}[ht]
+\centering
+\begin{tikzpicture}[x=1cm,y=1cm]
+  \begin{scope}
+    \foreach \y/\p in {0/1016,1/1012,2/1008,3/1004}{\draw[forange!85!black,thick] (0,\y*0.5) -- (5.2,\y*0.5); \node[font=\small,anchor=east] at (-0.1,\y*0.5) {\p};}
+    \foreach \x in {1,2.6,4.2}{\draw[-{Stealth[length=2.4mm]},very thick,fred] (\x,0.1) -- (\x,1.4);}
+    \node[font=\sffamily\small\bfseries] at (2.6,-0.55) {isobars close together: strong force};
+  \end{scope}
+  \begin{scope}[xshift=8cm]
+    \foreach \y/\p in {0/1016,1/1012,2/1008,3/1004}{\draw[forange!85!black,thick] (0,\y*1.4-0.5) -- (5.2,\y*1.4-0.5); \node[font=\small,anchor=east] at (-0.1,\y*1.4-0.5) {\p};}
+    \foreach \x in {1,2.6,4.2}{\draw[-{Stealth[length=2.4mm]},very thick,fred] (\x,-0.4) -- (\x,0.28);}
+    \node[font=\sffamily\small\bfseries] at (2.6,-1.05) {isobars far apart: weak force};
+  \end{scope}
+\end{tikzpicture}
+\caption{The same pressure difference (here 12\,hPa) squeezed into a short distance (left) and spread over a long one (right). The force, shown by the red arrows, is proportional to the gradient.}
+\end{figure}
+
+\begin{workedbox}[Worked example: how big is the pressure gradient force?]
+The isobars of Figure~\ref{p3-fig:fig5} are 1012 and 1016\,mb, that is 4\,hPa $=400$\,Pa apart. Suppose they are 200\,km apart ($2\times10^5$\,m). Then
+\[
+\text{PGF}=\frac{1}{1.2}\times\frac{400}{2\times10^{5}}=1.7\times10^{-3}\ \mathrm{m\,s^{-2}}.
+\]
+That looks tiny, but acting for an hour (3600\,s) with nothing to oppose it, it would add 6\,m\,s$^{-1}$ to the wind speed. That is how quickly a pressure difference sets the air going.
+\end{workedbox}
+
+\section{The Coriolis force}
+
+The Earth turns once a day, and we live on its surface, so we measure motion from a spinning frame. An object that moves freely in a straight line (as seen from space) appears to us to curve. We describe the curving with a force, the \textbf{Coriolis force}, which has three properties you must remember.
+
+\begin{enumerate}[label=\textbf{\arabic*.},itemsep=2pt]
+\item \textbf{Direction:} at right angles to the motion. It acts to the \textbf{right} in the Northern Hemisphere and to the \textbf{left} in the Southern Hemisphere.
+\item \textbf{Magnitude:} it increases with the wind speed $V$ and with latitude: $\text{Coriolis}=f\,V$, where $f=2\Omega\sin\varphi$ is the Coriolis parameter and $\Omega=7.292\times10^{-5}$\,s$^{-1}$ is the Earth's rotation rate.
+\item \textbf{It does no work.} Being at right angles to the motion, it changes the direction of the wind but never its speed.
+\end{enumerate}
+
+\begin{figure}[ht]
+\centering
+\begin{minipage}{0.48\textwidth}
+\centering
+\begin{tikzpicture}[scale=1.0]
+  \draw[thick,gray] (0,0) circle (1.9);
+  \node[font=\small\bfseries] at (0,2.25) {Northern Hemisphere};
+  \draw[very thick,-{Stealth[length=3mm]},black] (0,-0.9) -- (0,0.8) node[right,font=\small]{wind};
+  \draw[very thick,-{Stealth[length=3mm]},fblue] (0,-0.1) -- (1.2,-0.1) node[above,font=\small]{Coriolis};
+  \node[font=\footnotesize,gray] at (0,-1.35) {to the right};
+\end{tikzpicture}
+\end{minipage}
+\begin{minipage}{0.48\textwidth}
+\centering
+\begin{tikzpicture}[scale=1.0]
+  \draw[thick,gray] (0,0) circle (1.9);
+  \node[font=\small\bfseries] at (0,2.25) {Southern Hemisphere};
+  \draw[very thick,-{Stealth[length=3mm]},black] (0,-0.9) -- (0,0.8) node[right,font=\small]{wind};
+  \draw[very thick,-{Stealth[length=3mm]},fblue] (0,-0.1) -- (-1.2,-0.1) node[above,font=\small]{Coriolis};
+  \node[font=\footnotesize,gray] at (0,-1.35) {to the left};
+\end{tikzpicture}
+\end{minipage}
+\caption{The Coriolis force always acts at right angles to the motion: to the right in the north and to the left in the south.}
+\end{figure}
+
+\begin{figure}[ht]
+\centering
+\begin{tikzpicture}
+\begin{axis}[width=0.76\textwidth,height=6.2cm,xlabel={Latitude (degrees)},ylabel={$f$ ($10^{-5}$\,s$^{-1}$)},xmin=0,xmax=90,ymin=0,ymax=16,grid=both,grid style={gray!22},
+  every axis label/.style={font=\small},tick label style={font=\small},xtick={0,15,30,45,60,75,90}]
+  \addplot[fblue,very thick,domain=0:90,samples=60]{2*7.292*sin(x)};
+  \fill[fred] (axis cs:30,7.29) circle (2.4pt); \node[font=\footnotesize,anchor=north west] at (axis cs:30,7.29) {$7.29$};
+  \fill[fred] (axis cs:45,10.31) circle (2.4pt); \node[font=\footnotesize,anchor=north west] at (axis cs:45,10.31) {$10.31$};
+  \fill[fred] (axis cs:60,12.63) circle (2.4pt); \node[font=\footnotesize,anchor=north west] at (axis cs:60,12.63) {$12.63$};
+\end{axis}
+\end{tikzpicture}
+\caption{The Coriolis parameter against latitude. It is zero at the equator, where the force vanishes, and largest at the poles.}
+\end{figure}
+
+\begin{table}[ht]
+\centering
+\caption{The Coriolis parameter $f=2\Omega\sin\varphi$ and the acceleration it gives to a wind of 10\,m\,s$^{-1}$.}
+\begin{tabular}{rrr}
+\toprule
+\textbf{Latitude} & \boldmath$f$ \textbf{(s$^{-1}$)} & \textbf{Coriolis acceleration for 10\,\ms\ (m\,s$^{-2}$)}\\
+\midrule
+0\deg & 0 & 0\\
+10\deg & $2.5\times10^{-5}$ & $2.5\times10^{-4}$\\
+30\deg & $7.3\times10^{-5}$ & $7.3\times10^{-4}$\\
+45\deg & $1.03\times10^{-4}$ & $1.03\times10^{-3}$\\
+60\deg & $1.26\times10^{-4}$ & $1.26\times10^{-3}$\\
+90\deg & $1.46\times10^{-4}$ & $1.46\times10^{-3}$\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{askbox}
+\textbf{Does the Coriolis force make water spin the opposite way in a bath in the two hemispheres?}\\
+No. For a bath or a sink the force is minute compared with the shape of the basin and the way the water was stirred. The Coriolis force matters for motions that last hours and cover hundreds of kilometres: winds, ocean currents, storms.
+\end{askbox}
+
+\begin{askbox}
+\textbf{Why is the Coriolis force zero at the equator?}\\
+It depends on the \emph{vertical} component of the Earth's rotation, which is $\Omega\sin\varphi$. At the equator the rotation axis is horizontal, so that component is zero.
+\end{askbox}
+
+\section{Friction}
+
+Near the ground the air rubs against the surface: grass, trees, buildings, hills, waves. The result is a \textbf{frictional force} that always acts \textbf{opposite to the wind}, slowing it. Its strength depends on how rough the surface is (a forest or a city is much rougher than a calm sea) and increases with the wind speed. Friction is important only in the lowest kilometre or two of the atmosphere, the \emph{boundary layer}. Above that the air is nearly free of it, which is why the winds at 500 or 300\,hPa are so much simpler than those at the surface.
+
+\section{The three forces side by side}
+
+\begin{table}[ht]
+\centering
+\caption{The three forces.}
+\begin{tabularx}{\textwidth}{@{}lXX@{}}
+\toprule
+\textbf{Force} & \textbf{Direction} & \textbf{Magnitude}\\
+\midrule
+Pressure gradient & From higher to lower pressure, at right angles to the isobars & Proportional to the pressure difference between two points (and inversely to their distance)\\
+Coriolis & At right angles to the airflow: to the \textbf{right} in the Northern Hemisphere, to the \textbf{left} in the Southern Hemisphere & Increases with wind strength and with latitude ($fV$ with $f=2\Omega\sin\varphi$)\\
+Friction & Opposite to the direction of the airflow & Depends on the surface characteristics that obstruct the airflow (and increases with speed)\\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+\section{Three situations to hold in your head}
+
+\begin{figure}[!ht]
+\centering
+\begin{tikzpicture}[x=1cm,y=1cm]
+  \foreach \i/\ttl in {0/{1. Air at rest},4.9/{2. Above the ground},9.8/{3. Near the ground}}{
+    \begin{scope}[xshift=\i cm]
+      \draw[forange!85!black,thick] (-1.2,1.3) -- (2.2,1.3); \draw[forange!85!black,thick] (-1.2,-1.3) -- (2.2,-1.3);
+      \node[font=\scriptsize,anchor=west,forange!60!black] at (2.2,1.3) {low}; \node[font=\scriptsize,anchor=west,forange!60!black] at (2.2,-1.3) {high};
+      \node[font=\sffamily\small\bfseries] at (0.5,2.0) {\ttl};
+      \draw[fill=white] (0.4,-0.1) rectangle (0.6,0.1);
+    \end{scope}}
+  % 1: only the pressure gradient
+  \draw[-{Stealth[length=2.6mm]},very thick,fred] (0.5,0) -- (0.5,0.9);
+  % 2: balance of pressure gradient and Coriolis
+  \begin{scope}[xshift=4.9cm]
+    \draw[-{Stealth[length=2.6mm]},very thick,fred] (0.5,0) -- (0.5,0.9);
+    \draw[-{Stealth[length=2.6mm]},very thick,fblue] (0.5,0) -- (0.5,-0.9);
+    \draw[-{Stealth[length=2.6mm]},very thick,black] (0.5,0) -- (1.6,0);
+  \end{scope}
+  % 3: all three
+  \begin{scope}[xshift=9.8cm]
+    \draw[-{Stealth[length=2.6mm]},very thick,fred] (0.5,0) -- (0.5,0.9);
+    \draw[-{Stealth[length=2.6mm]},very thick,fblue] (0.5,0) -- (1.1,-0.6);
+    \draw[-{Stealth[length=2.6mm]},very thick,fgreen] (0.5,0) -- (-0.1,-0.6);
+    \draw[-{Stealth[length=2.6mm]},very thick,black] (0.5,0) -- (1.2,0.7);
+  \end{scope}
+\end{tikzpicture}
+\caption{(1) At rest only the pressure gradient force acts. (2) High above the ground the Coriolis force balances it and the wind blows along the isobars: the geostrophic wind (Chapter~\ref{p3-ch:geo}). (3) Near the ground friction joins in, the three forces cancel, and the wind crosses the isobars towards low pressure (Chapter~\ref{p3-ch:fric}). Red: pressure gradient force; blue: Coriolis; green: friction; black: the wind.}
+\end{figure}
+
+\section{Try it yourself: Practice Set~\thechapter}
+
+\begin{tryit}[Practice Set~\thechapter: forces]
+\begin{enumerate}[label=\textbf{\thechapter.\arabic*},leftmargin=*,itemsep=3pt]
+\item Two isobars are 4\,hPa apart and 100\,km from each other. Find the pressure gradient force per unit mass, taking $\rho=1.2$\,kg\,m$^{-3}$. How does it compare with the 200\,km case in the worked example?
+\item Find the Coriolis parameter at 60\deg N and the Coriolis acceleration on a wind of 15\,\ms.
+\item A wind is blowing northward in the Southern Hemisphere. Which way does the Coriolis force push it?
+\item Why are strong winds found where the isobars are close together?
+\end{enumerate}
+\end{tryit}
+
+\begin{answerbox}[Answers to Practice Set~\thechapter]
+\begin{enumerate}[label=\textbf{\thechapter.\arabic*},leftmargin=*,itemsep=3pt]
+\item $\mathrm{PGF}=\dfrac{1}{1.2}\times\dfrac{400}{10^{5}}=3.3\times10^{-3}\ \mathrm{m\,s^{-2}}$: exactly \emph{twice} the 200\,km value, because the distance is halved.
+\item $f=2\times7.292\times10^{-5}\times\sin60\deg=1.26\times10^{-4}\ \mathrm{s^{-1}}$; $fV=1.26\times10^{-4}\times15=1.9\times10^{-3}\ \mathrm{m\,s^{-2}}$.
+\item To the left of its motion, which is \textbf{west}.
+\item Close isobars mean a steep pressure gradient, so the pressure gradient force is large; the Coriolis force (and, near the ground, friction) must grow to balance it, which needs a faster wind.
+\end{enumerate}
+\end{answerbox}

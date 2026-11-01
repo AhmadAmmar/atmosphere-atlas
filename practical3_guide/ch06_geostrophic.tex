@@ -1,0 +1,253 @@
+\chapter{The geostrophic wind}\label{p3-ch:geo}
+\input{generated/adjust.tex}
+
+\textit{This chapter answers Motion Q7.}
+
+\section{Two forces in balance}
+
+High above the ground, friction can be ignored. Only the pressure gradient force and the Coriolis force act. Suppose they are equal in size and opposite in direction. Then the total force is zero, the air does not accelerate, and the wind is steady. That wind is the \textbf{geostrophic wind} (``earth-turning'' wind).
+
+\begin{keybox}[The geostrophic wind]
+The geostrophic wind is the wind for which the pressure gradient force and the Coriolis force exactly balance. It blows \emph{along} the isobars (or the height contours on a pressure-surface chart), with low pressure on its left in the Northern Hemisphere and on its right in the Southern Hemisphere.
+\end{keybox}
+
+Writing the two forces per unit mass, the balance is
+\[
+\underbrace{\frac{1}{\rho}\,\frac{\Delta p}{\Delta n}}_{\text{pressure gradient force}}=\underbrace{f\,V_g}_{\text{Coriolis force}},
+\]
+so that the geostrophic wind speed is \citep[ch.~3]{holton2013}
+\begin{equation}
+V_g=\frac{1}{\rho f}\frac{\Delta p}{\Delta n}=\frac{g}{f}\,\frac{\Delta z}{\Delta n}.\label{p3-eq:geo}
+\end{equation}
+\begin{where}
+V_g & geostrophic wind speed (\ms) & calculated\\
+\rho & air density (kg\,m$^{-3}$) & about 1.2 near the ground\\
+f & Coriolis parameter, $2\Omega\sin\varphi$ (s$^{-1}$) & $\Omega=7.292\times10^{-5}$\,s$^{-1}$\\
+\Delta p/\Delta n & pressure gradient across the isobars (Pa\,m$^{-1}$) & from a surface map\\
+\Delta z/\Delta n & slope of a pressure surface (m\,m$^{-1}$) & from an upper-air chart\\
+g & acceleration due to gravity (m\,s$^{-2}$) & 9.81\\
+\end{where}
+The last form is for a pressure surface, where $\Delta z$ is the difference in height of the surface over the distance $\Delta n$. It is the form used with the 500\,hPa heights in this part.
+
+\section{How the balance comes about: the four stages}
+
+Figure~\ref{p3-fig:adjN} follows a parcel of air as the balance is established. Think of a parcel of air that is at rest between a region of higher pressure (south) and lower pressure (north) in the Northern Hemisphere.
+
+\begin{enumerate}[label=\textbf{Stage \arabic*.},leftmargin=*,itemsep=4pt]
+\item \textbf{At rest.} The parcel is on the high-pressure side. No motion means no Coriolis force, so only the pressure gradient force acts, pointing north, towards low pressure. The parcel starts to move northward.
+\item \textbf{Moving northward.} As soon as it moves, the Coriolis force appears, at right angles and to the right of the motion: towards the east. The parcel's path bends to the right.
+\item \textbf{Moving north-east.} The speed has grown, so the Coriolis force is larger, and since it is at right angles to the motion it now points partly south, against the pressure force. The path keeps bending.
+\item \textbf{Moving east.} The parcel is now moving along the isobars. The Coriolis force points exactly south, equal and opposite to the pressure gradient force pointing north. The forces balance, the speed stops growing, and the wind blows steadily to the east.
+\end{enumerate}
+
+\begin{figure}[ht]
+\centering
+\begin{tikzpicture}[x=0.0105cm,y=0.0105cm]
+  % the two height lines (north up): H is the lower line, L the upper one
+  \draw[thick] (-60,0) -- (940,0); \draw[thick] (-60,500) -- (940,500);
+  \node[anchor=west,font=\small\bfseries] at (950,0) {5520 m};  \node[anchor=west,font=\small\bfseries] at (950,500) {5460 m};
+  \node[draw=fblue,fill=white,font=\Large\bfseries,text=fblue,inner sep=3pt] at (1090,0) {H};
+  \node[draw=fred,fill=white,font=\Large\bfseries,text=fred,inner sep=3pt] at (1090,500) {L};
+  \draw[forange!85!black,line width=1.6pt] plot coordinates {\adjpathNdrag};
+  \adjarrowsNdrag
+  \foreach \s/\n in {a/1,b/2,c/3,d/4}{\node[circle,draw=fnavy,fill=white,inner sep=1.2pt,font=\footnotesize\bfseries] at (\csname adjstNdrag\s x\endcsname,\csname adjstNdrag\s y\endcsname) {\n};}
+  % key
+  \draw[-{Stealth[length=2mm]},fred,line width=1.1pt] (0,-120) -- (60,-120); \node[anchor=west,font=\footnotesize] at (70,-120) {pressure gradient force};
+  \draw[-{Stealth[length=2mm]},fblue,line width=1.1pt] (480,-120) -- (540,-120); \node[anchor=west,font=\footnotesize] at (550,-120) {Coriolis force};
+  \draw[-{Stealth[length=2mm]},black,line width=1.3pt] (820,-120) -- (880,-120); \node[anchor=west,font=\footnotesize] at (890,-120) {wind};
+\end{tikzpicture}
+\caption{The four stages of the adjustment, computed for two 500\,hPa height lines 60\,m and 500\,km apart at 45\deg N. The parcel starts at rest on the high side. At each numbered position the red arrow is the pressure gradient force, the blue arrow is the Coriolis force and the black arrow is the wind. The path bends to the right until the wind is along the isobars and the forces balance (stage 4).}\label{p3-fig:adjN}
+\end{figure}
+
+\begin{askbox}
+\textbf{Why does the parcel not just keep accelerating towards low pressure?}\\
+Because as soon as it speeds up, the Coriolis force grows in proportion, and it turns the motion aside. Without any damping the parcel would overshoot and loop around the balance state (an \emph{inertial oscillation} with a period of $2\pi/f$, about 17 hours at 45\deg). In the real atmosphere the oscillations are damped as the adjustment radiates energy away in waves, and the air settles to the balance. The figure above includes a little damping, which pulls the velocity towards the geostrophic wind, so that the settling is visible. Its final state is the geostrophic wind.
+\end{askbox}
+
+\begin{figure}[ht]
+\centering
+\begin{tikzpicture}
+\begin{axis}[width=0.74\textwidth,height=6.2cm,xlabel={Time since the air was released (hours)},ylabel={Wind component (m/s)},xmin=0,xmax=22,ymin=-4,ymax=24,
+  grid=both,grid style={gray!22},every axis label/.style={font=\small},tick label style={font=\small},legend style={at={(0.97,0.97)},anchor=north east,font=\footnotesize}]
+  \addplot[fblue,very thick] coordinates {\adjudrag};
+  \addplot[fred,very thick] coordinates {\adjvdrag};
+  \addplot[dashed,gray,thick] coordinates {(0,11.41) (22,11.41)};
+  \node[font=\footnotesize,anchor=south east,gray!50!black] at (axis cs:22,11.6) {$V_g=11.4$\,m/s};
+  \legend{east--west component $u$,north--south component $v$}
+\end{axis}
+\end{tikzpicture}
+\caption{The two components of the parcel's velocity against time. The eastward component rises to the geostrophic value (dashed) and the northward component dies away to zero: the air ends up blowing along the isobars.}
+\end{figure}
+
+\section{Question 7: the Northern Hemisphere}
+
+\begin{questionbox}
+Mark the side with the higher pressure with an H and the side with the lower pressure with an L.
+\end{questionbox}
+
+\textbf{Method.}
+\begin{enumerate}[label=\textbf{Step \arabic*.},leftmargin=*,itemsep=3pt]
+\item The lines are labelled with the \emph{height} of the 500\,hPa surface: 5460\,m on the upper line and 5520\,m on the lower line.
+\item A pressure surface is higher where the pressure is higher. So the line with the larger height, 5520\,m, is on the high-pressure side. Write \textbf{H} at the 5520\,m line (bottom).
+\item Write \textbf{L} at the 5460\,m line (top).
+\item Check with the arrows: the pressure gradient force $F_{pg}$ is drawn pointing up, from H to L, as it should.
+\end{enumerate}
+
+\begin{answerbox}[Answer to Motion Q7, part 1 ]
+\textbf{H at the 5520\,m line (south, bottom); L at the 5460\,m line (north, top).} The pressure gradient force points from H to L (north); the Coriolis force points to the right of the wind, south; the geostrophic wind blows to the east, with low pressure on its left.
+\end{answerbox}
+
+\section{Question 7: the Southern Hemisphere}
+
+\begin{questionbox}
+Now consider the Southern Hemisphere. Mark H and L, and draw the pressure gradient force, the Coriolis force and the resulting geostrophic wind.
+\end{questionbox}
+
+\textbf{What changes.} In the Southern Hemisphere the Coriolis force acts to the \textbf{left} of the motion. Everything else is the same: the pressure gradient force still points from high to low, and the balance must still be between two opposite forces. The result is a mirror image of Figure~\ref{p3-fig:adjN}.
+
+\begin{enumerate}[label=\textbf{Step \arabic*.},leftmargin=*,itemsep=3pt]
+\item The two lines are 5640\,m (top) and 5580\,m (bottom). The larger height is the high-pressure side: \textbf{H} at the 5640\,m line (top), \textbf{L} at the 5580\,m line (bottom).
+\item Draw the pressure gradient force $F_{pg}$ from H to L: \textbf{downwards}.
+\item The Coriolis force must be equal and opposite, so it points \textbf{upwards}, towards H. (To check: an eastward wind has its left-hand side to the north, which is up the page. The Coriolis force acts to the left, so it points up. \ensuremath{\checkmark})
+\item The wind blows between them, to the \textbf{east}, with the low pressure on its right.
+\end{enumerate}
+
+\begin{figure}[ht]
+\centering
+\begin{tikzpicture}[x=0.0105cm,y=0.0105cm]
+  \draw[thick] (-60,0) -- (940,0); \draw[thick] (-60,-500) -- (940,-500);
+  \node[anchor=west,font=\small\bfseries] at (950,0) {5640 m};  \node[anchor=west,font=\small\bfseries] at (950,-500) {5580 m};
+  \node[draw=fblue,fill=white,font=\Large\bfseries,text=fblue,inner sep=3pt] at (1090,0) {H};
+  \node[draw=fred,fill=white,font=\Large\bfseries,text=fred,inner sep=3pt] at (1090,-500) {L};
+  \draw[forange!85!black,line width=1.6pt] plot coordinates {\adjpathSdrag};
+  \adjarrowsSdrag
+  \foreach \s/\n in {a/1,b/2,c/3,d/4}{\node[circle,draw=fnavy,fill=white,inner sep=1.2pt,font=\footnotesize\bfseries] at (\csname adjstSdrag\s x\endcsname,\csname adjstSdrag\s y\endcsname) {\n};}
+  \draw[-{Stealth[length=2mm]},fred,line width=1.1pt] (0,-620) -- (60,-620); \node[anchor=west,font=\footnotesize] at (70,-620) {pressure gradient force};
+  \draw[-{Stealth[length=2mm]},fblue,line width=1.1pt] (480,-620) -- (540,-620); \node[anchor=west,font=\footnotesize] at (550,-620) {Coriolis force};
+  \draw[-{Stealth[length=2mm]},black,line width=1.3pt] (820,-620) -- (880,-620); \node[anchor=west,font=\footnotesize] at (890,-620) {wind};
+\end{tikzpicture}
+\caption{The Southern Hemisphere. The Coriolis force turns the parcel to the left. At the end (stage 4) the pressure gradient force points down towards L, the Coriolis force points up towards H, and the wind blows to the east with the low pressure on its right.}\label{p3-fig:adjS}
+\end{figure}
+
+\begin{answerbox}[Answer to Motion Q7, part 2 ]
+\textbf{H at the 5640\,m line (top); L at the 5580\,m line (bottom).} Draw $F_{pg}$ \textbf{down} (towards L) and the Coriolis force \textbf{up} (towards H), of equal length; the geostrophic wind \textbf{W} points \textbf{east} between them.
+\end{answerbox}
+
+\begin{figure}[ht]
+\centering
+\begin{tikzpicture}[x=1cm,y=1cm]
+  \foreach \xs/\hemi/\yH/\yL/\labH/\labL/\pg/\co in {0/{Northern Hemisphere}/-1.5/1.5/{5520\,m (H)}/{5460\,m (L)}/1/-1, 8/{Southern Hemisphere}/1.5/-1.5/{5640\,m (H)}/{5580\,m (L)}/-1/1}{
+    \begin{scope}[xshift=\xs cm]
+      \draw[thick] (-0.5,\yH) -- (5.5,\yH); \draw[thick] (-0.5,\yL) -- (5.5,\yL);
+      \node[anchor=west,font=\small] at (5.6,\yH) {\labH}; \node[anchor=west,font=\small] at (5.6,\yL) {\labL};
+      \node[font=\sffamily\bfseries\small] at (2.5,2.45) {\hemi};
+      \draw[fill=white,thick] (2.4,-0.1) rectangle (2.6,0.1);
+      \draw[-{Stealth[length=3mm]},very thick,fred] (2.5,0) -- (2.5,{1.2*\pg});
+      \draw[-{Stealth[length=3mm]},very thick,fblue] (2.5,0) -- (2.5,{1.2*\co});
+      \draw[-{Stealth[length=3mm]},very thick,black] (2.5,0) -- (4.3,0);
+      \node[font=\footnotesize,text=fred,anchor=west] at (2.65,{0.75*\pg}) {$F_{pg}$};
+      \node[font=\footnotesize,text=fblue,anchor=west] at (2.65,{0.75*\co}) {Coriolis};
+      \node[font=\footnotesize,anchor=south] at (3.9,0.1) {wind};
+    \end{scope}}
+\end{tikzpicture}
+\caption{The two answers side by side. In both figures the wind blows east. In the north the low pressure (5460\,m) is on its left; in the south the low pressure (5580\,m) is on its right.}
+\end{figure}
+
+\section{Buys-Ballot's law}
+
+You can find where the low pressure lies, without a map, from the wind alone:
+\begin{itemize}
+\item \textbf{Northern Hemisphere:} stand with your back to the wind; low pressure is on your \textbf{left}.
+\item \textbf{Southern Hemisphere:} stand with your back to the wind; low pressure is on your \textbf{right}.
+\end{itemize}
+This is Buys-Ballot's law. It follows directly from the balance: the pressure gradient force points towards low pressure and the Coriolis force (to the right in the north) points away from it, so low pressure is on the left of the wind.
+
+\begin{figure}[ht]
+\centering
+\begin{tikzpicture}[x=1cm,y=1cm]
+  \foreach \xs/\ttl/\sgn in {0/{Northern Hemisphere}/1, 7.5/{Southern Hemisphere}/-1}{
+    \begin{scope}[xshift=\xs cm]
+      \node[font=\sffamily\small\bfseries] at (2.4,2.9) {\ttl};
+      \draw[-{Stealth[length=3mm]},very thick,black] (-0.2,0) -- (4.9,0) node[above,pos=0.82,font=\small]{wind (blowing to the east)};
+      \draw[fill=gray!25] (1.1,0.55) circle (0.28); \draw[thick] (1.1,0.27) -- (1.1,-0.4);
+      \node[font=\scriptsize,gray!60!black] at (1.1,-0.85) {you, back to the wind};
+      \node[font=\Large\bfseries,text=fred] at (2.4,{1.9*\sgn}) {L}; \node[font=\Large\bfseries,text=fblue] at (2.4,{-1.9*\sgn}) {H};
+    \end{scope}}
+\end{tikzpicture}
+\caption{Buys-Ballot's law. With your back to the wind, low pressure is on the left in the north and on the right in the south.}
+\end{figure}
+
+\section{How fast is the geostrophic wind?}
+
+\begin{workedbox}[Worked example: the wind implied by the lines of Figure~\ref{p3-fig:adjN}]
+Suppose the two height lines, 60\,m apart, are 500\,km apart on the chart, at 45\deg N. Then
+\begin{align*}
+f&=2\times7.292\times10^{-5}\sin45\deg=1.03\times10^{-4}\ \mathrm{s^{-1}},\
+V_g&=\frac{g\,\Delta z}{f\,\Delta n}=\frac{9.81\times60}{1.03\times10^{-4}\times5\times10^{5}}=11.4\ \ms
+\end{align*}
+which is 22 knots or 41\,km\,h$^{-1}$. If the lines were closer, 300\,km apart, the wind would be 19\,\ms; at the same spacing but 60\deg N it would be 9.3\,\ms; at 30\deg N, 16.1\,\ms.
+\end{workedbox}
+
+\begin{figure}[ht]
+\centering
+\begin{tikzpicture}
+\begin{axis}[width=0.78\textwidth,height=6.2cm,xlabel={Latitude (degrees)},ylabel={Geostrophic wind (m/s)},xmin=10,xmax=80,ymin=0,ymax=45,grid=both,grid style={gray!22},
+  every axis label/.style={font=\small},tick label style={font=\small},legend style={at={(0.97,0.97)},anchor=north east,font=\footnotesize}]
+  \addplot[fblue,very thick,domain=10:80,samples=71]{9.81*60/(2*7.292e-5*sin(x)*500000)};
+  \addplot[forange!90!black,very thick,domain=10:80,samples=71]{9.81*60/(2*7.292e-5*sin(x)*300000)};
+  \legend{60\,m in 500\,km,60\,m in 300\,km}
+\end{axis}
+\end{tikzpicture}
+\caption{The geostrophic wind for a given height difference rises as the lines get closer together and as the latitude decreases (because $f$ falls). Near the equator $f\to0$ and the formula breaks down.}
+\end{figure}
+
+\section{When is the wind not geostrophic?}
+
+The balance is an excellent approximation for the winds a kilometre or more above the ground at middle and high latitudes, but not always.
+\begin{itemize}
+\item \textbf{Near the ground,} friction acts, and the balance changes (Chapter~\ref{p3-ch:fric}).
+\item \textbf{Near the equator,} $f$ is so small that the balance fails.
+\item \textbf{Where the isobars curve strongly,} as round a hurricane or a tight low, the centrifugal force matters; the result is the \emph{gradient wind}.
+\item \textbf{When the pattern changes quickly,} the air accelerates, as in a developing storm.
+\end{itemize}
+
+\section{Questions that come up}
+
+\begin{askbox}
+\textbf{Is the geostrophic wind along or across the isobars?}\\
+Along. Because the two forces are at right angles to the wind, and the pressure gradient force is at right angles to the isobars, the wind must be parallel to the isobars. This is a much better description of upper-air winds than the picture of air flowing ``from high to low''.
+\end{askbox}
+
+\begin{askbox}
+\textbf{On Figure~\ref{p3-fig:adjN}, why is H at the bottom? Surely high pressure is up?}\\
+``Up'' on the page is north, not height. The H and L mark the pressure on a horizontal map at the 500\,hPa level: higher pressure to the south (bottom of the page), lower to the north (top).
+\end{askbox}
+
+\section{Try it yourself: Practice Set~\thechapter}
+
+\begin{tryit}[Practice Set~\thechapter: geostrophic wind]
+\begin{enumerate}[label=\textbf{\thechapter.\arabic*},leftmargin=*,itemsep=3pt]
+\item The 500\,hPa height lines 5460\,m and 5520\,m are 400\,km apart at 50\deg N. Find the geostrophic wind.
+\item In the Southern Hemisphere the 500\,hPa heights are 5600\,m at 40\deg S and 5500\,m at 50\deg S. Which way does the wind blow?
+\item At what latitude would the lines of Figure~\ref{p3-fig:adjN} (60\,m in 500\,km) give a geostrophic wind of 20\,\ms?
+\item In the Northern Hemisphere a pilot flying with the wind directly behind notes that the low pressure is on the pilot's left. Is this consistent with Buys-Ballot's law?
+\end{enumerate}
+\end{tryit}
+
+\begin{answerbox}[Answers to Practice Set~\thechapter]
+\begin{enumerate}[label=\textbf{\thechapter.\arabic*},leftmargin=*,itemsep=3pt]
+\item $f=2\times7.292\times10^{-5}\sin50\deg=1.117\times10^{-4}$; $V_g=\dfrac{9.81\times60}{1.117\times10^{-4}\times4\times10^{5}}=13.2\ \ms$ (26\,kt).
+\item The heights fall towards the pole, so the low is to the south. In the Southern Hemisphere low pressure is on the right of the wind, so the wind blows from \textbf{west to east} (a westerly), as in the Southern Ocean.
+\item $\sin\varphi=\dfrac{g\Delta z}{2\Omega V_g\Delta n}=\dfrac{588.6}{1458}=0.404$, so $\varphi=23.8\deg$.
+\item Yes: with your back to the wind, low pressure on the left is exactly Buys-Ballot's law for the Northern Hemisphere.
+\end{enumerate}
+\end{answerbox}
+
+\section{The geostrophic wind in Python}
+
+These functions compute the equations of this chapter, and the book's tests check them against its answers.
+
+\lstinputlisting{../../atmosphere_atlas/practical3_guide/generated/fn_coriolis_parameter.py}
+\lstinputlisting{../../atmosphere_atlas/practical3_guide/generated/fn_geostrophic_wind.py}
+
+\verb|geostrophic_wind(60, 5e5, 45)| returns about 11.4\,\ms.

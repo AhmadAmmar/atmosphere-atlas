@@ -1,0 +1,78 @@
+\chapter{Part III at a glance}\label{p3-ch:glance}\label{p3-ch:orient}
+
+\section{What this part covers}
+
+This part has three sections, each building a skill that the next one needs, so it pays to work through them in order. It brings together the two parts before it: the vertical structure of Part~I gives the pressure surfaces whose slopes drive the wind, and the uneven solar heating of Part~II is what makes them slope.
+
+\begin{description}[leftmargin=0pt,labelindent=0pt,font=\sffamily\bfseries]
+\item[Moisture.] How do we say how much water vapour the air holds? You meet four different measures (vapour pressure, mixing ratio, relative humidity and dew point) and learn to move between them with a table and a graph.
+\item[Motion.] Why does the air move at all, and why does it move the way it does? You study the three forces that matter for large-scale winds (the pressure gradient force, the Coriolis force and friction) and see how their balance gives the geostrophic wind high up and a wind that crosses the isobars near the ground.
+\item[Weather maps.] You decode the station model that every weather map uses, draw streamlines from wind barbs, and analyse a whole map: isobars, the low, the fronts, the cloud and the rain.
+\end{description}
+
+The moisture questions are numbered 1 to 6. The numbering starts again at 1 for the motion questions, which run to 11, and the weather map questions carry on from 12 to 14. A question of this part is always named with its section, for example \emph{Moisture~Q3}, \emph{Motion~Q7} or \emph{Map~Q12}.
+
+\begin{table}[ht]
+\centering\small
+\caption{Where each question is answered, and the equations it needs.}\label{p3-tab:map}
+\begin{tabularx}{\textwidth}{@{}l>{\raggedright\arraybackslash}Xll@{}}
+\toprule
+\textbf{Question} & \textbf{What it asks} & \textbf{Chapter} & \textbf{Equations}\\
+\midrule
+Moisture Q1 & relative humidity of five samples & \ref{p3-ch:moisture} & \eqref{p3-eq:rh}\\
+Moisture Q2 & heating cold air indoors in winter & \ref{p3-ch:moisture} & \eqref{p3-eq:rh}\\
+Moisture Q3 & ranking five samples by actual vapour & \ref{p3-ch:moisture} & \eqref{p3-eq:wrh}\\
+Moisture Q4 & the weakness of relative humidity & \ref{p3-ch:moisture} & \\
+Moisture Q5 & dew point of 20\,\degC, 10\,\gkg & \ref{p3-ch:dew} & \eqref{p3-eq:we}\\
+Moisture Q6 & dew point of 34\,\degC\ at 62\,\% & \ref{p3-ch:dew} & \eqref{p3-eq:wrh}, \eqref{p3-eq:thumb}\\
+Motion Q1--Q6 & pressure surfaces, Saskatoon and Monterrey & \ref{p3-ch:surfaces} & \eqref{p3-eq:hyps}, \eqref{p3-eq:pgf}\\
+Motion Q7 & geostrophic wind, north and south & \ref{p3-ch:geo} & \eqref{p3-eq:geo}\\
+Motion Q8--Q9 & friction and the forces on a box & \ref{p3-ch:fric} & \eqref{p3-eq:friction}\\
+Motion Q10--Q11 & four circulation systems & \ref{p3-ch:fric} & \eqref{p3-eq:friction}\\
+Map Q12 & decode four station models & \ref{p3-ch:station} & \eqref{p3-eq:ftoc}\\
+Map Q13 & streamlines & \ref{p3-ch:stream} & \\
+Map Q14 & fronts and the full analysis & \ref{p3-ch:fronts} & \eqref{p3-eq:geo}\\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+Chapter~\ref{p3-ch:forces} builds the physics of the motion section before its questions; Chapter~\ref{p3-ch:revision} gathers every answer in one table. The formulas, the 34 stations of the weather map, derivations and weather symbols are in Appendix~\ref{p3-app}.
+
+\section{What to have beside you}
+
+\begin{itemize}
+\item A calculator that has \texttt{ln} and \texttt{exp} keys, though most questions need only multiplication and division.
+\item Four coloured pencils for the force diagrams: \textcolor{fred}{red} for the pressure gradient force, \textcolor{fblue}{blue} for the Coriolis force, \textcolor{fgreen!80!black}{green} for friction, and black for the wind.
+\item A ruler and a soft pencil for the weather map.
+\end{itemize}
+
+\section{Symbols and units}
+
+\begin{table}[ht]
+\centering\small
+\caption{The symbols used in Part~III.}\label{p3-tab:symbols}
+\begin{tabular}{@{}lll@{}}
+\toprule
+\textbf{Symbol} & \textbf{Meaning} & \textbf{Unit}\\
+\midrule
+$T$, $T_d$ & air temperature, dew-point temperature & \degC\ (\degF\ on the station models)\\
+$e$, $e_s$ & vapour pressure, saturation vapour pressure & hPa (=\,mb)\\
+$w$, $w_s$ & mixing ratio, saturation mixing ratio & \gkg\\
+RH & relative humidity & \%\\
+$p$ & air pressure & hPa (=\,mb)\\
+$z$ & height above the ground & m\\
+$\rho$ & air density (about 1.2 kg\,m$^{-3}$ near the ground) & kg\,m$^{-3}$\\
+$f$ & Coriolis parameter, $f=2\Omega\sin\varphi$ & s$^{-1}$\\
+$V$, $V_g$ & wind speed, geostrophic wind speed & \ms\ (or knots)\\
+$\Delta n$ & distance across the isobars (or height lines) & km\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\textbf{Millibar and hectopascal.} Older charts say \emph{mb}; modern texts say \emph{hPa}. They are the same: $1\ \mathrm{mb}=1\ \mathrm{hPa}=100$\,Pa. This part uses both.
+
+\textbf{Knots.} Wind barbs use knots: $1\ \mathrm{kt}=0.514\ \ms\approx 1.85\ \mathrm{km\,h^{-1}}$.
+
+\section{About the weather map}
+
+The weather map shows 34 stations in the central United States on one day. Wind speeds were obtained by counting barbs and are approximate. The fronts were placed by hand from the temperature, dew-point and wind changes, as an analyst would. \S\,\ref{p3-app:stations} lists every station.

@@ -1,0 +1,288 @@
+\chapter{Wind near the ground: friction}\label{p3-ch:fric}
+\input{generated/four_systems.tex}
+
+\textit{This chapter answers Motion Q8 to Q11.}
+
+\section{Question 8: what does a slower wind do to the Coriolis force?}
+
+Close to the ground friction acts on the air, always against the wind, slowing it. The first question about it is: \emph{what effect will a reduction in surface wind speed have on the Coriolis force?}
+
+\begin{answerbox}[Answer to Motion Q8]
+The Coriolis force becomes \textbf{weaker}, because it depends on the wind speed. A slower wind means a smaller Coriolis force; a faster wind a larger one.
+\end{answerbox}
+
+The reason is that the Coriolis force per unit mass is $fV$, proportional to the wind speed $V$. If friction cuts the speed to 70\,\% of the geostrophic value, the Coriolis force falls to 70\,\% as well. But the pressure gradient force does not depend on the wind at all. So at the surface the Coriolis force can no longer balance the pressure gradient force on its own. Something has to make up the difference, and that is where the three-force balance comes from.
+
+\section{The balance of three forces}
+
+Near the ground three forces act on the air. If the wind is steady they add up to zero.
+\begin{itemize}
+\item the \textcolor{fred}{\textbf{pressure gradient force}}, from high to low pressure;
+\item the \textcolor{fblue}{\textbf{Coriolis force}}, at right angles to the wind (to its right in the Northern Hemisphere);
+\item \textcolor{fgreen!70!black}{\textbf{friction}}, directly against the wind.
+\end{itemize}
+
+Picture one box of air with these arrows. To see why the balance forces the wind to cross the isobars, imagine that the wind were parallel to the isobars as in Chapter~\ref{p3-ch:geo}. Then the Coriolis force would point directly against the pressure force, and friction (against the wind, along the isobars) would be left with nothing to balance it. The only way out is for the wind to turn a little \emph{towards low pressure}, so that the pressure force has a component along the wind that cancels friction, and the Coriolis force (now pointing partly backwards) cancels the rest.
+
+\section{Question 9: the forces on a box}\label{p3-sec:fig5}
+
+\begin{questionbox}
+Indicate with arrows the three forces acting on the Northern Hemisphere box (pressure gradient in red, Coriolis in blue, friction in green); the black arrow shows the result.
+\end{questionbox}
+
+Picture two isobars, 1012\,mb at the top and 1016\,mb at the bottom. The pressure is lower at the top, so the pressure gradient force points \emph{up}.
+
+\textbf{Method: draw the arrows in this order.}
+\begin{enumerate}[label=\textbf{Step \arabic*.},leftmargin=*,itemsep=3pt]
+\item \textbf{Red: the pressure gradient force.} From the box, straight towards the lower pressure (up the page), at right angles to the isobars.
+\item \textbf{Black: the wind.} It blows across the isobars, towards low pressure but turned to the right, so draw it up and to the right (north-east). Its angle to the isobars is typically 20 to 45 degrees; this example uses 45\deg.
+\item \textbf{Blue: the Coriolis force.} At right angles to the wind, on its right-hand side. For a north-east wind that is to the south-east (down and to the right).
+\item \textbf{Green: friction.} Opposite to the wind: pointing south-west (down and to the left).
+\item \textbf{Check.} Join the three coloured arrows tip to tail: they should make a closed triangle. If they do, the forces cancel and the wind is steady.
+\end{enumerate}
+
+\begin{figure}[ht]
+\centering
+\begin{tikzpicture}[x=1cm,y=1cm]
+  % isobars of Figure 5
+  \draw[forange!85!black,thick] (-4.2,3.8) -- (3.6,3.8); \node[anchor=west,font=\small\bfseries] at (3.7,3.8) {1012 mb};
+  \draw[forange!85!black,thick] (-4.2,-3.8) -- (3.6,-3.8); \node[anchor=west,font=\small\bfseries] at (3.7,-3.8) {1016 mb};
+  \node[font=\footnotesize,text=fred,anchor=west] at (-4.2,4.15) {lower pressure};
+  \node[font=\footnotesize,text=fblue,anchor=west] at (-4.2,-4.15) {higher pressure};
+  % the box and the forces (friction equal to the Coriolis force: 45 degrees)
+  \draw[-{Stealth[length=3.2mm]},line width=1.8pt,fred] (0,0) -- (0,3.0);
+  \draw[-{Stealth[length=3.2mm]},line width=1.8pt,fblue] (0,0) -- (1.5,-1.5);
+  \draw[-{Stealth[length=3.2mm]},line width=1.8pt,fgreen!75!black] (0,0) -- (-1.5,-1.5);
+  \draw[-{Stealth[length=3.4mm]},line width=2.4pt,black] (0,0) -- (1.9,1.9);
+  \draw[dashed,gray] (0,0) -- (3.0,0);
+  \draw[gray] (1.1,0) arc (0:45:1.1); \node[font=\footnotesize,gray!40!black] at (1.55,0.38) {45\deg};
+  \draw[fill=white,thick] (-0.13,-0.13) rectangle (0.13,0.13);
+  \node[font=\small\bfseries,text=fred,anchor=east] at (-0.2,1.8) {pressure gradient};
+  \node[font=\small\bfseries,text=fblue,anchor=west] at (1.65,-1.5) {Coriolis};
+  \node[font=\small\bfseries,text=fgreen!60!black,anchor=east] at (-1.65,-1.5) {friction};
+  \node[font=\small\bfseries,anchor=south west] at (1.45,2.2) {wind};
+  % the force triangle
+  \begin{scope}[xshift=6.6cm,yshift=-1.4cm]
+    \node[font=\small\bfseries,anchor=south,align=center] at (0.6,3.5) {the three forces\\ add up to zero};
+    \draw[-{Stealth[length=2.6mm]},line width=1.6pt,fred] (0,0) -- (0,3.0);
+    \draw[-{Stealth[length=2.6mm]},line width=1.6pt,fblue] (0,3.0) -- (1.5,1.5);
+    \draw[-{Stealth[length=2.6mm]},line width=1.6pt,fgreen!75!black] (1.5,1.5) -- (0,0);
+    \fill (0,0) circle (2pt);
+  \end{scope}
+\end{tikzpicture}
+\caption{The box completed. Red: pressure gradient force; blue: Coriolis force; green: friction; black: the wind. The three forces, joined tip to tail on the right, close into a triangle: they cancel. The black arrow is the \emph{wind}, the direction in which the air actually moves.}\label{p3-fig:fig5}
+\end{figure}
+
+\begin{answerbox}[Answer to Motion Q9]
+Pressure gradient force (\textcolor{fred}{red}): up, towards 1012\,mb. Wind (black): up and to the right. Coriolis force (\textcolor{fblue}{blue}): at right angles to the wind, down and to the right. Friction (\textcolor{fgreen!70!black}{green}): opposite to the wind, down and to the left.
+\end{answerbox}
+
+\begin{askbox}
+\textbf{Is the black arrow, the result, a force?}\\
+In a steady wind the three forces add up to zero, so there is \emph{no} resultant force: that is exactly why the wind is steady. What the black arrow shows is the resulting wind: the direction the air moves when the forces balance. It is the right arrow to draw; just do not think of it as a fourth force.
+\end{askbox}
+
+\section{The numbers: how much does friction turn the wind?}
+
+Represent friction as a drag proportional to the wind, with coefficient $k$. The balance of the three forces then gives, for a pressure gradient force $P$,
+\begin{equation}
+\alpha=\arctan\frac{k}{f},\qquad V=V_g\cos\alpha,\qquad V_g=\frac{P}{|f|}.\label{p3-eq:friction}
+\end{equation}
+\begin{where}
+\alpha & angle at which the wind crosses the isobars, towards low pressure (degrees) & calculated\\
+k & friction coefficient (s$^{-1}$) & larger over land than sea\\
+f & Coriolis parameter (s$^{-1}$) & \\
+V,\ V_g & wind speed with friction, and geostrophic wind speed (\ms) & \\
+P & pressure gradient force per unit mass (m\,s$^{-2}$) & Eq.~\eqref{p3-eq:pgf}\\
+\end{where}
+The ratio $k/f$ measures how strong friction is compared with the Coriolis force. Figure~\ref{p3-fig:fig5} corresponds to $k/f=1$.
+
+\begin{table}[ht]
+\centering
+\caption{Friction and the surface wind (the ratio $k/f$ is a guide; real values depend on the surface and the weather).}
+\small
+\begin{tabularx}{\textwidth}{@{}Xrrrr@{}}
+\toprule
+\textbf{Surface} & $\boldsymbol{k/f}$ & \textbf{Angle across isobars} & \textbf{Speed} $\boldsymbol{V/V_g}$ & \textbf{Coriolis force (relative)}\\
+\midrule
+No friction (high above the ground) & 0 & 0\deg & 100\,\% & 100\,\%\\
+Open sea & 0.3 & 17\deg & 96\,\% & 96\,\%\\
+Flat grassland & 0.6 & 31\deg & 86\,\% & 86\,\%\\
+Forest or suburb & 1.0 & 45\deg & 71\,\% & 71\,\%\\
+Tall city & 1.5 & 56\deg & 55\,\% & 55\,\%\\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+\begin{figure}[ht]
+\centering
+\begin{tikzpicture}[x=1cm,y=1cm]
+  \draw[forange!85!black,thick] (-0.4,0) -- (9.4,0); \node[font=\scriptsize,anchor=east,forange!60!black] at (-0.45,0) {isobar};
+  \node[font=\footnotesize,text=fred,anchor=west] at (-0.4,4.0) {lower pressure (north)};
+  \node[font=\footnotesize,text=fblue,anchor=west] at (-0.4,-0.4) {higher pressure (south)};
+  \fill (0,0) circle (2pt);
+  \foreach \kf/\ang/\sp/\col/\lbl/\anc in {0/0/6/gray!70/{no friction}/west,0.3/16.7/5.75/fblue/{sea 17\deg}/west,0.6/31/5.14/fgreen!75!black/{grass 31\deg}/west,1.0/45/4.24/forange!90!black/{forest 45\deg}/south west,1.5/56.3/3.33/fred/{city 56\deg}/south east}{
+    \draw[-{Stealth[length=2.6mm]},very thick,\col] (0,0) -- (\ang:\sp);
+    \node[font=\footnotesize,\col,anchor=\anc] at (\ang:{\sp+0.08}) {\lbl};}
+  \draw[gray,dashed] (0,0) -- (6.2,0);
+\end{tikzpicture}
+\caption{The surface wind for different surfaces, for the same pressure gradient force (in the Northern Hemisphere, with low pressure to the north). The rougher the surface, the slower the wind and the greater its angle across the isobars towards low pressure. The length of each arrow is proportional to the wind speed.}
+\end{figure}
+
+\begin{figure}[ht]
+\centering
+\begin{tikzpicture}
+\begin{axis}[width=0.78\textwidth,height=6.4cm,xlabel={Friction coefficient $k/f$},xmin=0,xmax=2,ymin=0,ymax=100,grid=both,grid style={gray!22},
+  every axis label/.style={font=\small},tick label style={font=\small},legend style={at={(0.03,0.5)},anchor=west,font=\footnotesize},
+  ylabel={Angle (degrees) or speed (\% of $V_g$)}]
+  \addplot[fblue,very thick,domain=0:2,samples=60]{atan(x)};
+  \addplot[fred,very thick,domain=0:2,samples=60]{100/sqrt(1+x*x)};
+  \legend{angle across the isobars,wind speed as \% of $V_g$}
+\end{axis}
+\end{tikzpicture}
+\caption{The angle across the isobars (blue) and the speed (red) against the friction coefficient. The speed is $V_g\cos\alpha$.}
+\end{figure}
+
+\section{Question 10: which system is which?}
+
+\begin{questionbox}
+Winds circulate round surface high and low pressure centres in both hemispheres. Name the hemisphere and pressure system for each of four examples: (a) spiralling inwards, anticlockwise; (b) spiralling outwards, clockwise; (c) spiralling inwards, clockwise; (d) spiralling outwards, anticlockwise.
+\end{questionbox}
+
+Two observations identify each system.
+\begin{enumerate}[label=\textbf{\arabic*.},leftmargin=*,itemsep=2pt]
+\item \textbf{Does the air spiral inwards or outwards?} Friction makes it cross the isobars towards low pressure, so it spirals \emph{in} towards a low and \emph{out} from a high.
+\item \textbf{Which way does it turn?} In the Northern Hemisphere the Coriolis force deflects the air to the right, so the circulation round a low is \emph{anticlockwise} and round a high \emph{clockwise}. In the Southern Hemisphere it is the other way round.
+\end{enumerate}
+
+\begin{table}[ht]
+\centering
+\caption{The four systems.}
+\begin{tabular}{llcc}
+\toprule
+\textbf{System} & \textbf{Rotation} & \textbf{Air spirals} & \textbf{Pressure gradient force}\\
+\midrule
+Northern low & anticlockwise & in & towards the centre\\
+Northern high & clockwise & out & away from the centre\\
+Southern low & clockwise & in & towards the centre\\
+Southern high & anticlockwise & out & away from the centre\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{figure}[ht]
+\centering
+\begin{tikzpicture}[x=1cm,y=1cm]
+  \node[draw=fnavy,rounded corners,align=center,font=\small,fill=lightblue,inner sep=4pt] (q1) at (0,0) {Does the air spiral\\ \textbf{in} or \textbf{out}?};
+  \node[draw=fred,rounded corners,align=center,font=\small,fill=lightred,inner sep=4pt] (low) at (-3.8,-2.3) {in\\ $\Rightarrow$ \textbf{low}};
+  \node[draw=fblue,rounded corners,align=center,font=\small,fill=lightblue,inner sep=4pt] (high) at (3.8,-2.3) {out\\ $\Rightarrow$ \textbf{high}};
+  \draw[-{Stealth}] (q1) -- (low); \draw[-{Stealth}] (q1) -- (high);
+  \node[draw=gray,rounded corners,align=center,font=\small,inner sep=3pt] (a) at (-5.4,-4.6) {anticlockwise\\ $\Rightarrow$ \textbf{Northern}};
+  \node[draw=gray,rounded corners,align=center,font=\small,inner sep=3pt] (b) at (-2.2,-4.6) {clockwise\\ $\Rightarrow$ \textbf{Southern}};
+  \node[draw=gray,rounded corners,align=center,font=\small,inner sep=3pt] (c) at (2.2,-4.6) {clockwise\\ $\Rightarrow$ \textbf{Northern}};
+  \node[draw=gray,rounded corners,align=center,font=\small,inner sep=3pt] (d) at (5.4,-4.6) {anticlockwise\\ $\Rightarrow$ \textbf{Southern}};
+  \draw[-{Stealth}] (low) -- (a); \draw[-{Stealth}] (low) -- (b); \draw[-{Stealth}] (high) -- (c); \draw[-{Stealth}] (high) -- (d);
+  \node[font=\footnotesize,anchor=north] at (-5.4,-5.3) {\textbf{northern low}}; \node[font=\footnotesize,anchor=north] at (-2.2,-5.3) {\textbf{southern low}};
+  \node[font=\footnotesize,anchor=north] at (2.2,-5.3) {\textbf{northern high}}; \node[font=\footnotesize,anchor=north] at (5.4,-5.3) {\textbf{southern high}};
+\end{tikzpicture}
+\caption{A two-question key to the four systems: in or out first, then the sense of rotation.}
+\end{figure}
+
+\begin{answerbox}[Answer to Motion Q10]
+(a) \textbf{Northern Hemisphere low}; (b) \textbf{Northern Hemisphere high}; (c) \textbf{Southern Hemisphere low}; (d) \textbf{Southern Hemisphere high}.
+\end{answerbox}
+
+\section{Question 11: the forces on one box in each system}
+
+\begin{questionbox}
+Choose one box on each example and draw the pressure gradient force in red, the Coriolis force in blue, and the frictional force in green. The black arrow shows the result.
+\end{questionbox}
+
+\textbf{Method.} For the box you choose:
+\begin{enumerate}[label=\textbf{Step \arabic*.},leftmargin=*,itemsep=3pt]
+\item Draw the pressure gradient force (red): towards the centre for a low, away from it for a high.
+\item Draw the wind (black): follow the arrows already on the figure, spiralling in for a low and out for a high.
+\item Draw the Coriolis force (blue) at right angles to the wind: to its right in the Northern Hemisphere, to its left in the Southern Hemisphere.
+\item Draw friction (green) directly opposite to the wind.
+\item Check that the three arrows could be joined tip to tail into a triangle.
+\end{enumerate}
+
+\begin{figure}[ht]
+\centering
+\begin{minipage}{0.49\textwidth}\centering
+\begin{tikzpicture}[scale=0.95]\fourpanelNL\node[font=\small\bfseries] at (0,3.0) {Northern Hemisphere low};\end{tikzpicture}
+\end{minipage}
+\begin{minipage}{0.49\textwidth}\centering
+\begin{tikzpicture}[scale=0.95]\fourpanelNH\node[font=\small\bfseries] at (0,3.0) {Northern Hemisphere high};\end{tikzpicture}
+\end{minipage}\\[6pt]
+\begin{minipage}{0.49\textwidth}\centering
+\begin{tikzpicture}[scale=0.95]\fourpanelSL\node[font=\small\bfseries] at (0,3.0) {Southern Hemisphere low};\end{tikzpicture}
+\end{minipage}
+\begin{minipage}{0.49\textwidth}\centering
+\begin{tikzpicture}[scale=0.95]\fourpanelSH\node[font=\small\bfseries] at (0,3.0) {Southern Hemisphere high};\end{tikzpicture}
+\end{minipage}
+\caption{The four systems with their forces. In each panel the grey arrows show the surface wind, spiralling in (low) or out (high), and the circles are isobars. On the box at the south-east of each system: \textcolor{fred}{red}, the pressure gradient force (always along the line to the centre); \textcolor{fblue}{blue}, the Coriolis force (right of the wind in the north, left of the wind in the south); \textcolor{fgreen!70!black}{green}, friction (against the wind); black, the wind. Any other box would show the same pattern turned round the system.}\label{p3-fig:fig6}
+\end{figure}
+
+\begin{answerbox}[Answer to Motion Q11]
+On every box the red arrow points from high to low pressure; the black wind arrow is turned from it, to the right in the north and the left in the south, and pulled towards low pressure by friction; the blue arrow is at right angles to the wind on the same side as the turn; the green arrow is exactly opposite to the wind. The pattern is identical at every position round the system, so any box gives the same picture rotated.
+\end{answerbox}
+
+\section{Why this matters for weather}
+
+Because the air spirals in towards a low, more air flows in at the bottom than flows out sideways, so the surplus must rise: surface \textbf{convergence} gives rising air, cloud and rain. In a high the air spirals out, so air sinks from above to replace it, which warms and dries it and gives clear skies. This is why lows (depressions) bring cloud and rain and highs bring settled weather, and it is the link between this chapter and the weather map you analyse in Chapter~\ref{p3-ch:fronts}.
+
+\begin{figure}[ht]
+\centering
+\begin{tikzpicture}[x=1cm,y=1cm]
+  \foreach \xs/\ttl/\dir/\col in {0/{Low pressure: converging, rising}/1/fred, 8/{High pressure: diverging, sinking}/-1/fblue}{
+    \begin{scope}[xshift=\xs cm]
+      \node[font=\sffamily\small\bfseries] at (2.6,3.4) {\ttl};
+      \draw[thick] (-0.4,0) -- (5.6,0);
+      \fill[gray!20] (-0.4,-0.25) rectangle (5.6,0);
+      \ifnum\dir=1
+        \draw[-{Stealth},very thick,fgreen!70!black] (0.0,0.25) -- (1.2,0.25); \draw[-{Stealth},very thick,fgreen!70!black] (5.2,0.25) -- (4.0,0.25);
+        \draw[-{Stealth},very thick,fred] (2.6,0.5) -- (2.6,2.8); \node[font=\footnotesize,anchor=west] at (2.75,2.2) {air rises};
+        \node[font=\Large\bfseries,text=fred] at (2.6,-0.9) {L};
+      \else
+        \draw[-{Stealth},very thick,fgreen!70!black] (2.0,0.25) -- (0.6,0.25); \draw[-{Stealth},very thick,fgreen!70!black] (3.2,0.25) -- (4.6,0.25);
+        \draw[-{Stealth},very thick,fblue] (2.6,2.8) -- (2.6,0.6); \node[font=\footnotesize,anchor=west] at (2.75,2.2) {air sinks};
+        \node[font=\Large\bfseries,text=fblue] at (2.6,-0.9) {H};
+      \fi
+      \node[font=\footnotesize,gray!50!black] at (2.6,-0.4) {surface};
+    \end{scope}}
+\end{tikzpicture}
+\caption{Cross-sections. Near the surface the winds converge into a low and diverge from a high; the continuity of air then requires rising motion over the low and sinking over the high.}
+\end{figure}
+
+\section{Questions that come up}
+
+\begin{askbox}
+\textbf{Why does the wind cross the isobars \emph{towards} low pressure and not away from it?}\\
+Because friction removes some of the Coriolis balance. The pressure gradient force is now larger than the Coriolis force, and the surplus pushes the air down the pressure gradient. The result is a wind with a component towards low pressure.
+\end{askbox}
+
+\begin{askbox}
+\textbf{Why is the angle bigger over land than over the sea?}\\
+Land is rougher (trees, buildings, hills), so friction is stronger and $k/f$ is larger. Over the open sea the angle is only 10 to 20 degrees; over land it can be 30 to 45 degrees or more.
+\end{askbox}
+
+\section{Try it yourself: Practice Set~\thechapter}
+
+\begin{tryit}[Practice Set~\thechapter: friction]
+\begin{enumerate}[label=\textbf{\thechapter.\arabic*},leftmargin=*,itemsep=3pt]
+\item Over a flat grassy plain ($k/f=0.6$) the geostrophic wind is 15\,\ms. Find the surface wind speed and its angle to the isobars.
+\item In a Southern Hemisphere low, in which direction does the air circulate, and does it spiral in or out?
+\item Describe the winds round a system in which the air spirals outwards in an anticlockwise sense. Which hemisphere and which kind of system is it?
+\item Over a city the surface wind is 6\,\ms\ and the geostrophic wind above it is 11\,\ms. Roughly what is $k/f$?
+\end{enumerate}
+\end{tryit}
+
+\begin{answerbox}[Answers to Practice Set~\thechapter]
+\begin{enumerate}[label=\textbf{\thechapter.\arabic*},leftmargin=*,itemsep=3pt]
+\item $\alpha=\arctan0.6=31\deg$; $V=15\cos31\deg=12.9\ \ms$.
+\item Clockwise, spiralling \textbf{in}.
+\item Anticlockwise and outward is a \textbf{Southern Hemisphere high} (Table above).
+\item $V/V_g=6/11=0.55=\cos\alpha$, so $\alpha\approx57\deg$ and $k/f=\tan57\deg\approx1.5$: a tall-city value.
+\end{enumerate}
+\end{answerbox}

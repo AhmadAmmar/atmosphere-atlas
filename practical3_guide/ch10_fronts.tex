@@ -1,0 +1,317 @@
+\chapter{Fronts and the weather map}\label{p3-ch:fronts}
+
+\textit{This chapter answers Map Q14.}
+
+\section{Air masses and fronts}
+
+An \textbf{air mass} is a very large body of air, hundreds of kilometres across, whose temperature and humidity are much the same throughout. It takes on the character of the surface it has rested on: air that has sat over a cold, dry continent is cold and dry; air from the tropical ocean is warm and humid. A \textbf{front} is the boundary between two unlike air masses. You can recognise one by any of the following:
+\begin{itemize}
+\item a sharp change of \textbf{temperature};
+\item a sharp change of \textbf{moisture} (the dew point);
+\item a sharp change of \textbf{wind direction}.
+\end{itemize}
+Fronts are classified by how they move.
+
+\begin{description}[leftmargin=0pt,font=\sffamily\bfseries]
+\item[Warm front] A warm air mass advances over a cooler one. Drawn as a red line with semicircles pointing the way the front moves.
+\item[Cold front] A cold air mass advances under a warmer one. Drawn as a blue line with triangles pointing the way the front moves.
+\end{description}
+
+\begin{figure}[ht]
+\centering
+\begin{tikzpicture}[x=1cm,y=1cm,cl/.style={cloud,cloud puffs=10,cloud puff arc=120,aspect=2.2,draw=gray!70,fill=gray!8,inner sep=1pt,font=\scriptsize}]
+  % ----- warm front (left) -----
+  \begin{scope}
+    \node[font=\sffamily\bfseries] at (3.4,3.7) {Warm front};
+    \fill[fsky!35] (0,0) -- (7,0) -- (7,0.1) -- (0.5,0.1) -- cycle;
+    \fill[fsky!25] (0,0) -- (7,0) -- (7,1.7) .. controls (4.5,0.8) and (2.5,0.35) .. (1.5,0) -- cycle;
+    \fill[forange!25] (7,1.7) .. controls (4.5,0.8) and (2.5,0.35) .. (1.5,0) -- (0,0) -- (0,2.4) -- (7,2.4) -- cycle;
+    \draw[very thick,fred] (7,1.7) .. controls (4.5,0.8) and (2.5,0.35) .. (1.5,0);
+    \draw[thick] (0,0) -- (7,0);
+    \node[font=\scriptsize,text=fred!70!black] at (1.1,1.5) {warm air};
+    \node[font=\scriptsize,text=fblue!70!black] at (5.6,0.5) {cool air};
+    \node[cl] at (4.0,1.5) {nimbostratus}; \node[cl] at (5.9,2.0) {altostratus}; \node[cl,fill=white] at (6.3,2.9) {cirrus};
+    \foreach \x in {3.3,3.7,4.1,4.5,4.9,5.3}{\draw[fblue,thin] (\x,1.0) -- (\x-0.08,0.35);}
+    \draw[-{Stealth},very thick,fred] (1.2,2.9) -- (2.8,2.9) node[above,font=\scriptsize,pos=0.5]{front moves};
+    \node[font=\scriptsize,gray!50!black] at (3.5,-0.3) {slope about 1 in 150: the rain begins hundreds of km ahead};
+  \end{scope}
+  % ----- cold front (right) -----
+  \begin{scope}[xshift=8.6cm]
+    \node[font=\sffamily\bfseries] at (3.4,3.7) {Cold front};
+    \fill[forange!25] (0,0) -- (7,0) -- (7,2.4) -- (0,2.4) -- cycle;
+    \fill[fsky!35] (0,0) -- (4.2,0) .. controls (3.4,0.5) and (2.6,1.4) .. (1.9,2.4) -- (0,2.4) -- cycle;
+    \draw[very thick,fblue] (4.2,0) .. controls (3.4,0.5) and (2.6,1.4) .. (1.9,2.4);
+    \draw[thick] (0,0) -- (7,0);
+    \node[font=\scriptsize,text=fblue!70!black] at (1.0,0.8) {cold air};
+    \node[font=\scriptsize,text=fred!70!black] at (5.8,0.6) {warm air};
+    \node[cl,aspect=1.6,fill=white] at (3.7,1.7) {cumulonimbus};
+    \foreach \x in {3.2,3.5,3.8,4.1}{\draw[fblue,thin] (\x,1.2) -- (\x-0.05,0.3);}
+    \draw[-{Stealth},very thick,fblue] (0.6,2.9) -- (2.2,2.9) node[above,font=\scriptsize,pos=0.5]{front moves};
+    \node[font=\scriptsize,gray!50!black] at (3.5,-0.3) {slope about 1 in 50: a narrow band of heavy rain};
+  \end{scope}
+\end{tikzpicture}
+\caption{Cross-sections through a warm front (left) and a cold front (right), with the vertical scale greatly exaggerated. In both the front is a sloping surface along which the warm air rises over the cold air.}\label{p3-fig:fronts}
+\end{figure}
+
+\begin{table}[ht]
+\centering
+\caption{What happens as each kind of front passes a station in the Northern Hemisphere.}
+\begin{tabular}{@{}p{3.1cm}p{5.8cm}p{5.8cm}@{}}
+\toprule
+ & \textbf{Warm front} & \textbf{Cold front}\\
+\midrule
+Before & pressure falls; cloud thickens from cirrus to nimbostratus; wind backs to south-east & pressure falls; warm, humid, south-westerly wind\\
+Passage & steady rain or drizzle; wind veers to south-west; temperature rises & heavy showers, perhaps thunder; wind veers sharply to north-west\\
+After & warm, humid air, cloud breaks; pressure steady & colder, drier air; pressure rises; clearing sky\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\textbf{Wind veering.} Notice that in both cases the wind \emph{veers}, that is, turns clockwise, as the front passes. Notice how the wind direction shifts at the frontal boundary.
+
+\section{A low with a warm front and a cold front}\label{p3-sec:fig9}
+
+Figure~\ref{p3-fig:fig9} shows a low-pressure centre (L) with a warm front curving east and south from it and a cold front trailing to the south-west. Four stations sample the air round them, which gives a small case in which to learn how to read a front before tackling the whole map.
+
+\begin{figure}[ht]
+\centering
+\begin{tikzpicture}[x=0.0235cm,y=-0.0235cm,line cap=round,line join=round]
+  \clip (360,950) rectangle (800,1345);
+  \input{generated/fig9_fronts.tex}\input{generated/fig9_low.tex}\input{generated/fig9_stations.tex}
+  \draw[forange!85!black,very thick,dashed,-{Stealth[length=2.2mm]}] (582,1237) -- (415,1203);
+  \draw[forange!85!black,very thick,dashed,-{Stealth[length=2.2mm]}] (631,1000) -- (664,1150);
+  \node[font=\scriptsize\bfseries,text=forange!60!black,fill=white,inner sep=1pt] at (498,1160) {cold front};
+  \node[font=\scriptsize\bfseries,text=forange!60!black,fill=white,inner sep=1pt] at (702,1075) {warm front};
+\end{tikzpicture}
+\caption{Station A is north of the warm front, B and C are in the warm sector between the fronts, D is behind the cold front. The dashed orange arrows mark the two crossings studied below: C to D across the cold front, and A to B across the warm front.}\label{p3-fig:fig9}
+\end{figure}
+
+\begin{table}[ht]
+\centering
+\caption{The four stations of Figure~\ref{p3-fig:fig9}.}
+\small
+\setlength{\tabcolsep}{4pt}
+\begin{tabular}{@{}cccccll@{}}
+\toprule
+\textbf{Stn} & \textbf{Temp.\ (\degF)} & \textbf{Dew pt (\degF)} & \textbf{RH (\%)} & \textbf{p (hPa)} & \textbf{Wind from} & \textbf{Sky}\\
+\midrule
+A & 56 & 53 & 90 & 1001.9 & ESE 10 kt & overcast, rain\\
+B & 68 & 63 & 84 & 1002.5 & S 10 kt & 2--3/10\\
+C & 70 & 64 & 81 & 1003.0 & SSW 10 kt & 5/10\\
+D & 50 & 38 & 63 & 1004.1 & WNW 20 kt & clear\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{enumerate}[label=\textbf{Step \arabic*.},leftmargin=*,itemsep=4pt]
+\item \textbf{The warm sector (B and C).} The air between the fronts is warm (68 and 70\,\degF) and humid (dew points 63 and 64\,\degF, relative humidity above 80\,\%), and the wind is from the south.
+\item \textbf{Behind the cold front (D).} The air is cooler (50\,\degF), much drier (dew point 38\,\degF, RH 63\,\%), the sky is clear and the wind has swung to the west-north-west.
+\item \textbf{Crossing the cold front, C to D.} The temperature falls 20\,\degF, the dew point falls 26\,\degF, the wind turns from south-south-west (193\deg) to west-north-west (292\deg): clockwise by about $100\deg$. The pressure rises and the cloud clears.
+\item \textbf{Crossing the warm front, A to B.} The temperature rises 12\,\degF, the dew point 10\,\degF, and the wind turns from east-south-east (113\deg) to south (177\deg): clockwise by about $64\deg$. The sky changes from overcast and raining to almost clear.
+\end{enumerate}
+
+\begin{answerbox}[What the four stations teach]
+A front is marked by \emph{simultaneous} changes of temperature, moisture and wind. At \textbf{both} fronts the wind \textbf{veers} (turns clockwise). The cold front brings the bigger changes in temperature and dew point; the warm front brings the continuous rain.
+\end{answerbox}
+
+\section{Question 14: the full analysis}\label{p3-sec:fig10}
+
+\begin{figure}[H]
+\centering
+\mapbase{0.0196cm}{\input{generated/map_stations_full.tex}}
+\caption{The 34 stations with all their values: temperature, dew point, pressure, weather, sky cover and wind. They are listed in Appendix~\ref{p3-app:stations}.}\label{p3-fig:fig10}
+\end{figure}
+
+\begin{questionbox}
+Using the map of Figure~\ref{p3-fig:fig10}: draw isobars at 4\,mb intervals (e.g.\ 1004, 1008, 1012\,mb); label the low-pressure centre with an ``L''; draw the warm and cold fronts; outline the area where cloud cover exceeds 75\,\%; shade the areas receiving precipitation.
+\end{questionbox}
+
+Figure~\ref{p3-fig:fig10} shows the same 34 stations as Figure~\ref{p3-fig:fig8}, but with all the numbers: temperature, dew point, pressure and weather, as well as the sky cover and the wind. The recommended order is the order of the bullets; each step helps the next.
+
+\subsection{Step 0: read the pressures}
+
+Decode every pressure with the rule of Chapter~\ref{p3-ch:station} (a three-digit number below 500 gets 10 in front, otherwise 9), and write the full value next to each station.
+
+\begin{figure}[ht]
+\centering
+\mapbase{0.0196cm}{\input{generated/map_stations_pressure.tex}}
+\caption{Step 0: the decoded sea-level pressures (hPa) at the 34 stations. The lowest values, 1002.4 and 1002.6, are in Iowa and Illinois (stations 8 and 9); the highest, 1019.4, is in Alabama (station 34).}\label{p3-fig:pressures}
+\end{figure}
+
+\subsection{Step 1: isobars every 4\,mb}
+
+\textbf{The isobars are 1004, 1008, 1012, 1016 and 1020\,mb.} (The lowest pressure is 1002.4, so there is no 1000\,mb isobar. The highest, 1019.4 in Alabama, falls just short of 1020; the 1020 isobar lies a little beyond it, where the trend continues, and may be left out.)
+
+\textbf{Method: interpolating.}
+\begin{enumerate}[label=\textbf{\arabic*.},leftmargin=*,itemsep=3pt]
+\item Look at two neighbouring stations and ask whether a multiple of 4 lies between their pressures.
+\item If it does, find where it falls on the straight line between them \emph{in proportion}.
+\item Mark that point. Do it for every pair of neighbours.
+\item Join the points of equal value with a smooth curve. Do the same for the next value.
+\end{enumerate}
+
+\begin{workedbox}[Worked example: where does 1008\,mb cross between stations 18 and 19?]
+Station 18 reads 1004.4\,hPa and its neighbour station 19 reads 1009.9\,hPa. The pressure changes by $1009.9-1004.4=5.5$\,hPa between them, and 1008 is $1008-1004.4=3.6$\,hPa above the first station:
+\[
+\text{fraction of the distance}=\frac{3.6}{5.5}=0.65 .
+\]
+The 1008\,mb isobar crosses the line joining the stations 65\,\% of the way from station 18 towards station 19.
+\begin{center}
+\begin{tikzpicture}
+  \draw[thick] (0,0) -- (10,0);
+  \fill (0,0) circle (3pt); \fill (10,0) circle (3pt);
+  \node[anchor=north,font=\small,align=center] at (0,-0.2) {station 18\\ 1004.4}; \node[anchor=north,font=\small,align=center] at (10,-0.2) {station 19\\ 1009.9};
+  \foreach \x/\v in {3.0/1006,6.5/1008}{\draw (\x*1,-0.12) -- (\x*1,0.12);}
+  \fill[forange!90!black] (6.5,0) circle (3.5pt);
+  \node[anchor=south,font=\small\bfseries,text=forange!60!black] at (6.5,0.15) {1008 at 65\,\%};
+  \draw[<->,gray] (0,0.7) -- (6.5,0.7) node[midway,above,font=\scriptsize]{3.6 hPa}; \draw[<->,gray] (6.5,0.7) -- (10,0.7) node[midway,above,font=\scriptsize]{1.9 hPa};
+\end{tikzpicture}
+\end{center}
+\end{workedbox}
+
+\begin{table}[ht]
+\centering
+\caption{More interpolations to practise on.}
+\begin{tabular}{@{}lllll@{}}
+\toprule
+\textbf{Stations} & \textbf{Pressures (hPa)} & \textbf{Isobar} & \textbf{Calculation} & \textbf{Fraction}\\
+\midrule
+9 and 5 & 1002.6, 1008.8 & 1004 & $(1004-1002.6)/6.2$ & 23\,\%\\
+9 and 5 & 1002.6, 1008.8 & 1008 & $(1008-1002.6)/6.2$ & 87\,\%\\
+16 and 5 & 1006.9, 1008.8 & 1008 & $(1008-1006.9)/1.9$ & 58\,\%\\
+20 and 24 & 1011.1, 1014.9 & 1012 & $(1012-1011.1)/3.8$ & 24\,\%\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{keybox}[Rules for drawing isobars]
+\begin{itemize}
+\item Isobars are smooth curves. Each connects points of exactly the same pressure.
+\item Isobars \textbf{never cross} and never branch.
+\item They never end inside the map: they either close into a loop (round a low or a high) or leave the map edge.
+\item The pressure rises or falls in steps of 4\,mb from one isobar to the next; if the next isobar is much further away the gradient is gentle there.
+\item Label each isobar with its value.
+\end{itemize}
+\end{keybox}
+
+\begin{figure}[ht]
+\centering
+\mapbase{0.0196cm}{\input{generated/map_isobars.tex}\input{generated/map_stations_pressure.tex}}
+\caption{Step 1: isobars at 4\,mb intervals through the station pressures. The 1004\,mb isobar closes round the lowest pressures; the 1008 and 1012\,mb isobars follow it outwards; 1016 and 1020\,mb lie to the east and south-east. (The curves here were drawn as a smooth surface through all 34 pressures.)}\label{p3-fig:isobars}
+\end{figure}
+
+\subsection{Step 2: the L}
+
+The low-pressure centre is where the isobars close round the lowest pressure. The two lowest pressures on the map are 1002.4\,hPa (station 8, northern Illinois) and 1002.6\,hPa (station 9, Iowa). The 1004\,mb isobar encloses them, together with stations 13 and 17 (1002.9 and 1004.0). Write the \textbf{L} between stations 8 and 9, near the centre of the closed isobar, at about 1002\,hPa.
+
+\begin{answerbox}[Answer: the L]
+The L goes in northern Illinois and eastern Iowa, between stations 8 and 9, in the middle of the innermost isobar. It is also the centre of the swirl of streamlines you drew in Question~13.
+\end{answerbox}
+
+\subsection{Step 3: the fronts}
+
+A front lies where the temperature, the dew point and the wind direction change rapidly. Compare pairs of neighbouring stations: if two neighbours differ strongly in all three, a front runs between them.
+
+\begin{figure}[ht]
+\centering
+\mapbase{0.0196cm}{\input{generated/map_stations_temp.tex}\input{generated/map_fronts.tex}\input{generated/map_low.tex}}
+\caption{Step 3: air temperature (\degF) at each station, coloured from blue (cold, 32\,\degF) to red (warm, 72\,\degF). The warm air fills the south-east and a tongue reaches towards the low: the warm sector. Cold air covers the north-west. The cold front (blue, triangles) separates them in the west; the warm front (red, semicircles) in the east.}\label{p3-fig:airmass}
+\end{figure}
+
+\begin{table}[ht]
+\centering
+\caption{Evidence for the fronts: pairs of stations on either side of each front (cold side $\to$ warm side).}
+\input{generated/front_evidence.tex}
+\end{table}
+
+\textbf{The cold front.} West of the low, the stations behind the front are cool (42 to 52\,\degF), drier (dew points 36 to 50\,\degF) and have winds from the west to north-west; those ahead are warm (60 to 66\,\degF), humid (dew points 55 to 61\,\degF) and have winds from the south-south-west to south-west. The pairs 16--17, 22--23, 25--28 and 31--32 straddle it, with temperature jumps of 11 to 19\,\degF. The front runs from the low towards the south-south-west, down through Missouri, Arkansas and east Texas.
+
+\textbf{The warm front.} East of the low, the stations north of the front are cool (46 to 54\,\degF) with winds from the north-east or east; those south of it are warm (57 to 66\,\degF) with winds from the south. The pairs 8--13, 14--19 and 10--20 straddle it, with temperature jumps of 9 to 20\,\degF and the wind turning from east or north-east to south. The front runs east from the low through Indiana and Ohio.
+
+\begin{answerbox}[Answer: the fronts]
+A \textbf{cold front} (blue, with triangles pointing east, the way it moves) from the L towards the south-south-west to Texas; a \textbf{warm front} (red, with semicircles pointing north-east) from the L eastwards through Indiana and Ohio. The warm sector, the wedge of warm air between them, lies to the south-east.
+\end{answerbox}
+
+\subsection{Step 4: cloud cover above 75\,\%}
+
+Cloud cover above 75\,\% means the stations drawn with a three-quarters, nine-tenths or completely filled circle. Looking at the sky circles: stations 2, 5, 6, 8, 9, 10, 11, 14, 17, 23, 31 and 32 are completely overcast; stations 3, 13, 19 and 28 have 7 to 8 tenths. Draw a line round the group, including the area between them. The result is a broad area wrapped round the low and extending along the cold front to the south-west.
+
+\begin{figure}[ht]
+\centering
+\mapbase{0.0196cm}{\input{generated/map_cloud.tex}\input{generated/map_stations_full.tex}}
+\caption{Step 4: the area where the cloud cover exceeds 75\,\% (dashed outline and grey tint). It wraps round the low on its north and east sides and tails away to the south-west along the cold front.}
+\end{figure}
+
+\subsection{Step 5: the precipitation}
+
+Shade round every station that reports precipitation: the weather symbol is a dot or two dots (rain), or the thunderstorm symbol with a dot. These are stations 2, 5, 6, 8, 9, 10, 11, 17, 18 and 23: a band to the north and east of the low, along the warm front, and a narrow band along the cold front in Missouri.
+
+\begin{figure}[ht]
+\centering
+\mapbase{0.0196cm}{\input{generated/map_precip.tex}\input{generated/map_stations_full.tex}}
+\caption{Step 5: the areas receiving precipitation (blue shading) at the ten stations that report rain or thunderstorms.}
+\end{figure}
+
+\begin{landscape}
+\begin{figure}[p]
+\centering
+\mapbase{0.0225cm}{\input{generated/map_cloud.tex}\input{generated/map_precip.tex}\input{generated/map_isobars.tex}\input{generated/map_fronts.tex}\input{generated/map_low.tex}\input{generated/map_stations_full.tex}}
+\caption{Question 14 complete: isobars every 4\,mb (orange), the low (L), the cold front (blue triangles) and the warm front (red semicircles), the area with more than 75\,\% cloud (dashed outline) and the precipitation (blue shading), over the 34 stations. The state outlines are real boundaries. The fronts are an interpretation, drawn from the temperature, dew-point and wind contrasts.}\label{p3-fig:final}
+\end{figure}
+\end{landscape}
+
+\section{Reading the finished picture}
+
+The map is a text-book mid-latitude depression.
+\begin{itemize}
+\item The low is over Iowa and northern Illinois, at about 1002\,hPa.
+\item The \textbf{warm sector} is the tongue of warm, humid air in the south and east, between the two fronts: temperatures in the 60s and 70s \degF\ and dew points of 55 to 64\,\degF.
+\item The cold air in the north-west is dry (dew points of 22 to 38\,\degF) and mostly clear.
+\item The cloud and rain are on the fronts and near the low, where the air is being lifted.
+\item The winds circle the low anticlockwise (Chapter~\ref{p3-ch:stream}) and cross the isobars towards low pressure (Chapter~\ref{p3-ch:fric}).
+\end{itemize}
+
+\begin{workedbox}[Worked example: is the wind consistent with the isobars?]
+Between stations 9 (1002.6\,hPa) and 5 (1008.8\,hPa), about 216\,km apart, the pressure changes by 6.2\,hPa. The geostrophic wind for that gradient at 41.5\deg N ($f=9.7\times10^{-5}$\,s$^{-1}$) is
+\[
+V_g=\frac{1}{\rho f}\frac{\Delta p}{\Delta n}=\frac{620}{1.2\times9.7\times10^{-5}\times2.16\times10^{5}}=25\ \ms\approx48\ \text{knots}.
+\]
+The observed surface winds are 10 to 25 knots. That is about what friction does: it slows the surface wind to a half or two thirds of the geostrophic value and turns it across the isobars (Chapter~\ref{p3-ch:fric}).
+\end{workedbox}
+
+\section{Questions that come up}
+
+\begin{askbox}
+\textbf{Where exactly should I put the front?}\\
+There is no single right answer: a front analysis is an interpretation. Put the line along the zone where the temperature, dew point and wind change fastest, bend it to follow the stations, and begin it at the low. Check that the stations on the cold side are colder and drier than those on the warm side.
+\end{askbox}
+
+\begin{askbox}
+\textbf{Why do the isobars bend sharply where a front crosses them?}\\
+Because the wind changes direction at a front, and the wind follows the isobars, the isobars must change direction there too. A front lies along a trough of low pressure, with the isobars forming a V pointing away from the low.
+\end{askbox}
+
+\begin{askbox}
+\textbf{Which stations count as ``cloud above 75\,\%''?}\\
+Those whose circle is filled to at least three quarters: 7--8 tenths, 9 tenths (filled with a gap) or overcast. Stations with half or less are outside the outline.
+\end{askbox}
+
+\section{Try it yourself: Practice Set~\thechapter}
+
+\begin{tryit}[Practice Set~\thechapter: fronts and isobars]
+\begin{enumerate}[label=\textbf{\thechapter.\arabic*},leftmargin=*,itemsep=3pt]
+\item Stations X (1011.1\,hPa) and Y (1014.9\,hPa) are neighbours. Where does the 1012\,mb isobar cross the line between them?
+\item A station reports a temperature of 61\,\degF, a dew point of 57\,\degF\ and a south-south-west wind of 10 knots. A neighbour to its west reports 42\,\degF, 36\,\degF\ and a north-west wind. What kind of front lies between them?
+\item Station P is 30\,\degF\ with dew point 28\,\degF, east wind, overcast and snow. Station Q to the south is 41\,\degF\ with dew point 38\,\degF\ and south-east wind. Is a warm or cold front likely to lie between them? Why?
+\item Why is there no 1000\,mb isobar on Figure~\ref{p3-fig:fig10}?
+\end{enumerate}
+\end{tryit}
+
+\begin{answerbox}[Answers to Practice Set~\thechapter]
+\begin{enumerate}[label=\textbf{\thechapter.\arabic*},leftmargin=*,itemsep=3pt]
+\item $(1012-1011.1)/(1014.9-1011.1)=0.9/3.8=0.24$: 24\,\% of the way from X to Y.
+\item A \textbf{cold front}: the temperature falls 19\,\degF, the dew point 21\,\degF, and the wind turns clockwise from south-south-west to north-west as you cross it from east to west.
+\item A \textbf{warm front}: the warmer, moister air (41\,\degF, 38\,\degF) lies to the south with a south-east wind, riding over the colder air with east wind to the north, where it is snowing. The wind turns clockwise from east to south-east.
+\item No station reports a pressure as low as 1000\,hPa (the lowest is 1002.4), and an isobar should only be drawn where the data support it.
+\end{enumerate}
+\end{answerbox}

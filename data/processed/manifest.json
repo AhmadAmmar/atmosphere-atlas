@@ -1,0 +1,56 @@
+{
+  "packs": {
+    "storms": {
+      "bytes": 324249,
+      "arrays": 7
+    },
+    "enso": {
+      "bytes": 828656,
+      "arrays": 16
+    },
+    "core": {
+      "bytes": 3527740,
+      "arrays": 41
+    },
+    "imagery": {
+      "bytes": 2513571,
+      "arrays": 13
+    }
+  },
+  "ensoRecentMonths": [
+    [
+      2026,
+      7
+    ],
+    [
+      2026,
+      8
+    ],
+    [
+      2026,
+      9
+    ]
+  ],
+  "pipelineVersion": "1.0.0",
+  "refreshed": "2026-10-09 02:10 UTC",
+  "seriesEnd": {
+    "oni": {
+      "month": [
+        2026,
+        8
+      ],
+      "value": 2.16
+    },
+    "co2": {
+      "start": [
+        1958,
+        3
+      ],
+      "months": 822
+    },
+    "amoc": [
+      2024,
+      3
+    ]
+  }
+}

@@ -1,0 +1,256 @@
+\chapter{The dew point}\label{p3-ch:dew}
+
+\textit{This chapter answers Moisture Q5 and Q6.}
+
+\section{Cooling the glass}
+
+Take a sample of air and cool it, taking nothing away and adding nothing. Two things happen. The vapour in the air stays the same, because no water has gone in or out. The glass (the saturation mixing ratio) shrinks, because colder air can hold less. So the glass gets fuller and the relative humidity rises. At one particular temperature the glass is exactly full. That temperature is the \textbf{dew point}, $T_d$.
+
+\begin{keybox}[Definition]
+The \textbf{dew point} is the temperature to which an air sample must be cooled, at constant pressure and without adding or removing water, to reach saturation. At that temperature the saturation mixing ratio equals the sample's actual mixing ratio, $w_s(T_d)=w$.
+\end{keybox}
+
+If you cool the air below its dew point the surplus vapour cannot stay as vapour. It condenses: into dew on cold grass, into fog near the ground, into cloud higher up. A cold can of drink on a summer day is covered with water for exactly this reason: the air against the can is cooled below its dew point.
+
+\section{Three ways to find a dew point}
+
+All three give the same answer. Question~5 asks for the first; the others are checks.
+
+\begin{enumerate}[label=\textbf{Method \Alph*.},leftmargin=*,itemsep=4pt]
+\item \textbf{Graph.} Plot the air as a point (temperature across, mixing ratio up). Cooling moves the point horizontally to the left, because only the temperature changes. Stop where the point meets the saturation curve. Read the temperature underneath.
+\item \textbf{The table, backwards.} Find the two rows whose mixing ratios bracket the sample's, and interpolate for the temperature.
+\item \textbf{Formula.} Compute the vapour pressure $e=wp/(622+w)$ and invert the saturation formula (Appendix~\ref{p3-app:formulas}).
+\end{enumerate}
+
+\section{Question 5: 20\,\degC\ and 10\,\gkg}\label{p3-sec:q5}
+
+\begin{questionbox}
+Consider a sample of air with a temperature of 20\,\degC\ and a mixing ratio of 10\,\gkg. Plot the point on a graph of saturation mixing ratio against temperature (Figure~\ref{p3-fig:ws}), and show on the graph to which temperature the sample must cool before it reaches saturation.
+\end{questionbox}
+
+\textbf{Method A: the graph.}
+\begin{enumerate}[label=\textbf{Step \arabic*.},leftmargin=*,itemsep=3pt]
+\item Mark the point: 20\,\degC\ on the horizontal axis, 10\,\gkg\ on the vertical axis.
+\item Cooling moves the point to the left along the horizontal line at 10\,\gkg. Draw an arrow in that direction.
+\item The arrow meets the curve where the air is saturated. (At that point the curve's height, $w_s$, equals 10\,\gkg.)
+\item Draw a vertical line down from the meeting point to the temperature axis and read the value.
+\end{enumerate}
+
+\begin{figure}[ht]
+\centering
+\begin{tikzpicture}
+\begin{axis}[width=0.94\textwidth,height=8.2cm,xlabel={Temperature ($^\circ$C)},ylabel={Mixing ratio (g/kg)},xmin=-10,xmax=40,ymin=0,ymax=40,
+  xtick={-10,0,10,20,30,40},grid=both,grid style={gray!22},minor tick num=4,every axis label/.style={font=\small},tick label style={font=\small},clip=false]
+  \addplot[fblue,very thick,domain=-10:40,samples=101]{622*(6.112*exp(17.67*x/(x+243.5)))/(995.5-6.112*exp(17.67*x/(x+243.5)))};
+  % question 5
+  \draw[-{Stealth[length=2.6mm]},very thick,forange!90!black] (axis cs:19.5,10) -- (axis cs:14.3,10);
+  \draw[dashed,thick,forange!90!black] (axis cs:13.78,10) -- (axis cs:13.78,0);
+  \fill[fred] (axis cs:20,10) circle (3.2pt);
+  \fill[forange!90!black] (axis cs:13.78,10) circle (3.2pt);
+  \node[font=\small\bfseries,text=fred,anchor=west] at (axis cs:20.8,10) {Q5: 20\,\degC, 10\,g/kg};
+  \node[font=\small\bfseries,text=forange!60!black,anchor=south east,fill=white,inner sep=1pt] at (axis cs:13.4,0.5) {$T_d\approx14\,^\circ$C};
+  % question 6
+  \draw[-{Stealth[length=2.6mm]},very thick,fgreen!70!black] (axis cs:33.5,21.78) -- (axis cs:26.6,21.78);
+  \draw[dashed,thick,fgreen!70!black] (axis cs:26.03,21.78) -- (axis cs:26.03,0);
+  \fill[fred] (axis cs:34,21.78) circle (3.2pt);
+  \fill[fgreen!70!black] (axis cs:26.03,21.78) circle (3.2pt);
+  \node[font=\small\bfseries,text=fred,anchor=south east] at (axis cs:39.6,23.2) {Q6: 34\,\degC, 21.78\,g/kg};
+  \node[font=\small\bfseries,text=fgreen!50!black,anchor=south west,fill=white,inner sep=1pt] at (axis cs:26.6,0.5) {$T_d\approx26\,^\circ$C};
+  \node[font=\footnotesize\itshape,text=gray!60!black,align=left,anchor=north west] at (axis cs:-9,38) {unsaturated air lies below the curve};
+\end{axis}
+\end{tikzpicture}
+\caption{The graph solved for both questions. Each air sample is a red dot; cooling moves it horizontally to the curve; the dew point is read on the temperature axis. For Question~5 it is 13.8\,\degC\ (about 14\,\degC); for Question~6 it is 26.0\,\degC.}\label{p3-fig:dewgraph}
+\end{figure}
+
+\textbf{Method B: the table backwards.} The sample holds 10\,\gkg. Table~\ref{p3-tab:table1} gives 8.882\,\gkg\ at 12\,\degC\ and 10.14\,\gkg\ at 14\,\degC, so the dew point is between 12 and 14\,\degC. The fraction of the way from 12 to 14 is
+\[
+\frac{10-8.882}{10.14-8.882}=\frac{1.118}{1.258}=0.89,
+\qquad\text{so}\qquad T_d\approx12+0.89\times2=13.8\ \degC .
+\]
+
+\textbf{Method C: formula.} The vapour pressure is $e=\dfrac{10\times995.5}{622+10}=15.75$\,hPa, and inverting $e_s(T)=6.112\exp[17.67T/(T+243.5)]$ \citep{bolton1980} gives $T_d=13.78$\,\degC.
+
+\begin{answerbox}[Answer to Moisture Q5]
+The sample cools along the horizontal line at 10\,\gkg\ and meets the curve at about \textbf{14\,\degC} (13.8\,\degC). That is its dew point.
+\end{answerbox}
+
+\textbf{Check.} The dew point must be lower than the air temperature (20\,\degC), and 14\,\degC\ is. At 14\,\degC\ Table~\ref{p3-tab:table1} says the air could hold 10.14\,\gkg, only a little more than the 10\,\gkg\ it has: so the air is just short of saturated at 14\,\degC, as it should be.
+
+\section{Question 6: 34\,\degC\ and 62\,\% humidity}\label{p3-sec:q6}
+
+\begin{questionbox}
+A sample of air has a temperature of 34\,\degC\ and a relative humidity of 62\,\%. What is its saturation mixing ratio, its mixing ratio and its dew point?
+\end{questionbox}
+
+\textbf{Method.}
+\begin{enumerate}[label=\textbf{Step \arabic*.},leftmargin=*,itemsep=3pt]
+\item Saturation mixing ratio at 34\,\degC, from Table~\ref{p3-tab:table1}: $35.134\ \gkg$.
+\item Mixing ratio: $w=w_s\times\mathrm{RH}/100=35.134\times0.62=21.78\ \gkg$.
+\item Dew point: find the temperature at which $w_s=21.78\ \gkg$. Table~\ref{p3-tab:table1} has 21.734 at 26\,\degC\ and 24.557 at 28\,\degC. The value 21.78 is just above the 26\,\degC\ entry:
+\[
+\frac{21.78-21.734}{24.557-21.734}=\frac{0.046}{2.823}=0.016,\qquad T_d\approx26+0.016\times2=26.03\ \degC .
+\]
+\end{enumerate}
+
+\begin{answerbox}[Answer to Moisture Q6]
+Saturation mixing ratio: \textbf{35.134\,\gkg}. Mixing ratio: \textbf{35.134\,$\times$\,0.62 $=$ 21.78\,\gkg}. Dew point: about \textbf{26\,\degC}.
+\end{answerbox}
+
+\begin{warnbox}[Why 26\,\degC, not 25\,\degC]
+A dew point of 25\,\degC\ is an easy slip here, but it cannot be right, and there are three independent ways to see it.
+\begin{enumerate}[label=\textbf{\arabic*.},leftmargin=*]
+\item \textbf{The table.} At 25\,\degC\ air can hold at most about 20.4\,\gkg\ (half way between 19.21 and 21.734, which is 20.47). The sample holds 21.78\,\gkg, \emph{more} than that. At 25\,\degC\ it would be oversaturated: a relative humidity of $21.78/20.44=107\,\%$.
+\item \textbf{The graph.} In Figure~\ref{p3-fig:dewgraph} the horizontal line at 21.78\,\gkg\ meets the curve at 26\,\degC. At 25\,\degC\ the line lies above the curve, in the supersaturated region.
+\item \textbf{The rule of thumb} (next section): $\mathrm{RH}\approx100-5\times(T-T_d)$. A dew point of 26\,\degC\ gives $100-5\times8=60\,\%$, close to the 62\,\% we started with. A dew point of 25\,\degC\ would give 55\,\%.
+\end{enumerate}
+\end{warnbox}
+
+\section{A quick check by rule of thumb}
+
+Each degree by which the dew point lies below the temperature lowers the relative humidity by about 5\,\%. Written as a formula,
+\begin{equation}
+\mathrm{RH}\approx100-5\,(T-T_d),\label{p3-eq:thumb}
+\end{equation}
+\begin{where}
+\mathrm{RH} & relative humidity (\%) & estimated\\
+T,\ T_d & air temperature and dew point (\degC) & \\
+\end{where}
+good to within a few percent for RH above about 50\,\%. Turned round, $T-T_d\approx(100-\mathrm{RH})/5$: air at 80\,\% is about 4\,\degC\ above its dew point; at 50\,\% about 10\,\degC.
+
+\begin{figure}[ht]
+\centering
+\begin{tikzpicture}
+\begin{axis}[width=0.86\textwidth,height=6.6cm,xlabel={$T-T_d$ (\degC)},ylabel={Relative humidity (\%)},xmin=0,xmax=20,ymin=0,ymax=100,
+  grid=both,grid style={gray!22},every axis label/.style={font=\small},tick label style={font=\small},legend style={at={(0.97,0.97)},anchor=north east,font=\small}]
+  \addplot[fblue,very thick,domain=0:20,samples=41]{100*(6.112*exp(17.67*(30-x)/(30-x+243.5)))/(6.112*exp(17.67*30/(30+243.5)))};
+  \addplot[forange!90!black,very thick,domain=0:20,samples=41]{100*(6.112*exp(17.67*(5-x)/(5-x+243.5)))/(6.112*exp(17.67*5/(5+243.5)))};
+  \addplot[gray,dashed,thick,domain=0:20]{100-5*x};
+  \legend{$T=30\,^\circ$C,$T=5\,^\circ$C,100$-5(T-T_d)$}
+\end{axis}
+\end{tikzpicture}
+\caption{The rule of thumb against the exact relationship. For ordinary temperatures the exact curves stay close to the straight line.}
+\end{figure}
+
+\section{What happens below the dew point}
+
+Continue cooling the Question~6 sample below 26\,\degC. The air can no longer hold all its vapour, so the surplus condenses. At each temperature the vapour left is $w_s(T)$, and the difference is liquid water:
+\begin{equation}
+\text{condensed water}=w-w_s(T).\label{p3-eq:condensed}
+\end{equation}
+\begin{where}
+w & mixing ratio of the air before cooling (\gkg) & \\
+w_s(T) & saturation mixing ratio at the new, lower temperature (\gkg) & Table~\ref{p3-tab:table1}\\
+\end{where}
+Cooled to 20\,\degC, the sample holds only $14.956\,\gkg$ as vapour, so $21.78-14.956=6.8\,\gkg$ has turned to liquid. That is dew on the ground, or fog, or cloud droplets. Condensation also releases latent heat, which is why cloud keeps air warmer than it would otherwise be as it cools.
+
+\begin{figure}[ht]
+\centering
+\begin{tikzpicture}
+\begin{groupplot}[group style={group size=2 by 1,horizontal sep=2.0cm},width=0.46\textwidth,height=6.4cm,
+  every axis label/.style={font=\small},tick label style={font=\small},grid=both,grid style={gray!22}]
+  \nextgroupplot[xlabel={Temperature ($^\circ$C)},ylabel={Relative humidity (\%)},xmin=10,xmax=34,ymin=40,ymax=105,xtick={10,15,20,25,30}]
+    \addplot[fblue,very thick,domain=26.03:34,samples=40]{100*21.78/(622*(6.112*exp(17.67*x/(x+243.5)))/(995.5-6.112*exp(17.67*x/(x+243.5))))};
+    \addplot[fblue,very thick,domain=10:26.03]{100};
+    \draw[dashed,gray] (axis cs:26.03,40) -- (axis cs:26.03,100);
+    \node[font=\footnotesize,anchor=north west] at (axis cs:11,100) {saturated};
+    \node[font=\footnotesize,anchor=west,text=gray!50!black] at (axis cs:26.4,60) {$T_d=26.0$};
+  \nextgroupplot[xlabel={Temperature ($^\circ$C)},ylabel={Liquid water formed (g/kg)},xmin=10,xmax=34,ymin=0,ymax=14,xtick={10,15,20,25,30}]
+    \addplot[fgreen!70!black,very thick,domain=10:26.03,samples=40]{21.78-622*(6.112*exp(17.67*x/(x+243.5)))/(995.5-6.112*exp(17.67*x/(x+243.5)))};
+    \addplot[fgreen!70!black,very thick,domain=26.03:34]{0};
+    \draw[dashed,gray] (axis cs:26.03,0) -- (axis cs:26.03,14);
+\end{groupplot}
+\end{tikzpicture}
+\caption{The Question~6 sample cooled from 34\,\degC. Above 26\,\degC\ nothing condenses and the relative humidity rises as the glass shrinks. Below 26\,\degC\ the air stays at 100\,\% and the surplus vapour condenses: 6.8\,\gkg\ by the time it reaches 20\,\degC.}
+\end{figure}
+
+\section{Why meteorologists prefer the dew point}
+
+\begin{itemize}
+\item \textbf{It measures the vapour itself.} Heating or cooling the air leaves the dew point unchanged (until condensation), unlike the relative humidity.
+\item \textbf{It is a temperature,} so it is easy to compare with the air temperature: the gap $T-T_d$ tells you at a glance how close the air is to making dew, fog or cloud.
+\item \textbf{It describes comfort.} Most people find a dew point below about 10\,\degC\ dry and comfortable and one above about 20\,\degC\ oppressive.
+\item \textbf{It appears on every station model} at the bottom left of the circle, as you will see in Chapter~\ref{p3-ch:station}.
+\end{itemize}
+
+\section{The dew point and the height of cloud base}\label{p3-sec:cloudbase}
+
+Air that rises expands and cools at about 9.8\,K per kilometre (the dry adiabatic lapse rate, derived in Part~I, Eq.~\xeqref{p1-eq:dalr}). Its dew point falls more slowly, by about 1.8\,K per kilometre, because the pressure falls as it rises. The temperature and the dew point therefore approach each other by 8\,K per kilometre, and when they meet the air is saturated and cloud forms. Starting with a gap of $T-T_d$ degrees, they meet after rising
+\begin{equation}
+z\approx\frac{T-T_d}{8}\ \mathrm{km}\approx125\,(T-T_d)\ \mathrm{m}.\label{p3-eq:cloudbase}
+\end{equation}
+\begin{where}
+z & height of cloud base above the ground & calculated\\
+T,\ T_d & surface temperature and dew point (\degC) & \\
+8 & rate at which $T$ and $T_d$ approach in rising air ($9.8-1.8$, \Kkm) & \\
+\end{where}
+
+\begin{workedbox}[Worked example: where will cloud form?]
+The air of Question~6 has $T-T_d=34-26=8$\,\degC. If it is lifted (by a hill or by convection), cloud forms after $125\times8=1000$\,m: the cloud base is about one kilometre above the surface. A day with $T=30$\,\degC\ and $T_d=18$\,\degC\ has a gap of 12\,\degC\ and a cloud base near 1500\,m.
+\end{workedbox}
+
+\begin{figure}[ht]
+\centering
+\begin{tikzpicture}
+\begin{axis}[width=0.62\textwidth,height=6.6cm,xlabel={Temperature (\degC)},ylabel={Height above the ground (km)},xmin=14,xmax=36,ymin=0,ymax=1.6,
+  grid=both,grid style={gray!22},every axis label/.style={font=\small},tick label style={font=\small},legend style={at={(0.03,0.04)},anchor=south west,font=\footnotesize}]
+  \addplot[fred,very thick,domain=0:1.5]({34-9.8*x},{x});
+  \addplot[fblue,very thick,domain=0:1.5]({26-1.8*x},{x});
+  \fill[forange!90!black] (axis cs:24.2,1.0) circle (3.2pt);
+  \node[font=\small\bfseries,anchor=west,text=forange!60!black] at (axis cs:25.0,1.0) {cloud base 1.0 km};
+  \legend{air temperature,dew point}
+\end{axis}
+\end{tikzpicture}
+\caption{Rising air, starting at 34\,\degC\ with a dew point of 26\,\degC. The temperature falls 9.8\,K per kilometre and the dew point 1.8\,K per kilometre. They meet at a height of 1.0\,km.}
+\end{figure}
+
+\section{Questions that come up}
+
+\begin{askbox}
+\textbf{Does the dew point change when the day warms up?}\\
+Not because of the warming. If no water is added or removed, the mixing ratio is fixed, and so is the dew point. In the afternoon the \emph{relative humidity} falls because the temperature rises. The dew point changes only when the air gains moisture (evaporation from soil and plants, an incoming sea breeze) or loses it (rain, a dry wind).
+\end{askbox}
+
+\begin{askbox}
+\textbf{Can the dew point be higher than the temperature?}\\
+Not in the open air for more than a moment: it would mean the air is oversaturated, and the surplus vapour would condense at once, lowering the dew point. At most the two are equal (RH $=100\,\%$), as in fog.
+\end{askbox}
+
+\begin{askbox}
+\textbf{What if the dew point is below freezing?}\\
+Then the vapour deposits directly as ice (frost) when the air is cooled to it. Strictly the temperature of deposition is the \emph{frost point}, which is a degree or two above the dew point. Table~\ref{p3-tab:table1} is for saturation over liquid water; the questions here never need the ice case.
+\end{askbox}
+
+\section{Try it yourself: Practice Set~\thechapter}
+
+\begin{tryit}[Practice Set~\thechapter: the dew point]
+\begin{enumerate}[label=\textbf{\thechapter.\arabic*},leftmargin=*,itemsep=3pt]
+\item Air at 30\,\degC\ has a mixing ratio of 12\,\gkg. Find its dew point (a) from Table~\ref{p3-tab:table1} by interpolation and (b) with the rule of thumb after finding its RH.
+\item Air at 20\,\degC\ has a relative humidity of 50\,\%. What is its dew point?
+\item On an afternoon the air is at 28\,\degC\ with a relative humidity of 40\,\%. Overnight the temperature falls to 12\,\degC\ with no change in the amount of vapour. Will dew form?
+\item Find the cloud base for air with $T=30$\,\degC\ and $T_d=18$\,\degC.
+\item Air at 25\,\degC\ has a dew point of 15\,\degC. What are its mixing ratio and relative humidity?
+\item Cool the Question~6 sample (34\,\degC, 21.78\,\gkg) to 20\,\degC: how much liquid water forms per kilogram of air?
+\end{enumerate}
+\end{tryit}
+
+\begin{answerbox}[Answers to Practice Set~\thechapter]
+\begin{enumerate}[label=\textbf{\thechapter.\arabic*},leftmargin=*,itemsep=3pt]
+\item (a) Table~\ref{p3-tab:table1}: 16\,\degC\ holds 11.56 and 18\,\degC\ holds 13.162, so $T_d=16+2\times(12-11.56)/(13.162-11.56)=16.55\approx16.6$\,\degC. (b) $w_s(30)=27.694$, RH $=12/27.694=43\,\%$; the rule gives $T-T_d=(100-43)/5=11.4$, so $T_d\approx18.6$\,\degC. The rule is only rough at low humidity; the table answer is better.
+\item $w=0.50\times14.956=7.478$\,\gkg. Table~\ref{p3-tab:table1}: 8\,\degC\ holds 6.771 and 10\,\degC\ holds 7.762, so $T_d=8+2\times(7.478-6.771)/(7.762-6.771)=9.4$\,\degC. (The rule of thumb gives 10\,\degC.)
+\item $w=0.40\times24.557=9.82$\,\gkg. At 12\,\degC\ the air can hold only 8.882\,\gkg, which is less: so yes, dew (or fog) forms. The dew point is 13.5\,\degC, so dew begins when the air cools through 13.5\,\degC.
+\item $125\times(30-18)=1500$\,m.
+\item $w=w_s(15\,\degC)$ (the air is just saturated at its dew point) $=10.83$\,\gkg. $w_s(25)=20.44$, so RH $=10.83/20.44=53\,\%$. (Rule: $100-5\times10=50\,\%$.)
+\item $21.78-14.956=6.8$\,\gkg\ of liquid water.
+\end{enumerate}
+\end{answerbox}
+
+\section{The dew point in Python}
+
+These functions compute the equations of this chapter, and the book's tests check them against its answers.
+
+\lstinputlisting{../../atmosphere_atlas/practical3_guide/generated/fn_vapour_pressure.py}
+\lstinputlisting{../../atmosphere_atlas/practical3_guide/generated/fn_dew_point.py}
+\lstinputlisting{../../atmosphere_atlas/practical3_guide/generated/fn_rh_rule_of_thumb.py}
+\lstinputlisting{../../atmosphere_atlas/practical3_guide/generated/fn_cloud_base.py}
+
+\verb|dew_point(10)| returns about 13.8, the answer to Moisture Q5.

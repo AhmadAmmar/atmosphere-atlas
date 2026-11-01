@@ -1,0 +1,32 @@
+\section{About the figures, the data and further reading}\label{p3-app:about}
+
+\subsection{How the figures were made}
+
+Every figure in this part was drawn for it and is vector graphics: the curves and glasses, the force diagrams and the weather maps are all drawn in the document itself with TikZ and pgfplots, so they stay sharp at any size.
+
+\begin{itemize}
+\item The \textbf{saturation curves} are computed from the formulas of Appendix~\ref{p3-app:formulas}; the dots are the values of Table~\ref{p3-tab:table1}.
+\item The \textbf{geostrophic adjustment} (Figures in Chapter~\ref{p3-ch:geo}) is the numerical solution of the equations of motion of a parcel released at rest between two height lines, with a gentle damping that relaxes the velocity towards the geostrophic wind.
+\item The \textbf{four circulation systems} (Chapter~\ref{p3-ch:fric}) are computed from the steady force balance of Appendix~\ref{p3-app:derivations}, with friction equal to 0.6 times the Coriolis force.
+\item The \textbf{map}: state outlines are boundaries from Natural Earth (public domain), drawn in the Lambert conformal conic projection, fitted so that the stations fall on the right states. The 34 stations are listed in Appendix~\ref{p3-app:stations}.
+\item The \textbf{isobars} are contours of a smooth thin-plate-spline surface through the 34 station pressures; the \textbf{cloud and rain areas} are contours of distance-weighted averages of the station cover and rain reports; the \textbf{streamlines} follow a smoothed wind field made from the 34 barbs. The \textbf{fronts} were placed by hand, from the temperature, dew-point and wind contrasts, as an analyst would.
+\end{itemize}
+
+\subsection{Limits to bear in mind}
+
+\begin{itemize}
+\item Station values were read from a plotted teaching map: wind speeds are estimated by counting barbs, and a few cloud-cover values could differ by one tenth.
+\item The geostrophic-wind estimates between Saskatoon and Monterrey use only two places and rounded heights. They show the right behaviour (increase of wind with height) but not exact winds.
+\item The fronts and the isobars are \emph{analyses}: reasonable analysts can draw them slightly differently. What matters is that every rule is respected (isobars never cross, fronts follow the contrasts of temperature, moisture and wind).
+\end{itemize}
+
+\subsection{Further reading}
+
+\begin{itemize}
+\item \citet{ahrens2022}: the standard introduction; the station model, humidity and the forces on the wind are all treated at this level.
+\item \citet{stull2017}: a free textbook that includes the hypsometric equation, the geostrophic wind and station models with worked examples.
+\item \citet{wallace2006}: thermodynamics of moist air, the balance of forces, and fronts and cyclones.
+\item \citet{holton2013}: the geostrophic wind, thermal wind and friction at a more advanced level.
+\item \citet{bolton1980}: the saturation vapour pressure formula used here.
+\item \citet{wmo2019}: the definition of the station model and its codes.
+\end{itemize}

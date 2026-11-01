@@ -1,0 +1,124 @@
+\chapter{Streamlines}\label{p3-ch:stream}
+
+\textit{This chapter answers Map Q13.}
+
+\section{What a streamline is}
+
+A wind barb tells you the wind at one station. A \textbf{streamline} joins the stations: it is a line that is everywhere \textbf{parallel to the wind}. If you could photograph a river with a long exposure, the streaks of floating leaves would be streamlines. On a map they show at a glance where the air is coming from, where it is going, and where it swirls, converges or spreads out.
+
+\begin{itemize}
+\item At every point of a streamline, the line is tangent to the wind there.
+\item Streamlines \textbf{never cross}, because the wind has only one direction at one place.
+\item They begin at an \textbf{upwind} station and carry an \textbf{arrow head} downwind, usually where the flow changes direction.
+\item They show direction only. Their spacing does not show speed unless you choose to draw them that way.
+\end{itemize}
+
+\section{The method}
+
+\begin{enumerate}[label=\textbf{Step \arabic*.},leftmargin=*,itemsep=4pt]
+\item \textbf{Pick a starting point} at an upwind station: one where the wind is blowing towards the area you want to follow.
+\item \textbf{Read the barb correctly.} The staff points to where the wind comes \emph{from}. The air moves the other way, \emph{away} from the staff. A barb with its staff pointing to the lower left is a south-west wind and the streamline there runs towards the upper right.
+\item \textbf{Draw a short line in that direction} and move downwind until you are near the next station.
+\item \textbf{Bend the line smoothly} so that it follows the direction of the barb at the next station, then the next.
+\item \textbf{Continue} until the stations run out or the flow leaves the map, then draw an \textbf{arrow head} at the downwind end.
+\item \textbf{Repeat from another starting point} until you have the five or six streamlines the question asks for. Keep them smooth and make sure no two cross.
+\end{enumerate}
+
+\begin{workedbox}[Worked example: a small flow]
+Twelve stations report winds from the south-west on the left of the map and from the west on the right (the staffs point lower-left on the left and to the left on the right). Starting at a left-hand station the air moves towards the north-east. As you move east the barbs rotate clockwise, so the streamline bends to the right and ends up heading east. Each line starts at a station and stays parallel to the barbs it passes.
+\begin{center}
+\begin{tikzpicture}[x=0.1cm,y=-0.1cm,line cap=round]
+  \input{generated/stream_demo.tex}
+\end{tikzpicture}
+\end{center}
+\end{workedbox}
+
+\begin{askbox}
+\textbf{How do I know whether to draw the arrow at the start or the end?}\\
+At the \emph{downwind} end: the end towards which the air is moving, that is, away from the stations' barbs. A good test: put your pencil on the station, look at the barb, and ask ``which way is this air going next?''
+\end{askbox}
+
+\section{The stations}
+
+Figure~\ref{p3-fig:fig8} shows 34 stations in the central United States, plotted with only the sky cover and the wind barb. Each station numbered so that you can refer to it. Look at the barbs before you draw anything: where does the wind blow from in each part of the map?
+
+\begin{figure}[ht]
+\centering
+\mapbase{0.0196cm}{\input{generated/map_stations_barbs.tex}}
+\caption{The stations (circle for the sky cover, staff and barbs for the wind; station numbers in grey). The state outlines are real boundaries drawn in a Lambert conformal conic projection.}\label{p3-fig:fig8}
+\end{figure}
+
+\begin{table}[ht]
+\centering
+\caption{The wind by region (the staff points to where the wind comes from).}
+\small
+\begin{tabularx}{\textwidth}{@{}p{4.6cm}p{3.6cm}X@{}}
+\toprule
+\textbf{Region} & \textbf{Stations} & \textbf{Wind from}\\
+\midrule
+Dakotas, Nebraska, Kansas, Oklahoma, north Texas & 1, 4, 12, 15, 21, 22, 25, 27, 30 & north-west (WNW--NW), about 10 knots\\
+Iowa, Missouri (west of the low) & 5, 9, 16 & north-west to west-north-west, 10--25 knots\\
+Southern Missouri, Arkansas, Texas (east), Mississippi, Alabama & 23, 28, 29, 31, 32, 33, 34 & south-south-west to west-south-west, about 10 knots\\
+Illinois, Kentucky, Tennessee, Indiana (south) & 13, 17, 18, 19, 20, 24, 26 & south-south-west to south, 10--25 knots\\
+Wisconsin, Michigan, Ohio, Indiana (north), northern Illinois & 2, 3, 6, 7, 8, 10, 11, 14 & north-east to south-east, 2--20 knots\\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+\section{Question 13: the streamlines}
+
+\begin{questionbox}
+Streamlines begin at an upwind location and are drawn as long lines with an arrow where the wind shifts abruptly. Complete the analysis by drawing 5 to 6 streamlines to illustrate the general wind flow.
+\end{questionbox}
+
+Two streamlines are drawn as examples. One runs south-east from near the Nebraska--Kansas border across Kansas into Oklahoma, in the north-westerly wind. The other starts in north Texas and curves north and then north-east through Arkansas and Missouri into Illinois, in the southerly wind.
+
+\begin{figure}[ht]
+\centering
+\mapbase{0.0196cm}{\input{generated/map_examples.tex}\input{generated/map_streams.tex}\input{generated/map_stations_barbs.tex}}
+\caption{The map completed. The two grey streamlines are the examples. The six green streamlines were drawn through the barbs of all 34 stations, starting upwind in the Dakotas, Kansas, Texas, Mississippi, Indiana and Michigan. They curve round a centre in Iowa and northern Illinois.}\label{p3-fig:streams}
+\end{figure}
+
+\begin{answerbox}[Answer to Map Q13]
+Five or six smooth lines, each starting upwind and ending with an arrow, such as those in Figure~\ref{p3-fig:streams}: north-westerly flow in the west curving south-east then east; southerly flow in the south curving north and then north-west; easterly flow in the north curving south-west. They all swirl \textbf{anticlockwise} and inwards towards one centre in Iowa and northern Illinois.
+\end{answerbox}
+
+\section{What the streamlines show}
+
+The pattern is the signature of a Northern Hemisphere low-pressure system (Chapter~\ref{p3-ch:fric}).
+\begin{itemize}
+\item The wind is \textbf{north-westerly} to the west of the centre, \textbf{southerly} to the south and east of it, and \textbf{easterly} to the north: an anticlockwise circulation.
+\item The streamlines curve \textbf{inwards}, because friction makes the air cross the isobars towards low pressure. They converge near the centre, so air must rise there: this is where the cloud and rain of Question~14 are.
+\item The streamlines from the south carry warm, humid air northwards; those from the north-west carry cold, dry air southwards. Where the two meet are the fronts.
+\item The centre of the swirl is where the pressure is lowest. The station reports confirm it: the lowest pressures on the map, 1002.4 and 1002.6\,hPa, are at stations 8 and 9, next to the centre of the swirl.
+\end{itemize}
+
+\section{Common mistakes}
+
+\begin{itemize}
+\item \textbf{Drawing the arrow the wrong way round,} along the staff rather than away from it. Always ask where the air is going.
+\item \textbf{Joining stations with straight segments} instead of a smooth curve that follows every barb.
+\item \textbf{Letting streamlines cross.} If two lines are about to cross you have misread a barb.
+\item \textbf{Starting downwind.} A streamline needs a clear upwind start.
+\item \textbf{Forgetting the arrow heads.} Put an arrow on every line.
+\end{itemize}
+
+\section{Try it yourself: Practice Set~\thechapter}
+
+\begin{tryit}[Practice Set~\thechapter: reading wind barbs]
+\begin{enumerate}[label=\textbf{\thechapter.\arabic*},leftmargin=*,itemsep=3pt]
+\item A station has its staff pointing to the right (east) with one full barb and a half barb. From which direction does the wind blow, how strong is it, and in which direction does a streamline through the station run?
+\item The staff points to the top of the page (north) with two full barbs. State the wind and the direction of the streamline.
+\item A station near the centre of a low shows a wind from the north-east, another to its east shows a wind from the south-east and another to its south a wind from the south-west. Is the circulation clockwise or anticlockwise?
+\item In Figure~\ref{p3-fig:streams} what is the wind at station 31 (south-west Texas)? What is the direction of the streamline there?
+\end{enumerate}
+\end{tryit}
+
+\begin{answerbox}[Answers to Practice Set~\thechapter]
+\begin{enumerate}[label=\textbf{\thechapter.\arabic*},leftmargin=*,itemsep=3pt]
+\item From the \textbf{east}, 15 knots; the streamline runs \textbf{towards the west}.
+\item From the \textbf{north}, 20 knots; the streamline runs \textbf{towards the south}.
+\item Going from the north-east side, to the east, to the south the winds are from NE, SE, SW. A wind from the NE blows to the SW, from the SE to the NW, from the SW to the NE: the air circles anticlockwise, as round a Northern Hemisphere low.
+\item Station 31 shows a wind from the west-south-west (255\deg) of about 10 knots. The streamline there runs towards the east-north-east (it is the start of the north-easterly curve in the figure).
+\end{enumerate}
+\end{answerbox}

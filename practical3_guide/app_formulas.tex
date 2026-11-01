@@ -1,0 +1,36 @@
+\section{Formulas}\label{p3-app:formulas}
+
+\begin{table}[ht]
+\centering
+\small
+\caption{The relationships used in this part.}
+\begin{tabularx}{\textwidth}{@{}p{3.5cm}Xp{3cm}@{}}
+\toprule
+\textbf{Quantity} & \textbf{Formula} & \textbf{Where, and what for}\\
+\midrule
+Saturation vapour pressure & $e_s(T)=6.112\exp\!\left[\dfrac{17.67\,T}{T+243.5}\right]$ hPa\ ($T$ in \degC) & the table, dew point\\
+Saturation mixing ratio & $w_s=\dfrac{622\,e_s}{p-e_s}$ \gkg, with $p=995.5$\,hPa & the table\\
+Mixing ratio from RH & $w=w_s\times\mathrm{RH}/100$ & Eq.~\eqref{p3-eq:wrh}; Moisture Q3, Q6\\
+Relative humidity & $\mathrm{RH}=100\,w/w_s=100\,e/e_s$ & Eq.~\eqref{p3-eq:rh}; Moisture Q1\\
+Vapour pressure from $w$ & $e=\dfrac{w\,p}{622+w}$ & Eq.~\eqref{p3-eq:we}; dew point (formula)\\
+Dew point & $T_d=\dfrac{243.5\,\ln(e/6.112)}{17.67-\ln(e/6.112)}$ & Moisture Q5, Q6\\
+Rule of thumb & $\mathrm{RH}\approx100-5\,(T-T_d)$ & Eq.~\eqref{p3-eq:thumb}; checks\\
+Cloud base & $z\approx125\,(T-T_d)$ m & Eq.~\eqref{p3-eq:cloudbase}; cloud height\\
+Condensed water & $w-w_s(T)$ & Eq.~\eqref{p3-eq:condensed}; below dew point\\
+\midrule
+Hypsometric equation & $\Delta z=\dfrac{R_d\,\overline{T}}{g}\ln\dfrac{p_1}{p_2}$ & Eq.~\eqref{p3-eq:hyps}; Motion Q1--Q6\\
+Pressure gradient force & $-\dfrac{1}{\rho}\dfrac{\Delta p}{\Delta n}=-g\dfrac{\Delta z}{\Delta n}$ (on a pressure surface) & Eq.~\eqref{p3-eq:pgf}; Chapters \ref{p3-ch:forces}--\ref{p3-ch:fric}\\
+Coriolis parameter & $f=2\Omega\sin\varphi$, $\Omega=7.292\times10^{-5}\,\mathrm{s^{-1}}$ & Motion Q7\\
+Coriolis force & $fV$ per unit mass & Motion Q8\\
+Geostrophic wind & $V_g=\dfrac{1}{\rho f}\dfrac{\Delta p}{\Delta n}=\dfrac{g}{f}\dfrac{\Delta z}{\Delta n}$ & Eq.~\eqref{p3-eq:geo}; Motion Q6, Q7\\
+Wind with friction & $\alpha=\arctan(k/f)$, $V=V_g\cos\alpha$ & Eq.~\eqref{p3-eq:friction}; Motion Q9--Q11\\
+\midrule
+Temperature & $T(\degC)=\tfrac59[T(\degF)-32]$ & Eq.~\eqref{p3-eq:ftoc}; Map Q12\\
+Pressure code & 3 digits: decimal before last; prefix 10 if $<500$, 9 if $\ge500$ & Map Q12\\
+Knots & 1\,kt $=0.514\ms=1.85$\,km\,h$^{-1}$ & Map Q12\\
+Interpolation & fraction $=\dfrac{v_{\mathrm{wanted}}-v_1}{v_2-v_1}$ & Map Q14\\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+\textbf{Constants.} $g=9.81$\,m\,s$^{-2}$; $R_d=287$\,J\,kg$^{-1}$\,K$^{-1}$; $\rho\approx1.2$\,kg\,m$^{-3}$ near the ground; $\Omega=7.292\times10^{-5}$\,s$^{-1}$; Earth's radius 6371\,km.

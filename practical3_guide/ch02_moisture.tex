@@ -1,0 +1,364 @@
+\chapter{Moisture in the air: mixing ratio and relative humidity}\label{p3-ch:moisture}
+\input{generated/table1_coords.tex}
+
+\textit{This chapter answers Moisture Q1 to Q4.}
+
+\section{Why water vapour matters}
+
+Water vapour is the invisible, gaseous form of water. It makes up between a fraction of a percent and about four percent of the air by volume, yet it is the ingredient of every cloud, every shower and every fog. It also sets how comfortable a day feels, because sweat evaporates slowly into air that is already moist. To talk about weather precisely we need a way to say \emph{how much} vapour the air contains. There are four common measures. This chapter covers the first three; the fourth, the dew point, has its own chapter.
+
+\section{Vapour pressure and saturation}\label{p3-sec:vp}
+
+Air is a mixture of gases, and each gas contributes a share of the total pressure, in proportion to how many of its molecules are present: the partial pressure met for oxygen in Part~I ( \S\,\xref{p1-sec:dalton}). The share due to water vapour is the \textbf{vapour pressure}, written $e$. In the lowest kilometres it is about 1 to 30\,hPa, out of a total pressure of roughly 1000\,hPa.
+
+Imagine a closed dish of water with air above it. Molecules leave the water surface (evaporation) and return to it (condensation). At first more leave than return, so the vapour pressure above the water rises. It stops rising when the two flows are equal. The air is then \textbf{saturated}, and the vapour pressure has reached its upper limit for that temperature: the \textbf{saturation vapour pressure}, $e_s$.
+
+The warmer the water, the more energetic its molecules and the more easily they escape, so $e_s$ rises with temperature, and it rises steeply. Table~\ref{p3-tab:table1} gives it as the ``mb'' column: 6.1\,mb at 0\,\degC, 23.4\,mb at 20\,\degC and 73.8\,mb at 40\,\degC. Plotted, it is the curve of Figure~\ref{p3-fig:es} (the Clausius--Clapeyron curve).
+
+\begin{figure}[ht]
+\centering
+\begin{tikzpicture}
+\begin{axis}[width=0.9\textwidth,height=6.6cm,xlabel={Temperature ($^\circ$C)},ylabel={Saturation vapour pressure $e_s$ (mb)},
+  xmin=-40,xmax=40,ymin=0,ymax=80,grid=both,grid style={gray!20},minor tick num=1,
+  every axis label/.style={font=\small},tick label style={font=\small},legend style={at={(0.03,0.97)},anchor=north west,font=\small}]
+  \addplot[name path=curve,fblue,very thick,domain=-40:40,samples=121]{6.112*exp(17.67*x/(x+243.5))};
+  \addplot[only marks,mark=*,mark size=1.6pt,fnavy] coordinates {\coordsEs};
+  \addplot[draw=none,name path=top] coordinates {(-40,80) (40,80)};
+  \addplot[draw=none,name path=bottom] coordinates {(-40,0) (40,0)};
+  \addplot[fsky!30] fill between[of=curve and top];
+  \addplot[forange!25] fill between[of=curve and bottom];
+  \node[font=\small\itshape,text=fnavy,align=center] at (axis cs:-16,52) {supersaturated:\\ cannot exist\\ as vapour};
+  \node[font=\small\itshape,text=fnavy,align=center] at (axis cs:22,8) {unsaturated};
+  \legend{curve,table values}
+\end{axis}
+\end{tikzpicture}
+\caption{Saturation vapour pressure against temperature. The dots are the values of Table~\ref{p3-tab:table1}. Air whose vapour pressure and temperature fall below the curve is unsaturated; points above it are not possible for long, because the surplus vapour condenses.}\label{p3-fig:es}
+\end{figure}
+
+\begin{askbox}
+\textbf{Why does warm air ``hold'' more water than cold air?}\\
+Air does not really hold water the way a sponge does. The saturation vapour pressure is a property of water itself, how readily it evaporates at a given temperature, and the other gases hardly affect it. ``Holding capacity'' is a convenient picture, and this part uses it, but it is the temperature that sets the limit.
+\end{askbox}
+
+\section{Mixing ratio}
+
+Vapour pressure is not the only way to measure moisture. The \textbf{mixing ratio}, $w$, compares the \emph{mass} of vapour with the mass of the \emph{dry air} that goes with it:
+\begin{equation}
+w=\frac{\text{mass of water vapour}}{\text{mass of dry air}}.\label{p3-eq:wdef}
+\end{equation}
+\begin{where}
+w & mixing ratio (\gkg: grams of vapour per kilogram of dry air) & calculated\\
+\end{where}
+Typical values run from 0.1\,\gkg\ in the polar winter to 20\,\gkg\ in the humid tropics. When the air is saturated the ratio is the \textbf{saturation mixing ratio}, $w_s$, the second column of numbers in Table~\ref{p3-tab:table1} (the ``g/kg'' column).
+
+The two measures are linked. For a total pressure $p$ and a vapour pressure $e$,
+\begin{equation}
+w \approx 622\,\frac{e}{p-e}.\label{p3-eq:we}
+\end{equation}
+\begin{where}
+w & mixing ratio (\gkg) & calculated\\
+e & vapour pressure (hPa) & \\
+p & total air pressure (hPa) & 995.5 for Table~\ref{p3-tab:table1}\\
+622 & ratio of the molar masses of water and dry air, $18/29$, times 1000 (to give \gkg) & \\
+\end{where}
+The factor 0.622 is the ratio of the molar masses of water (18) and dry air (29): a molecule of vapour is lighter than the average molecule of dry air.
+
+\begin{figure}[ht]
+\centering
+\begin{tikzpicture}
+\begin{axis}[width=0.9\textwidth,height=6.6cm,xlabel={Temperature ($^\circ$C)},ylabel={Saturation mixing ratio $w_s$ (g/kg)},
+  xmin=-40,xmax=40,ymin=0,ymax=55,grid=both,grid style={gray!20},minor tick num=1,
+  every axis label/.style={font=\small},tick label style={font=\small},legend style={at={(0.03,0.97)},anchor=north west,font=\small}]
+  \addplot[fblue,very thick,domain=-40:40,samples=121]{622*(6.112*exp(17.67*x/(x+243.5)))/(995.5-6.112*exp(17.67*x/(x+243.5)))};
+  \addplot[only marks,mark=*,mark size=1.6pt,fnavy] coordinates {\coordsW};
+  \addplot[only marks,mark=*,mark size=1.6pt,fnavy,forget plot] coordinates {\coordsWfix};
+  \legend{curve at 995.5\,hPa,table values}
+\end{axis}
+\end{tikzpicture}
+\caption{Saturation mixing ratio against temperature. The curve is computed from the saturation vapour pressure at a pressure of 995.5\,hPa, the pressure of Table~\ref{p3-tab:table1}.}\label{p3-fig:ws}
+\end{figure}
+
+\begin{askbox}
+\textbf{Why use the mass of \emph{dry} air, and why grams per kilogram?}\\
+The mass of dry air in a rising or sinking parcel stays fixed, while the total mass of moist air does not, as soon as vapour condenses or evaporates. Dividing by the dry mass gives a number that stays constant for a parcel until water is added or removed. Grams per kilogram simply keeps the numbers handy: a few units to a few tens.
+\end{askbox}
+
+\begin{askbox}
+\textbf{Table~\ref{p3-tab:table1} is for sea level. Which pressure is that?}\\
+Working backwards from the table, $p = e_s + 622\,e_s/w_s$ comes out at about 995.5\,hPa for every row from $-20$ to 40\,\degC. That is a typical low-ish sea-level pressure, not the standard 1013.25\,hPa. At 1013.25\,hPa the mixing ratios would be about 1.8\,\% smaller. The difference never matters for these questions; the calculations here use 995.5\,hPa so that every answer agrees with the table.
+\end{askbox}
+
+\section{Relative humidity}
+
+\textbf{Relative humidity} (RH) says how close the air is to saturation. It is defined in two equivalent ways:
+\begin{equation}
+\mathrm{RH}=\frac{e}{e_s}\times100\,\%=\frac{w}{w_s}\times100\,\%.\label{p3-eq:rh}
+\end{equation}
+\begin{where}
+\mathrm{RH} & relative humidity (\%) & calculated\\
+e,\ e_s & vapour pressure and saturation vapour pressure (hPa) & Table~\ref{p3-tab:table1}\\
+w,\ w_s & mixing ratio and saturation mixing ratio (\gkg) & Table~\ref{p3-tab:table1}\\
+\end{where}
+An RH of 50\,\% means the air holds half of what it could hold at its present temperature; 100\,\% means saturated. Because $e_s$ and $w_s$ both depend strongly on temperature, \emph{the same air has a different relative humidity at a different temperature}. That fact is behind most of the puzzles in this chapter.
+
+\begin{keybox}[Relative humidity in one line]
+Relative humidity = (how much vapour is there) $\div$ (how much there could be at this temperature) $\times100$.
+\end{keybox}
+
+\section{A picture to hold on to: the glass}\label{p3-sec:glass}
+
+Picture the air as a glass. The \textbf{size of the glass} is the saturation mixing ratio at the air's temperature. The \textbf{water in the glass} is the actual mixing ratio. Relative humidity is how full the glass is. Warm air has a big glass, cold air a small one.
+
+\newcommand{\gscale}{0.105}
+\newcommand{\glass}[4]{% x, capacity, amount (both g/kg), colour
+  \draw[thick,rounded corners=1.5pt,fill=gray!5] ({#1-0.6},0) rectangle ({#1+0.6},{#2*\gscale});
+  \fill[#4!55] ({#1-0.57},0.03) rectangle ({#1+0.57},{#3*\gscale});
+  \draw[#4,very thick] ({#1-0.57},{#3*\gscale}) -- ({#1+0.57},{#3*\gscale});}
+\begin{figure}[ht]
+\centering
+\begin{tikzpicture}
+  \draw[gray] (-0.5,0) -- (11,0);
+  \glass{1.2}{10.14}{5}{fblue}
+  \glass{4.2}{19.21}{5}{fblue}
+  \glass{7.2}{35.134}{5}{fblue}
+  \foreach \x/\t/\c/\r in {1.2/14/10.14/49.3,4.2/24/19.21/26.0,7.2/34/35.134/14.2}{
+    \node[font=\sffamily\small\bfseries] at (\x,-0.45) {\t\,$^\circ$C};
+    \node[font=\small,text=gray!50!black] at (\x,{\c*\gscale+0.28}) {holds up to \c\ g/kg};}
+  \node[font=\small,align=left,anchor=west] at (8.4,2.6) {Each glass holds\\ \textbf{5\,g/kg} of vapour.\\[4pt]
+     RH $=5\div10.14=49.3\,\%$\\ RH $=5\div19.21=26.0\,\%$\\ RH $=5\div35.13=14.2\,\%$};
+  \foreach \x/\c in {1.2/10.14,4.2/19.21,7.2/35.134}{\draw[<->,gray] (\x+0.75,0) -- (\x+0.75,{\c*\gscale});}
+\end{tikzpicture}
+\caption{The glass picture. The same 5\,g of vapour per kilogram of air fills the glass of 14\,\degC\ air to 49\,\%, the glass of 24\,\degC\ air to 26\,\%, and the big glass of 34\,\degC\ air to only 14\,\%. The amount of water is identical; only the size of the glass changes.}\label{p3-fig:glass}
+\end{figure}
+
+\section{Reading the table}
+
+Three skills with Table~\ref{p3-tab:table1} carry you through all the moisture questions.
+
+\input{generated/table1_book.tex}
+
+\textbf{Using the table.} (1) To look up, read across from the temperature. (2) To interpolate, take the proportion of the way between two rows. (3) To look up backwards (for a dew point), find the two rows whose $w_s$ bracket the value and interpolate for the temperature. Linear interpolation over a 2-degree step is accurate to about 0.1\,\%.
+
+\begin{enumerate}[label=\textbf{Skill \arabic*.},leftmargin=*,itemsep=4pt]
+\item \textbf{Look up} a value at a temperature that is listed, for example $w_s(24\,\degC)=19.21\,\gkg$.
+\item \textbf{Interpolate} between two rows for a temperature that is not listed.
+\item \textbf{Look up backwards}: given a mixing ratio, find the temperature at which it is the saturation value. This is how you find a dew point (Chapter~\ref{p3-ch:dew}).
+\end{enumerate}
+
+\begin{workedbox}[Worked example: interpolating in the table]
+\textbf{Find $w_s$ at 25\,\degC.} The table lists 24\,\degC\ (19.21) and 26\,\degC\ (21.734). 25\,\degC\ is half way between, so take the half-way value:
+\[
+w_s(25)\approx\frac{19.21+21.734}{2}=20.47\ \gkg.
+\]
+The exact value from the formula is 20.44\,\gkg. Because the curve is convex (it bends upwards), straight-line interpolation overestimates slightly, by about 0.1\,\% over a 2-degree step. That is far smaller than the precision of the question.
+\end{workedbox}
+
+\section{Question 1: relative humidity of five samples}\label{p3-sec:q1}
+
+\begin{questionbox}
+Using Table~\ref{p3-tab:table1}, determine the saturation mixing ratio and calculate the relative humidity of five air samples at the temperatures and mixing ratios shown.
+\end{questionbox}
+
+\textbf{Method.}
+\begin{enumerate}[label=\textbf{Step \arabic*.},leftmargin=*,itemsep=3pt]
+\item For each sample read the saturation mixing ratio $w_s$ from Table~\ref{p3-tab:table1} at the sample's temperature.
+\item Divide the sample's mixing ratio $w$ by $w_s$ and multiply by 100.
+\item Check: more vapour at the same temperature must give a higher RH; the same vapour in warmer air must give a lower RH.
+\end{enumerate}
+
+\begin{answerbox}[Answer to Moisture Q1]
+\centering
+\begin{tabular}{cccc}
+\toprule
+\textbf{Temp.} & \textbf{Sat. mixing ratio (\gkg)} & \textbf{Mixing ratio (\gkg)} & \textbf{RH (\%)}\\
+\midrule
+14\,\degC & 10.14 & 5 & $5/10.14=\mathbf{49.3}$\\
+14\,\degC & 10.14 & 9 & $9/10.14=\mathbf{88.8}$\\
+24\,\degC & 19.21 & 5 & $5/19.21=\mathbf{26.0}$\\
+24\,\degC & 19.21 & 2 & $2/19.21=\mathbf{10.4}$\\
+34\,\degC & 35.134 & 7 & $7/35.134=\mathbf{19.9}$\\
+\bottomrule
+\end{tabular}
+\end{answerbox}
+
+\begin{figure}[ht]
+\centering
+\begin{tikzpicture}
+  \draw[gray] (-0.4,0) -- (12.4,0);
+  \foreach \x/\T/\cap/\w in {0.9/14/10.14/5, 3.0/14/10.14/9, 5.1/24/19.21/5, 7.2/24/19.21/2, 9.3/34/35.134/7}{
+    \glass{\x}{\cap}{\w}{fblue}
+    \node[font=\sffamily\small\bfseries] at (\x,-0.45) {\T\,$^\circ$C};
+    \node[font=\small,text=gray!50!black] at (\x,{\cap*\gscale+0.3}) {\cap};
+    \node[anchor=east,font=\scriptsize,text=fnavy] at ({\x-0.65},{\w*\gscale}) {\w};}
+  \node[font=\small\bfseries,text=fnavy] at (0.9,-1.0) {49.3\,\%};
+  \node[font=\small\bfseries,text=fnavy] at (3.0,-1.0) {88.8\,\%};
+  \node[font=\small\bfseries,text=fnavy] at (5.1,-1.0) {26.0\,\%};
+  \node[font=\small\bfseries,text=fnavy] at (7.2,-1.0) {10.4\,\%};
+  \node[font=\small\bfseries,text=fnavy] at (9.3,-1.0) {19.9\,\%};
+  \node[font=\footnotesize,text=gray] at (11.4,-1.0) {relative humidity};
+\end{tikzpicture}
+\caption{The five samples of Question~1 drawn as glasses on the same scale. The number at the top of each glass is its capacity (the saturation mixing ratio); the number just above the water is the sample's mixing ratio; the percentage below is the relative humidity.}
+\end{figure}
+
+\textbf{Check.} The two 14\,\degC\ samples have 5 and 9\,\gkg; the one with more vapour (49.3\,\% against 88.8\,\%) has the higher RH. The two 24\,\degC\ samples likewise. The 34\,\degC\ sample, with 7\,\gkg\ in a huge glass, has the lowest RH of the five bar the 2\,\gkg\ sample, as it should.
+
+\section{Question 2: cold air heated in a house}\label{p3-sec:q2}
+
+\begin{questionbox}
+In winter, cold air is brought into homes and heated. How does this change the humidity in the house?
+\end{questionbox}
+
+\textbf{Method.} Follow one parcel of air. Heating changes its temperature, so it changes the size of the glass, but it adds no water, so the amount of vapour stays fixed.
+
+\begin{workedbox}[Worked example: a cold day in Belfast]
+Outside, the air is at 0\,\degC\ with a relative humidity of 80\,\%. From Table~\ref{p3-tab:table1} $w_s(0\,\degC)=3.84\,\gkg$, so the air holds
+\[
+w=0.80\times3.84=3.07\ \gkg.
+\]
+Bring it indoors and heat it to 21\,\degC. The saturation mixing ratio at 21\,\degC\ is about 15.9\,\gkg\ (half way between the 16.0 of 20\,\degC\ and 17.0 of 22\,\degC; the exact value is 15.93). Nothing has been added, so $w$ is still 3.07\,\gkg\ and
+\[
+\mathrm{RH}=\frac{3.07}{15.9}\times100=19\,\%.
+\]
+To reach a comfortable 40\,\% the air would need $0.40\times15.9=6.4\,\gkg$, which means adding $6.4-3.07=3.3\,\gkg$ of water.
+\end{workedbox}
+
+\begin{figure}[ht]
+\centering
+\begin{tikzpicture}
+  \draw[gray] (-0.5,0) -- (11.2,0);
+  \glass{1.2}{3.84}{3.07}{fblue}
+  \glass{5.0}{15.93}{3.07}{fblue}
+  \glass{8.8}{15.93}{6.4}{fgreen}
+  \node[font=\sffamily\small\bfseries,align=center] at (1.2,-0.7) {outdoors\\ 0\,\degC, RH 80\,\%};
+  \node[font=\sffamily\small\bfseries,align=center] at (5.0,-0.7) {same air, heated\\ 21\,\degC, RH 19\,\%};
+  \node[font=\sffamily\small\bfseries,align=center] at (8.8,-0.7) {water added\\ 21\,\degC, RH 40\,\%};
+  \draw[-{Stealth},very thick,forange!90!black] (2.1,1.4) -- (3.8,1.4) node[midway,above,font=\small\bfseries]{heat};
+  \draw[-{Stealth},very thick,fgreen] (6.2,1.4) -- (7.6,1.4) node[midway,above,font=\small\bfseries]{add water};
+  \node[font=\small,text=gray!50!black] at (1.2,{3.84*\gscale+0.3}) {3.84};
+  \node[font=\small,text=gray!50!black] at (5.0,{15.93*\gscale+0.3}) {15.9};
+  \node[font=\small,text=gray!50!black] at (8.8,{15.93*\gscale+0.3}) {15.9};
+\end{tikzpicture}
+\caption{Question~2. Heating leaves the amount of vapour untouched but makes the glass four times bigger, so the relative humidity falls from 80\,\% to 19\,\%.}
+\end{figure}
+
+\begin{figure}[ht]
+\centering
+\begin{tikzpicture}
+\begin{axis}[width=0.88\textwidth,height=6.2cm,xlabel={Outdoor temperature ($^\circ$C)},ylabel={Indoor RH after heating to 21\,$^\circ$C (\%)},
+  xmin=-20,xmax=15,ymin=0,ymax=100,grid=both,grid style={gray!20},every axis label/.style={font=\small},tick label style={font=\small},
+  legend style={at={(0.03,0.97)},anchor=north west,font=\small}]
+  \addplot[fblue,very thick,domain=-20:15,samples=71]{min(100,100*(622*(6.112*exp(17.67*x/(x+243.5)))/(995.5-6.112*exp(17.67*x/(x+243.5))))/15.93)};
+  \addplot[forange!90!black,very thick,domain=-20:15,samples=71]{min(100,70*(622*(6.112*exp(17.67*x/(x+243.5)))/(995.5-6.112*exp(17.67*x/(x+243.5))))/15.93)};
+  \fill[fgreen,opacity=0.15] (axis cs:-20,40) rectangle (axis cs:15,60);
+  \node[font=\footnotesize,text=fgreen!60!black] at (axis cs:-8,50) {comfortable: 40--60\,\%};
+  \legend{outdoor air saturated (100\,\%),outdoor air at 70\,\%}
+\end{axis}
+\end{tikzpicture}
+\caption{How dry the indoor air becomes. Outdoor air at $-10$\,\degC\ and 70\,\% humidity gives only about 6\,\% when heated to 21\,\degC\ with no water added; on a mild 10\,\degC\ day the same calculation gives 28\,\%.}
+\end{figure}
+
+\begin{answerbox}[Answer to Moisture Q2]
+The humidity in the house will \textbf{drop significantly}. Cold air holds little vapour, so the outside air has a low mixing ratio. Heating it without adding water leaves the mixing ratio unchanged but increases the saturation mixing ratio a great deal, so the relative humidity becomes very low.
+\end{answerbox}
+
+\section{Question 3: who holds the most water?}\label{p3-sec:q3}
+
+\begin{questionbox}
+Five samples are described by temperature and relative humidity. Complete the mixing ratios and rank them from 1 (most vapour) to 5 (least).
+\end{questionbox}
+
+\textbf{Method.} Turn each relative humidity back into an amount of vapour:
+\begin{equation}
+w=w_s\times\frac{\mathrm{RH}}{100}.\label{p3-eq:wrh}
+\end{equation}
+\begin{where}
+w & actual mixing ratio (\gkg) & calculated\\
+w_s & saturation mixing ratio at the air temperature (\gkg) & Table~\ref{p3-tab:table1}\\
+\mathrm{RH} & relative humidity (\%) & given\\
+\end{where}
+\begin{enumerate}[label=\textbf{Step \arabic*.},leftmargin=*,itemsep=3pt]
+\item Read $w_s$ from Table~\ref{p3-tab:table1} for each temperature.
+\item Multiply by the relative humidity written as a fraction (90\,\% is 0.90).
+\item Rank the results from the largest to the smallest.
+\end{enumerate}
+
+\begin{answerbox}[Answer to Moisture Q3]
+\centering
+\begin{tabular}{ccccc}
+\toprule
+\textbf{Temp.} & \textbf{$w_s$ (\gkg)} & \textbf{RH} & \textbf{$w=w_s\times$RH (\gkg)} & \textbf{Rank}\\
+\midrule
+14\,\degC & 10.14 & 90\,\% & $10.14\times0.90=9.126$ & 3\\
+20\,\degC & 14.956 & 60\,\% & $14.956\times0.60=8.974$ & 4\\
+24\,\degC & 19.21 & 40\,\% & $19.21\times0.40=7.684$ & 5\\
+30\,\degC & 27.694 & 40\,\% & $27.694\times0.40=11.078$ & 1\\
+34\,\degC & 35.134 & 30\,\% & $35.134\times0.30=10.54$ & 2\\
+\bottomrule
+\end{tabular}
+\end{answerbox}
+
+\begin{figure}[ht]
+\centering
+\begin{tikzpicture}
+\begin{axis}[xbar,width=0.82\textwidth,height=5.6cm,xlabel={Water vapour actually in the air (g/kg)},xmin=0,xmax=13,ymin=-0.6,ymax=4.6,
+  ytick={0,1,2,3,4},yticklabels={24\,\degC\,/\,40\,\%,20\,\degC\,/\,60\,\%,14\,\degC\,/\,90\,\%,34\,\degC\,/\,30\,\%,30\,\degC\,/\,40\,\%},
+  bar width=11pt,every axis label/.style={font=\small},tick label style={font=\small},nodes near coords,nodes near coords align={horizontal},
+  every node near coord/.append style={font=\small}]
+  \addplot[fill=fgreen!70,draw=fgreen!60!black] coordinates {(7.684,0) (8.974,1) (9.126,2) (10.54,3) (11.078,4)};
+\end{axis}
+\end{tikzpicture}
+\caption{Question~3 ranked (rank 1 at the top). The 14\,\degC\ sample is the ``dampest'' at 90\,\% but is only third in actual water; the 30\,\degC\ sample, which feels ``dry'' at 40\,\%, holds the most.}
+\end{figure}
+
+\textbf{Check.} Make sure the ranking depends on the amount of vapour, not on the humidity. If you had ranked by RH you would have put 14\,\degC\ first. The glass picture shows why that is wrong: a small glass 90\,\% full holds less than a big glass 40\,\% full.
+
+\section{Question 4: the disadvantage of relative humidity}\label{p3-sec:q4}
+
+\begin{answerbox}[Answer to Moisture Q4]
+Relative humidity does not tell you how much water vapour is actually in the air.
+\end{answerbox}
+
+That is the short answer. The fuller explanation is worth knowing, because it recurs in weather forecasting.
+
+\begin{enumerate}[label=\textbf{\arabic*.}]
+\item \textbf{It depends on temperature as well as on the vapour.} The same air has an RH of 49\,\% at 14\,\degC\ and 26\,\% at 24\,\degC\ (Question~1). Nothing was added or removed.
+\item \textbf{It changes through the day for no reason connected with moisture.} On a calm day the vapour content hardly changes, but the temperature rises by several degrees after dawn, so the RH falls.
+\item \textbf{It cannot be used to compare two places.} The most humid-feeling sample in Question~3 (90\,\%) held less vapour than three drier-feeling ones.
+\end{enumerate}
+
+\textbf{Better measures.} The mixing ratio and the dew point measure the vapour itself. Neither changes when air is heated or cooled, as long as nothing condenses. For that reason forecasters watch the dew point more closely than the relative humidity, and so do the station models you meet in Chapter~\ref{p3-ch:station}.
+
+\section{Try it yourself: Practice Set~\thechapter}
+
+\begin{tryit}[Practice Set~\thechapter: relative humidity and vapour amounts]
+\begin{enumerate}[label=\textbf{\thechapter.\arabic*},leftmargin=*,itemsep=3pt]
+\item Air at 28\,\degC\ has a mixing ratio of 15\,\gkg. What is its relative humidity?
+\item Air at 10\,\degC\ has a relative humidity of 70\,\%. How much water vapour does a kilogram of it contain?
+\item Sample P: 32\,\degC, RH 25\,\%. Sample Q: 20\,\degC, RH 85\,\%. Which holds more water vapour, and how much more?
+\item Air at 0\,\degC\ and RH 90\,\% is heated to 20\,\degC\ with no water added. What is its relative humidity now?
+\item Air at 24\,\degC\ and RH 50\,\% is cooled to 14\,\degC\ with no water added (and no condensation). What is its RH now?
+\item Use interpolation to find $w_s$ at 31\,\degC, and hence the mixing ratio of air at 31\,\degC\ with RH 55\,\%.
+\end{enumerate}
+\end{tryit}
+
+\begin{answerbox}[Answers to Practice Set~\thechapter]
+\begin{enumerate}[label=\textbf{\thechapter.\arabic*},leftmargin=*,itemsep=3pt]
+\item $w_s(28)=24.557$, so RH $=15/24.557=61\,\%$.
+\item $w_s(10)=7.762$, so $w=0.70\times7.762=5.43\,\gkg$.
+\item P: $31.213\times0.25=7.80\,\gkg$. Q: $14.956\times0.85=12.71\,\gkg$. Q holds more, by $4.91\,\gkg$, although its temperature is 12\,\degC\ lower.
+\item $w=0.90\times3.84=3.456\,\gkg$; $w_s(20)=14.956$; RH $=3.456/14.956=23\,\%$.
+\item $w=0.50\times19.21=9.605\,\gkg$; $w_s(14)=10.14$; RH $=9.605/10.14=94.7\,\%$. The air is almost saturated: another degree or so of cooling brings the dew point.
+\item $w_s(31)\approx(27.694+31.213)/2=29.45\,\gkg$; $w=0.55\times29.45=16.2\,\gkg$.
+\end{enumerate}
+\end{answerbox}
+
+\section{Humidity in Python}
+
+These functions compute the equations of this chapter, and the book's tests check them against its answers.
+
+\lstinputlisting{../../atmosphere_atlas/practical3_guide/generated/fn_saturation_vapour_pressure.py}
+\lstinputlisting{../../atmosphere_atlas/practical3_guide/generated/fn_saturation_mixing_ratio.py}
+\lstinputlisting{../../atmosphere_atlas/practical3_guide/generated/fn_relative_humidity.py}
+\lstinputlisting{../../atmosphere_atlas/practical3_guide/generated/fn_mixing_ratio_from_rh.py}
+
+\verb|saturation_mixing_ratio(10)| returns about 7.76, the table's value at 10\,\degC.

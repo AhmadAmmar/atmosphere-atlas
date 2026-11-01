@@ -1,9 +1,9 @@
-"""Practical 3 map data: the stations read from plotted teaching maps, and real state outlines.
+"""Practical 3 map data: the stations read from the handout's Figures 8, 9 and 10, and real state outlines.
 
 The stations were read from the printed figures (position, temperature, dew point, pressure code, cloud cover, wind barb, weather
 symbol), so values are as printed, in degrees Fahrenheit, with pressure as the three-digit code of the station model.  The state outlines
 are Natural Earth (public domain) boundaries, projected with the Lambert conformal conic projection fitted to the printed map so that
-the page draws the same picture.  Pixel coordinates are those of the source map at 130 dpi.
+the page draws the same picture as the handout.  Pixel coordinates are those of the handout page at 130 dpi.
 """
 import json
 

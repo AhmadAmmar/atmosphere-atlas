@@ -33,6 +33,7 @@ REGION_LON = (110.0, 290.0)     # degrees east, crossing the dateline
 
 
 def months_of(path: Path, name: str = "time") -> list[tuple[int, int]]:
+    """(year, month) of each time step of a netCDF file."""
     import netCDF4
     with netCDF4.Dataset(str(path)) as ds:
         var = ds.variables[name]
@@ -53,6 +54,7 @@ def episode_years(cache: Path) -> tuple[list[int], list[int]]:
 
 
 def climatology(field: np.ndarray, times: list[tuple[int, int]], y0: int = 1991, y1: int = 2020) -> np.ndarray:
+    """Monthly climatology of a field over y0-y1 (1991-2020 by default)."""
     out = np.full((12,) + field.shape[1:], np.nan, dtype=np.float32)
     for m in range(1, 13):
         sel = [i for i, (y, mm) in enumerate(times) if mm == m and y0 <= y <= y1]
@@ -61,6 +63,7 @@ def climatology(field: np.ndarray, times: list[tuple[int, int]], y0: int = 1991,
 
 
 def djf_composite(field: np.ndarray, times: list[tuple[int, int]], clim: np.ndarray, years: list[int]) -> tuple[np.ndarray, int]:
+    """Mean December-February anomaly of a field over the given years (years missing a month skipped), and the count."""
     index = {t: i for i, t in enumerate(times)}
     stack = []
     for y in years:
@@ -75,10 +78,12 @@ def djf_composite(field: np.ndarray, times: list[tuple[int, int]], clim: np.ndar
 
 
 def _grid_meta(grid: ncio.Grid, **extra) -> dict:
+    """Grid metadata with extra fields."""
     return {**grid.meta(), **extra}
 
 
 def build_enso(cache: Path, pack: PackWriter) -> dict:
+    """El Nino and La Nina composites of temperature, rain and pressure for the atlas pack."""
     warnings.simplefilter("ignore", category=RuntimeWarning)       # all-NaN ocean/ice slices are expected
     log("ENSO composites (ERSST, GPCP, NCEP/NCAR)")
     nino_years, nina_years = episode_years(cache)
@@ -215,6 +220,7 @@ def build_enso(cache: Path, pack: PackWriter) -> dict:
 
 
 def equatorial_walker(nino_years: list[int], nina_years: list[int]):
+    """Equatorial vertical circulation (Walker cell) composites for El Nino and La Nina years."""
     import netCDF4
     out = {}
     for var in ("uwnd", "omega"):

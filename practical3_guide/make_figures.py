@@ -31,11 +31,13 @@ DEG = math.pi / 180
 
 
 def f2(v):
+    """A number with one decimal, for TikZ coordinates."""
     return f"{v:.1f}"
 
 
 # ---------------------------------------------------------------------------------------------------- station data
 def code_to_hpa(c):
+    """Pressure (hPa) from a station-plot code (three digits, 900 or 1000 added)."""
     return 900 + c / 10 if c >= 500 else 1000 + c / 10
 
 
@@ -53,6 +55,7 @@ PTS = np.array([[s["x"], s["y"]] for s in STATIONS], float)
 
 # ---------------------------------------------------------------------------------------------------- symbols as TikZ code
 def barb_code(x, y, frm, kt, length, s, color="black", calm_r=None):
+    """TikZ code of a wind barb (direction from, speed in knots); a circle when calm."""
     out = []
     lw = f"line width={0.55 * s:.2f}pt"
     if kt < 1:
@@ -95,6 +98,7 @@ def sky_code(x, y, r, pct, s=1.0, color="black"):
     out = [f"\\draw[{color},{lw},fill=white] ({f2(x)},{f2(y)}) circle ({f2(r)});"]
 
     def wedge(frac):
+        """TikZ code of the filled part of the sky-cover circle."""
         if frac >= 0.999:
             return f"\\fill[{color}] ({f2(x)},{f2(y)}) circle ({f2(r)});"
         n = max(2, int(48 * frac))
@@ -105,6 +109,7 @@ def sky_code(x, y, r, pct, s=1.0, color="black"):
         return f"\\fill[{color}] " + " -- ".join(f"({f2(a)},{f2(b)})" for a, b in pts) + " -- cycle;"
 
     def cross():
+        """TikZ code of the cross for an obscured sky."""
         return [f"\\draw[{color},{lw}] ({f2(x - r)},{f2(y)}) -- ({f2(x + r)},{f2(y)});", f"\\draw[{color},{lw}] ({f2(x)},{f2(y - r)}) -- ({f2(x)},{f2(y + r)});"]
 
     if pct == "x":
@@ -131,6 +136,7 @@ def sky_code(x, y, r, pct, s=1.0, color="black"):
 
 
 def wx_code(x, y, kind, s=1.0, color="black"):
+    """TikZ code of a present-weather symbol."""
     out = []
     lw = f"line width={0.55 * s:.2f}pt"
     if kind == "rain-int":
@@ -177,16 +183,19 @@ TENDENCY = [
 
 
 def tend_code(x, y, code, s=1.0, color="black"):
+    """TikZ code of a pressure-tendency symbol."""
     pts = " -- ".join(f"({f2(x + a * s)},{f2(y + b * s)})" for a, b in TENDENCY[code])
     return [f"\\draw[{color},line width={0.55 * s:.2f}pt] {pts};"]
 
 
 def node(x, y, text, anchor, fs, color="black", fill=True, extra=""):
+    """TikZ code of a text node."""
     fillopt = ",fill=white,fill opacity=0.0,text opacity=1" if not fill else ""
     return f"\\node[anchor={anchor},inner sep=0pt,font=\\fontsize{{{fs}}}{{{fs}}}\\selectfont,text={color}{extra}] at ({f2(x)},{f2(y)}) {{{text}}};"
 
 
 def station_code(x, y, st, s=1.0, fs=5.6, barbs=True, text=True, color="black", sky_override=None, upt=0.556):
+    """TikZ code of a full station plot: sky, barb, temperature, dew point, pressure, weather and tendency."""
     out = []
     if barbs and st.get("kt") is not None:
         out += barb_code(x, y, st.get("dir", 0), st["kt"], 40 * s, s, color, calm_r=12.5 * s)
@@ -209,6 +218,7 @@ def station_code(x, y, st, s=1.0, fs=5.6, barbs=True, text=True, color="black", 
 
 # ---------------------------------------------------------------------------------------------------- the map outline
 def write_states():
+    """Write the state outlines for the maps."""
     lines = []
     for ring in P3_DATA["states"]:
         pts = " -- ".join(f"({a},{b})" for a, b in ring["pts"])
@@ -218,11 +228,13 @@ def write_states():
 
 # ---------------------------------------------------------------------------------------------------- numerical fields
 def spline(pts, vals):
+    """Thin-plate spline interpolator of values at points."""
     n = len(pts)
     sc = 0.01
     X = pts * sc
 
     def phi(r2):
+        """Thin-plate radial basis 0.5 r2 log r2 (0 at r = 0)."""
         r2 = np.asarray(r2)
         out = np.zeros_like(r2)
         m = r2 > 1e-12
@@ -238,6 +250,7 @@ def spline(pts, vals):
     w = np.linalg.solve(M, rhs)
 
     def f(x, y):
+        """Interpolated value at (x, y)."""
         xx = np.asarray(x) * sc; yy = np.asarray(y) * sc
         v = w[n] + w[n + 1] * xx + w[n + 2] * yy
         for i in range(n):
@@ -247,9 +260,11 @@ def spline(pts, vals):
 
 
 def kernel(pts, vals, sigma):
+    """Gaussian kernel smoother of values at points (width sigma)."""
     vals = np.asarray(vals, float)
 
     def f(x, y):
+        """Smoothed value and weight sum at (x, y)."""
         d2 = (np.asarray(x)[..., None] - pts[:, 0]) ** 2 + (np.asarray(y)[..., None] - pts[:, 1]) ** 2
         w = np.exp(-d2 / (2 * sigma * sigma))
         s = w.sum(-1)
@@ -329,6 +344,7 @@ def contour(grid, level):
 
 
 def chaikin(pts, n=2, closed=False):
+    """A line smoothed by n rounds of Chaikin corner cutting."""
     pts = list(pts)
     for _ in range(n):
         new = []
@@ -347,11 +363,13 @@ def chaikin(pts, n=2, closed=False):
 
 
 def path_str(chain, cycle=False):
+    """TikZ path of a point chain."""
     return " -- ".join(f"({f2(a)},{f2(b)})" for a, b in chain) + (" -- cycle" if cycle else "")
 
 
 # ---------------------------------------------------------------------------------------------------- analysis products
 def write_analysis():
+    """Write the isobar analysis of the station pressures."""
     hpa = np.array([s["hpa"] for s in STATIONS])
     pf = spline(PTS, hpa)
     P = pf(XX, YY)
@@ -408,6 +426,7 @@ WARM = [(655, 702), (690, 704), (722, 710), (760, 735), (818, 768), (870, 772), 
 
 
 def front_code(pts, kind, size=1.0):
+    """TikZ code of a cold or warm front with its symbols."""
     col = "fblue" if kind == "cold" else "fred"
     out = [f"\\draw[{col},line width={1.1 * size:.2f}pt] {path_str(pts)};"]
     gap = 30 * size
@@ -436,6 +455,7 @@ def front_code(pts, kind, size=1.0):
 
 
 def write_fronts():
+    """Write the fronts."""
     lines = front_code(COLD, "cold") + front_code(WARM, "warm")
     (OUT / "map_fronts.tex").write_text("\n".join(lines) + "\n", encoding="utf-8")
     fig9 = P3_DATA["fig9"]
@@ -445,6 +465,7 @@ def write_fronts():
 
 # ---------------------------------------------------------------------------------------------------- station drawings
 def write_stations():
+    """Write the station plots."""
     full, barbs_only, pressure, tcol = [], [], [], []
     for s in STATIONS:
         st = dict(T=s["T"], Td=s["Td"], p=s["p"], sky=s["sky"], dir=s["dir"], kt=s["kt"], wx=s["wx"])
@@ -467,13 +488,16 @@ def write_stations():
 
 # ---------------------------------------------------------------------------------------------------- streamlines
 def write_streams():
+    """Write streamlines of the smoothed station winds."""
     uK = kernel(PTS, [s["u"] for s in STATIONS], 70)
     vK = kernel(PTS, [s["v"] for s in STATIONS], 70)
 
     def near(x, y):
+        """Distance to the nearest station."""
         return float(np.min(np.hypot(PTS[:, 0] - x, PTS[:, 1] - y)))
 
     def wind_dir(x, y):
+        """Smoothed wind direction at a point."""
         u, wu = uK(np.array(x), np.array(y))
         v, wv = vK(np.array(x), np.array(y))
         if wv < 0.12:
@@ -482,7 +506,9 @@ def write_streams():
         return (u / m, -v / m)
 
     def stream(sx, sy, ahead=60, behind=0):
+        """Streamline from a start point, traced ahead and behind."""
         def trace(sign, mx):
+            """Points traced one way along the wind."""
             out = []
             x, y = sx, sy
             for _ in range(mx):
@@ -511,6 +537,7 @@ def write_streams():
     ex = [[(371, 752), (551, 903)], [(454, 1058), (510, 1036), (596, 995), (661, 919), (702, 826), (725, 738)]]
 
     def catmull(p):
+        """A smooth Catmull-Rom curve through points."""
         if len(p) == 2:
             return p
         out = []
@@ -527,6 +554,7 @@ def write_streams():
 
 # ---------------------------------------------------------------------------------------------------- Figure 9 and the models
 def write_fig9():
+    """Write figure 9 of the practical."""
     fig9 = P3_DATA["fig9"]
     code = []
     for s in fig9["stations"]:
@@ -553,6 +581,7 @@ PRACTICE_MODELS = [
 
 def write_models():
     # each model in its own small picture-sized scope (pixel scale chosen by the LaTeX macro)
+    """Write the wind model figures."""
     for name, models in (("sheet", SHEET_MODELS), ("practice", PRACTICE_MODELS)):
         for i, m in enumerate(models, 1):
             code = station_code(0, 0, m, s=1.0, fs=11.5, upt=1.48)
@@ -561,6 +590,7 @@ def write_models():
 
 # ---------------------------------------------------------------------------------------------------- geostrophic adjustment paths
 def write_adjustment():
+    """Write the geostrophic adjustment figure."""
     OM = 7.2921159e-5
     G = 9.80665
     lat, dn, dz = 45.0, 500e3, 60.0
@@ -569,6 +599,9 @@ def write_adjustment():
     Vg = P / f0
 
     def run(hemi, gamma, tmax, dt=0.01):
+        """Path of an air parcel starting at rest under a pressure gradient and Coriolis force (with friction
+                gamma), by hemisphere.
+        """
         f = f0 * (1 if hemi == "N" else -1)
         Py = P if hemi == "N" else -P
         af = abs(f)
@@ -627,6 +660,9 @@ def write_adjustment():
 
 # ---------------------------------------------------------------------------------------------------- Figure 6: four systems
 def steady(Px, Py, f, k):
+    """Steady wind (u, v) with friction k under pressure gradient (Px, Py) and Coriolis f, and the Coriolis and
+        friction forces.
+    """
     d = k * k + f * f
     u = (k * Px + f * Py) / d
     v = (k * Py - f * Px) / d
@@ -634,6 +670,7 @@ def steady(Px, Py, f, k):
 
 
 def write_four():
+    """Write the four cases: lows and highs in each hemisphere."""
     f_mag = 1.0
     out = []
     systems = [("NL", "N", "L"), ("NH", "N", "H"), ("SL", "S", "L"), ("SH", "S", "H")]
@@ -676,6 +713,7 @@ def write_four():
 
 # ---------------------------------------------------------------------------------------------------- the data table of the stations (appendix)
 def write_station_table():
+    """Write the station data table."""
     rows = []
     for s in STATIONS:
         td = "--" if s["Td"] is None else str(s["Td"])
@@ -689,6 +727,7 @@ def write_station_table():
 
 
 def write_front_evidence():
+    """Write the table of station pairs either side of each front."""
     pairs = {"cold": [(16, 17), (22, 23), (25, 28), (31, 32)], "warm": [(8, 13), (14, 19), (10, 20)]}
     names = ["N", "NNE", "NE", "ENE", "E", "ESE", "SE", "SSE", "S", "SSW", "SW", "WSW", "W", "WNW", "NW", "NNW"]
     comp = lambda d: names[int(round((d % 360) / 22.5)) % 16]
@@ -705,6 +744,7 @@ def write_front_evidence():
 # ---------------------------------------------------------------------------------------------------- symbol tables (Appendix of the source, redrawn)
 def write_symbols():
     # sky cover
+    """Write the symbol key."""
     items = [(0, "no cloud"), (10, r"$\le 1/10$"), (25, "2--3/10"), (40, "4/10"), (50, "5/10"), (60, "6/10"), (75, "7--8/10"), (90, "9/10"), (100, "10/10 overcast"), ("x", "obscured")]
     out = []
     for i, (pct, label) in enumerate(items):
@@ -756,6 +796,8 @@ TABLE1 = [(-40, 0.189, 0.118, None), (-35, 0.314, 0.195, None), (-30, 0.519, 0.3
 
 
 def write_table1():
+    """Write the plot data of Table 1: saturation vapour pressure and mixing ratio by temperature, with
+    the wrong table entries and their corrections marked."""
     es = " ".join(f"({t},{e})" for t, e, w, fix in TABLE1)
     w_ok = " ".join(f"({t},{w})" for t, e, w, fix in TABLE1 if fix is None)
     w_bad = " ".join(f"({t},{w})" for t, e, w, fix in TABLE1 if fix is not None)
@@ -777,10 +819,12 @@ def write_table1():
 
 
 def write_anatomy_and_demo():
+    """Write the station-plot anatomy and the demonstration figure."""
     st = dict(T=45, Td=38, p=147, sky=75, dir=315, kt=20, wx="rain-cont", tend=2, dp=28)
     (OUT / "model_anatomy.tex").write_text("\n".join(station_code(0, 0, st, s=1.0, fs=11.5, upt=1.48)) + "\n", encoding="utf-8")
     # a streamline demonstration: twelve stations (x right, y down), wind from the south-west turning to the west
     def phi(x, y):
+        """Wind direction (from, degrees) across the demonstration field."""
         return 225 + 0.68 * x - 0.15 * y                    # direction the wind blows FROM (compass degrees)
     out = []
     for gx in (0, 22, 44, 66):

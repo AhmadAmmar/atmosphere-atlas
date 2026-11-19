@@ -17,6 +17,7 @@ _PROTECTED = re.compile(r"\[\[.*?\]\]|\{\{.*?\}\}|\*\*.*?\*\*|\*[^*\n]+\*|\^\{.*
 
 
 def _texts(topic: Topic) -> list[str]:
+    """Every text field of a topic."""
     out = [topic.title, topic.kicker, *topic.simple]
     for block in (topic.detail, topic.expert):
         out.extend(t for pair in block for t in pair)
@@ -24,6 +25,7 @@ def _texts(topic: Topic) -> list[str]:
 
 
 def autolink(topic: Topic, terms) -> None:
+    """Link the first mention of each glossary term (or alias, at least four letters) in a topic's text."""
     patterns = []
     for term in terms:
         for name in [term.key, *term.aliases]:
@@ -35,6 +37,7 @@ def autolink(topic: Topic, terms) -> None:
     count = len(used)
 
     def link_text(text: str) -> str:
+        """Text with the first unlinked mention of each term wrapped in a glossary link."""
         nonlocal count
         if count >= MAX_AUTOLINKS:
             return text

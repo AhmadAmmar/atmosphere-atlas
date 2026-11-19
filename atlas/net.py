@@ -15,10 +15,12 @@ class DownloadError(RuntimeError):
 
 
 def log(message: str) -> None:
+    """Print a progress message at once."""
     print(message, flush=True)
 
 
 def _human(n: float) -> str:
+    """A byte count in B, KB, MB or GB."""
     for unit in ("B", "KB", "MB", "GB"):
         if n < 1024 or unit == "GB":
             return f"{n:,.0f} {unit}" if unit == "B" else f"{n:,.1f} {unit}"

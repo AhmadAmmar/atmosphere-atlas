@@ -21,6 +21,7 @@ _FRAGMENTS = {
 
 
 def _compile(group: str) -> list[re.Pattern]:
+    """Whole-word patterns of a group of words to flag (case-sensitive for acronyms)."""
     out = []
     for parts in _FRAGMENTS[group]:
         word = "".join(parts)

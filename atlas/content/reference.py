@@ -173,6 +173,7 @@ BASINS = [
 
 # ----------------------------------------------------------------------------- live numbers from the data
 def _annual_means(series: dict):
+    """Years and annual means of the GISTEMP global anomaly (complete years)."""
     g = series["gistemp"]
     years = g["years"]
     annual = g["annual"]
@@ -180,6 +181,7 @@ def _annual_means(series: dict):
 
 
 def climate_stats(series: dict) -> dict:
+    """Figures quoted in the text (warming, CO2, sea level and others) from the latest series."""
     years, annual = _annual_means(series)
     valid = [(y, a) for y, a in zip(years, annual) if a is not None]
     latest_year, latest = valid[-1]
@@ -218,6 +220,7 @@ def fill(topic: Topic, *, series: dict, tables: dict, manifest: dict) -> None:
     gaps = [(b - a) / 12 for a, b in zip(el_starts, el_starts[1:])]
 
     def latest(key: str):
+        """Latest value and date of an index series."""
         ser = series["indices"][key]
         n = len(ser["values"]) - 1
         month0 = ser["start"][0] * 12 + ser["start"][1] - 1 + n
@@ -282,6 +285,7 @@ def fill(topic: Topic, *, series: dict, tables: dict, manifest: dict) -> None:
         })
 
     def sub(text: str) -> str:
+        """Text with each <<key>> placeholder replaced by its value."""
         for key, val in values.items():
             text = text.replace(f"<<{key}>>", val)
         return text

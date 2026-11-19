@@ -144,6 +144,8 @@ def classify(t: np.ndarray, p: np.ndarray, lat: np.ndarray) -> np.ndarray:
 
 
 def build_koppen(cache: Path, pack: PackWriter, landmask: np.ndarray) -> np.ndarray:
+    """Koeppen-Geiger climate classes from University of Delaware monthly air temperature and
+    precipitation, on land."""
     log("Koeppen-Geiger climate classification")
     air_p = psl_file(cache, "udel", "air")
     pre_p = psl_file(cache, "udel", "precip")

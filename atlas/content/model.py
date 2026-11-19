@@ -13,6 +13,7 @@ from dataclasses import asdict, dataclass, field
 
 @dataclass
 class Chapter:
+    """A chapter of the atlas: id, title and order."""
     id: str
     title: str
     blurb: str
@@ -21,6 +22,7 @@ class Chapter:
 
 @dataclass
 class Term:
+    """A glossary term with its aliases and definition."""
     key: str                       # canonical name shown in the glossary
     definition: str
     aliases: list = field(default_factory=list)
@@ -28,6 +30,7 @@ class Term:
 
 @dataclass
 class Topic:
+    """One atlas topic: its chapter, titles, texts at each level, data layers and links."""
     id: str
     chapter: str
     title: str
@@ -48,5 +51,6 @@ class Topic:
 
 
 def to_json(obj):
+    """A content object as a plain dictionary."""
     d = asdict(obj)
     return d

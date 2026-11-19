@@ -33,6 +33,7 @@ MONTHS = 12
 
 
 def psl_file(cache: Path, key: str, sub: str) -> Path:
+    """Local copy of a NOAA PSL file, downloaded if missing."""
     url = SOURCES[key].urls[sub]
     return fetch(url, cache / "psl" / f"{key}_{Path(url).name}")
 
@@ -49,6 +50,7 @@ STEPS = {
 def add_grid(pack: PackWriter, name: str, grid: Grid, *, units: str, title: str,
              vmin: float | None = None, vmax: float | None = None, step: float | None = None,
              **extra) -> None:
+    """Add a gridded field to the pack with its units, title and colour range."""
     meta = {**grid.meta(), "units": units, "title": title,
             "nt": int(grid.data.shape[0]) if grid.data.ndim == 3 else 1}
     meta.update(extra)
@@ -59,6 +61,7 @@ def add_grid(pack: PackWriter, name: str, grid: Grid, *, units: str, title: str,
 
 
 def monthly_surface(cache: Path, key: str, sub: str, var: str) -> Grid:
+    """Monthly surface field of a PSL dataset as a grid."""
     path = psl_file(cache, key, sub)
     data = ncio.read_var(path, var)
     lat = ncio.read_axis(path, "lat")
@@ -74,6 +77,7 @@ def pressure_level(cache: Path, key: str, sub: str, var: str) -> tuple[np.ndarra
 
 
 def level_grid(data: np.ndarray, levels: np.ndarray, lat: np.ndarray, lon: np.ndarray, hpa: float) -> Grid:
+    """The field at the pressure level nearest hpa."""
     k = int(np.argmin(np.abs(levels - hpa)))
     if abs(levels[k] - hpa) > 0.5:
         raise ValueError(f"level {hpa} hPa not present in {levels}")
@@ -156,6 +160,7 @@ ERDDAP_URL = SOURCES["oscar"].urls["erddap"]
 
 
 def _oscar_window(cache: Path, year: int, month: int) -> Path:
+    """OSCAR ocean surface currents of a month (15 m, 80 S-80 N, every 3rd point) from ERDDAP; cached."""
     last = calendar.monthrange(year, month)[1]
     t0 = f"{year}-{month:02d}-01T00:00:00Z"
     t1 = f"{year}-{month:02d}-{last:02d}T00:00:00Z"

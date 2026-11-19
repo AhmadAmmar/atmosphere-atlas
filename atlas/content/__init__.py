@@ -20,6 +20,7 @@ LEVEL_FIELDS = ("simple", "detail", "expert")
 
 
 def _load():
+    """Chapters, topics, glossary terms, tours and reference text from the content modules."""
     from . import chapters, glossary, reference, tours
     topics: list[Topic] = []
     for name in TOPIC_MODULES:
@@ -38,6 +39,7 @@ _TERM = re.compile(r"\[\[([^|\]]+)(?:\|[^\]]*)?\]\]")
 
 
 def _all_text(topic: Topic) -> list[str]:
+    """Every text field of a topic (title, kicker, simple, detail and expert text, facts and myths)."""
     texts = [topic.title, topic.kicker, *topic.simple]
     for block in (topic.detail, topic.expert):
         texts.extend(t for pair in block for t in pair)
@@ -61,6 +63,7 @@ def shuffle_quiz(topic: Topic) -> None:
 
 
 def validate(chapters, topics, terms, tours) -> None:
+    """Check the content: unique topic ids, known chapters, terms and tour stops; raises with all errors."""
     errors = []
     chapter_ids = {c.id for c in chapters}
     topic_ids = [t.id for t in topics]
@@ -99,6 +102,7 @@ def validate(chapters, topics, terms, tours) -> None:
 
 
 def build_content(*, series: dict, tables: dict, manifest: dict) -> dict:
+    """The content as JSON-ready data, with figures filled from the series, tables and manifest."""
     chapters, topics, terms, tours, reference = _load()
     topics = [t for t in topics]
     for t in topics:                                   # allow topic text to quote live numbers

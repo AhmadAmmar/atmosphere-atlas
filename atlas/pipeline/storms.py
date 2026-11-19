@@ -60,6 +60,7 @@ def category(wind_kt: float) -> int:
 
 
 def _num(text: str) -> float:
+    """A number from text, NaN if blank or invalid."""
     try:
         v = float(text)
     except ValueError:
@@ -141,6 +142,7 @@ def resample(s: dict) -> dict | None:
 
 
 def ace(wind: np.ndarray) -> float:
+    """Accumulated cyclone energy: 1e-4 x sum of squared wind (kt) at fixes of 34 kt or more."""
     w = wind[np.isfinite(wind) & (wind >= 34)]
     return float((w ** 2).sum() * 1e-4)
 
@@ -154,6 +156,7 @@ def rapid_intensification(wind: np.ndarray) -> float:
 
 
 def build_storms(cache: Path, pack: PackWriter) -> dict:
+    """IBTrACS tropical cyclone tracks packed for the atlas, with statistics."""
     log("IBTrACS tropical cyclone best tracks")
     path = fetch(SOURCES["ibtracs"].urls["all"], cache / "ibtracs" / "ibtracs.ALL.list.v04r01.csv")
     raw = read_tracks(path)
@@ -208,6 +211,7 @@ def build_storms(cache: Path, pack: PackWriter) -> dict:
     wnd = np.concatenate(wnd_all)
 
     def quant_delta(values: np.ndarray, off: list[int]) -> np.ndarray:
+        """Values in tenths, delta-coded within each track (offsets), as 16-bit integers."""
         q = np.rint(values * 10).astype(np.int32)
         d = q.copy()
         for a, b in zip(off[:-1], off[1:]):
@@ -254,6 +258,7 @@ def build_storms(cache: Path, pack: PackWriter) -> dict:
 
 
 def storm_statistics(tracks: list[dict], last_season: int) -> dict:
+    """Storm counts, hurricanes, major hurricanes and ACE by basin and season."""
     per_basin_year = defaultdict(lambda: defaultdict(lambda: [0, 0, 0, 0.0]))   # basin -> season -> counts
     month_counts = defaultdict(lambda: np.zeros(12))
     ri_count = defaultdict(lambda: [0, 0])

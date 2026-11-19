@@ -27,19 +27,23 @@ PACK_NAMES = ("core", "imagery", "storms", "enso")
 
 
 class BuildError(RuntimeError):
+    """A build step failed; the message says what to run or fix."""
     pass
 
 
 def _json_for_html(obj) -> str:
+    """Compact JSON safe to embed in an HTML script tag (<, >, & and line separators escaped)."""
     text = json.dumps(obj, ensure_ascii=False, separators=(",", ":"))
     return text.replace("<", "\\u003c").replace(">", "\\u003e").replace("&", "\\u0026").replace("\u2028", "\\u2028").replace("\u2029", "\\u2029")
 
 
 def _read(path: Path) -> str:
+    """Text of a file (UTF-8)."""
     return path.read_text(encoding="utf-8")
 
 
 def _application_script() -> str:
+    """The atlas's JavaScript files joined in name order."""
     files = sorted((WEB_DIR / "js").glob("*.js"))
     if not files:
         raise BuildError(f"no scripts found in {WEB_DIR / 'js'}")
@@ -50,6 +54,7 @@ def _application_script() -> str:
 
 
 def _three_script() -> str:
+    """The bundled three.js library source."""
     src = _read(WEB_DIR / "vendor" / "three.min.js")
     # The UMD build announces its own deprecation on load; the notice is irrelevant for an embedded copy.
     if src.startswith("console.warn("):
@@ -60,6 +65,7 @@ def _three_script() -> str:
 
 
 def _check_processed() -> dict:
+    """The processed-data manifest; error if any data pack is missing (run --refresh-data)."""
     missing = [n for n in PACK_NAMES if not (PROCESSED_DIR / f"{n}.pack.gz").exists()]
     if missing:
         raise BuildError(
@@ -98,6 +104,7 @@ def _crosscheck(content: dict, app_js: str) -> None:
 
 
 def build(output: Path, *, quiet: bool = False) -> Path:
+    """Assemble the single-file atlas page from the web template, scripts, data packs and content; returns the path."""
     started = time.time()
     log = (lambda m: None) if quiet else (lambda m: print(m, flush=True))
     manifest = _check_processed()
@@ -168,6 +175,7 @@ def check_file(path: Path) -> list[str]:
 
 
 def main(argv: list[str] | None = None) -> int:
+    """Command line: build the atlas; returns the exit code."""
     try:
         build(Path(argv[0]) if argv else DEFAULT_OUTPUT)
     except BuildError as exc:

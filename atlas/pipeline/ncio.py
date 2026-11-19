@@ -23,11 +23,13 @@ except ImportError:  # pragma: no cover - reported with a clear message when fir
 
 
 def _need_netcdf() -> None:
+    """Error if netCDF4 is not installed."""
     if netCDF4 is None:
         raise SystemExit("Data preparation needs the 'netCDF4' package: pip install -r requirements-data.txt")
 
 
 def open_nc(path: Path):
+    """Open a netCDF file."""
     _need_netcdf()
     return netCDF4.Dataset(str(path))
 
@@ -43,11 +45,13 @@ def read_var(path: Path, name: str) -> np.ndarray:
 
 
 def read_axis(path: Path, name: str) -> np.ndarray:
+    """Values of a coordinate variable."""
     with open_nc(path) as ds:
         return np.asarray(ds.variables[name][:], dtype=np.float64)
 
 
 def find_axis_name(ds, candidates: tuple[str, ...]) -> str:
+    """First of the candidate names present in a dataset."""
     for c in candidates:
         if c in ds.variables:
             return c
@@ -66,21 +70,26 @@ class Grid:
 
     @property
     def ny(self) -> int:
+        """Number of rows."""
         return self.data.shape[-2]
 
     @property
     def nx(self) -> int:
+        """Number of columns."""
         return self.data.shape[-1]
 
     @property
     def lats(self) -> np.ndarray:
+        """Latitude of each row."""
         return self.lat0 + self.dlat * np.arange(self.ny)
 
     @property
     def lons(self) -> np.ndarray:
+        """Longitude of each column."""
         return self.lon0 + self.dlon * np.arange(self.nx)
 
     def meta(self) -> dict:
+        """Grid origin and spacing for the pack."""
         return {"lat0": round(float(self.lat0), 6), "dlat": round(float(self.dlat), 6),
                 "lon0": round(float(self.lon0), 6), "dlon": round(float(self.dlon), 6)}
 

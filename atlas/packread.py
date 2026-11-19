@@ -12,6 +12,7 @@ from pathlib import Path
 
 
 def open_pack(path: Path) -> tuple[dict, bytes]:
+    """Index and payload of a gzipped data pack."""
     raw = gzip.decompress(Path(path).read_bytes())
     if raw[:4] != b"ATLP":
         raise ValueError(f"{path} is not an atlas pack")
@@ -21,6 +22,7 @@ def open_pack(path: Path) -> tuple[dict, bytes]:
 
 
 def read_json(path: Path, name: str):
+    """One JSON entry of a data pack."""
     index, payload = open_pack(path)
     entry = index[name]
     return json.loads(payload[entry["o"]:entry["o"] + entry["n"]].decode("utf-8"))

@@ -21,6 +21,7 @@ MASK_W, MASK_H = 2048, 1024
 
 
 def load_geojson(cache: Path, name: str) -> dict:
+    """A Natural Earth layer as GeoJSON, downloaded if missing."""
     url = SOURCES["natural_earth"].urls[name]
     path = fetch(url, cache / "natural_earth" / Path(url).name, quiet=True)
     return json.loads(path.read_text(encoding="utf-8"))
@@ -28,6 +29,7 @@ def load_geojson(cache: Path, name: str) -> dict:
 
 # ------------------------------------------------------------------------------ geometry
 def _perp_distance(p, a, b) -> float:
+    """Distance of point p from the line through a and b."""
     (x, y), (x1, y1), (x2, y2) = p, a, b
     dx, dy = x2 - x1, y2 - y1
     if dx == 0 and dy == 0:
@@ -60,6 +62,7 @@ def simplify(points: list, tolerance: float) -> list:
 
 
 def lines_of(geometry: dict) -> list[list]:
+    """The coordinate lines of a geometry."""
     t = geometry["type"]
     if t == "LineString":
         return [geometry["coordinates"]]
@@ -115,6 +118,7 @@ def rasterise_land(land: dict) -> np.ndarray:
     draw = ImageDraw.Draw(img)
 
     def px(ring):
+        """A ring in mask pixel coordinates."""
         return [((lon + 180.0) / 360.0 * MASK_W, (90.0 - lat) / 180.0 * MASK_H) for lon, lat in ring]
 
     for feature in land["features"]:
@@ -132,6 +136,7 @@ def carve_lakes(mask: np.ndarray, lakes: dict, min_scalerank: int = 1) -> np.nda
     draw = ImageDraw.Draw(img)
 
     def px(ring):
+        """A ring in mask pixel coordinates."""
         return [((lon + 180.0) / 360.0 * MASK_W, (90.0 - lat) / 180.0 * MASK_H) for lon, lat in ring]
 
     for feature in lakes["features"]:
@@ -144,6 +149,7 @@ def carve_lakes(mask: np.ndarray, lakes: dict, min_scalerank: int = 1) -> np.nda
 
 # ------------------------------------------------------------------------------ labels
 def _ring_centroid(ring: list) -> tuple[float, float, float]:
+    """Signed area and centroid of a ring (shoelace formula)."""
     a = cx = cy = 0.0
     for (x0, y0), (x1, y1) in zip(ring[:-1], ring[1:]):
         cross = x0 * y1 - x1 * y0
@@ -196,6 +202,7 @@ def pick_places(places: dict) -> list[dict]:
 
 # ------------------------------------------------------------------------------ main entry
 def build_vectors(cache: Path, pack: PackWriter) -> np.ndarray:
+    """Coastlines, borders, lakes and rivers for the pack, and the land mask."""
     log("coastlines, borders, lakes and rivers")
     coast = load_geojson(cache, "coast")
     add_lines(pack, "coast", [ln for f in coast["features"] for ln in lines_of(f["geometry"])], tolerance=0.03)

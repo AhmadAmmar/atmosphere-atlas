@@ -23,6 +23,7 @@ ALL_STEPS = ("core", "imagery", "storms", "enso")
 
 
 def refresh(cache: Path, out_dir: Path = PROCESSED_DIR, steps: tuple[str, ...] = ALL_STEPS) -> dict:
+    """Rebuild every data pack step from the cache and write the manifest."""
     from . import enso, fields, imagery, koppen, series, storms, vector
 
     out_dir.mkdir(parents=True, exist_ok=True)
@@ -31,6 +32,7 @@ def refresh(cache: Path, out_dir: Path = PROCESSED_DIR, steps: tuple[str, ...] =
     started = time.time()
 
     def save(name: str, pack: PackWriter) -> None:
+        """Write a pack and record its size."""
         size = pack.write(out_dir / f"{name}.pack.gz")
         manifest["packs"][name] = {"bytes": size, "arrays": len(pack.index)}
         log(f"=> {name}.pack.gz  {size / 1e6:.2f} MB  ({len(pack.index)} arrays)\n")

@@ -36,6 +36,7 @@ def equation_of_time(day_of_year: float) -> float:
 
 
 def day_length(lat_deg: float, decl_deg: float) -> float:
+    """Hours of daylight at a latitude for a solar declination (sunrise equation, polar day and night clipped)."""
     x = -math.tan(math.radians(lat_deg)) * math.tan(math.radians(decl_deg))
     if x >= 1:
         return 0.0
@@ -55,6 +56,7 @@ def daily_insolation(lat_deg: float, day_of_year: float) -> float:
 
 
 def sun_tables() -> dict:
+    """Day length by latitude (5 deg steps) and day of year."""
     lats = list(range(-90, 91, 5))
     days = list(range(1, 366, 4))
     insol = [[round(daily_insolation(lat, d), 1) for d in days] for lat in lats]
@@ -136,10 +138,12 @@ def sat_vapour_pressure_water(t_c: float) -> float:
 
 
 def sat_vapour_pressure_ice(t_c: float) -> float:
+    """Saturation vapour pressure over ice (hPa) at t_c deg C (Magnus form, 22.587 and 273.86)."""
     return 6.1121 * math.exp(22.587 * t_c / (t_c + 273.86))
 
 
 def dew_point(t_c: float, rh: float) -> float:
+    """Dew point (deg C) from temperature and relative humidity (Magnus form, 17.625 and 243.04)."""
     a, b = 17.625, 243.04
     gamma = math.log(max(rh, 1e-3) / 100.0) + a * t_c / (b + t_c)
     return b * gamma / (a - gamma)
@@ -173,6 +177,7 @@ def wind_chill_c(t_c: float, v_kmh: float) -> float:
 
 
 def moisture_tables() -> dict:
+    """Saturation vapour pressure and mixing ratio from -40 to 50 deg C."""
     temps = list(range(-40, 51, 2))
     es_w = [round(sat_vapour_pressure_water(t), 3) for t in temps]
     es_i = [round(sat_vapour_pressure_ice(t), 3) if t <= 0 else None for t in temps]
@@ -202,6 +207,7 @@ def moisture_tables() -> dict:
 
 # ------------------------------------------------------------------ rotation, Coriolis and the Hadley cell
 def coriolis_tables() -> dict:
+    """Coriolis parameter by latitude (5 deg steps)."""
     lats = list(range(-90, 91, 5))
     f = [2 * OMEGA * math.sin(math.radians(lat)) for lat in lats]
     period = [None if abs(x) < 1e-9 else round(2 * math.pi / abs(x) / 3600, 2) for x in f]
@@ -245,11 +251,13 @@ def geostrophic_demo() -> dict:
 
 # ------------------------------------------------------------------ radiation
 def planck(wavelength_um: float, temp_k: float) -> float:
+    """Planck spectral radiance (W m-2 sr-1 m-1) at a wavelength (um) and temperature (K)."""
     lam = wavelength_um * 1e-6
     return 2 * PLANCK * LIGHT ** 2 / lam ** 5 / (math.exp(PLANCK * LIGHT / (lam * BOLTZMANN * temp_k)) - 1)
 
 
 def radiation_tables() -> dict:
+    """Planck curves of the Sun and Earth, 0.1-20 um, log spaced."""
     wl = [round(10 ** (-1 + 2.3 * i / 120), 4) for i in range(121)]       # 0.1 to 20 um, log spaced
     sun = [planck(x, 5772) for x in wl]
     earth = [planck(x, 288) for x in wl]
@@ -303,6 +311,7 @@ def hurricane_profiles() -> dict:
 
 
 def beaufort_scale() -> list:
+    """The Beaufort wind scale with speeds and descriptions."""
     rows = [
         (0, "Calm", 0, 0.5, "Smoke rises vertically; the sea is like a mirror."),
         (1, "Light air", 0.5, 1.5, "Smoke drifts; ripples on the water."),
@@ -323,6 +332,7 @@ def beaufort_scale() -> list:
 
 
 def enhanced_fujita() -> list:
+    """The Enhanced Fujita tornado scale."""
     return [
         {"ef": "EF0", "mph": [65, 85], "kmh": [105, 137], "damage": "Light: branches broken, shallow-rooted trees pushed over, some roof shingles lost."},
         {"ef": "EF1", "mph": [86, 110], "kmh": [138, 177], "damage": "Moderate: roof surfaces peeled off, mobile homes overturned."},
@@ -339,10 +349,12 @@ def lorenz_pair(steps: int = 4200, dt: float = 0.01, eps: float = 1e-4) -> dict:
     sigma, rho, beta = 10.0, 28.0, 8.0 / 3.0
 
     def f(s):
+        """Lorenz (1963) equations: rates of change of x, y and z."""
         x, y, z = s
         return (sigma * (y - x), x * (rho - z) - y, x * y - beta * z)
 
     def rk4(s):
+        """One fourth-order Runge-Kutta step of the Lorenz equations."""
         k1 = f(s)
         k2 = f(tuple(s[i] + 0.5 * dt * k1[i] for i in range(3)))
         k3 = f(tuple(s[i] + 0.5 * dt * k2[i] for i in range(3)))
@@ -364,6 +376,7 @@ def lorenz_pair(steps: int = 4200, dt: float = 0.01, eps: float = 1e-4) -> dict:
 
 # ------------------------------------------------------------------ clouds and water
 def cloud_genera() -> list:
+    """The ten cloud genera with heights and descriptions."""
     return [
         {"name": "Cirrus", "abbr": "Ci", "level": "high", "base": [6, 12], "look": "thin, wispy white filaments of ice crystals", "weather": "fair, but often the first sign of an approaching warm front"},
         {"name": "Cirrocumulus", "abbr": "Cc", "level": "high", "base": [6, 12], "look": "small white ripples or grains, a 'mackerel sky'", "weather": "fair and cold; short-lived"},
@@ -379,6 +392,7 @@ def cloud_genera() -> list:
 
 
 def water_cycle() -> dict:
+    """Stores and fluxes of the global water cycle."""
     return {
         "unit": "thousand km³ per year",
         "oceanEvaporation": 436, "oceanPrecipitation": 391, "landEvaporation": 71, "landPrecipitation": 116, "runoff": 45,
@@ -409,6 +423,7 @@ def energy_budget() -> dict:
 
 
 def composition(co2_ppm: float) -> list:
+    """Composition of dry air (ppm), with CO2 at the given value."""
     return [
         {"gas": "Nitrogen", "formula": "N2", "ppm": 780840}, {"gas": "Oxygen", "formula": "O2", "ppm": 209460},
         {"gas": "Argon", "formula": "Ar", "ppm": 9340}, {"gas": "Carbon dioxide", "formula": "CO2", "ppm": round(co2_ppm, 1)},
@@ -419,6 +434,7 @@ def composition(co2_ppm: float) -> list:
 
 
 def build_tables(co2_ppm: float) -> dict:
+    """All physics tables of the atlas."""
     return {
         "sun": sun_tables(), "atmosphere": standard_atmosphere(), "moisture": moisture_tables(),
         "coriolis": coriolis_tables(), "hadley": hadley_theory(), "geostrophic": geostrophic_demo(),

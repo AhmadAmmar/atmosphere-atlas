@@ -20,11 +20,13 @@ WMS = SOURCES["bmng"].urls["wms"]
 
 
 def _wms_url(layer: str, date: str) -> str:
+    """NASA GIBS WMS request URL of a layer on a date (global, EPSG:4326)."""
     return (f"{WMS}?SERVICE=WMS&REQUEST=GetMap&VERSION=1.3.0&LAYERS={layer}&STYLES=&CRS=EPSG:4326"
             f"&BBOX=-90,-180,90,180&WIDTH={WIDTH}&HEIGHT={HEIGHT}&FORMAT=image/jpeg&TIME={date}")
 
 
 def _recompress(path: Path, *, grayscale: bool, quality: int) -> bytes:
+    """An image re-saved as progressive JPEG (grey or colour) at a quality."""
     from PIL import Image
     img = Image.open(path)
     img = img.convert("L" if grayscale else "RGB")
@@ -34,6 +36,7 @@ def _recompress(path: Path, *, grayscale: bool, quality: int) -> bytes:
 
 
 def build_imagery(cache: Path, pack: PackWriter, quality: int = 80) -> None:
+    """Blue Marble monthly mosaics and other imagery for the pack."""
     log("Blue Marble monthly mosaics")
     total = 0
     for month in range(1, 13):

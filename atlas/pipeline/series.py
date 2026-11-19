@@ -18,6 +18,7 @@ from . import ncio
 
 
 def _clean(values, ndigits: int = 2) -> list:
+    """Values rounded, with missing and non-finite values as None."""
     out = []
     for v in values:
         out.append(None if v is None or not np.isfinite(v) else round(float(v), ndigits))
@@ -25,6 +26,7 @@ def _clean(values, ndigits: int = 2) -> list:
 
 
 def fetch_series_file(cache: Path, url: str, name: str) -> Path:
+    """Local copy of a series file, downloaded if missing."""
     return fetch(url, cache / "series" / name, quiet=True)
 
 
@@ -52,6 +54,7 @@ def parse_psl_data(path: Path) -> tuple[int, np.ndarray]:
 
 
 def monthly_index(cache: Path, key: str, name: str) -> dict:
+    """A monthly climate index from a PSL data file."""
     y0, arr = parse_psl_data(fetch_series_file(cache, SOURCES["enso_indices"].urls[key], f"{key}.data"))
     flat = arr.reshape(-1)
     last = np.where(np.isfinite(flat))[0]
@@ -66,6 +69,7 @@ SEASON_CENTRE = {"DJF": 1, "JFM": 2, "FMA": 3, "MAM": 4, "AMJ": 5, "MJJ": 6, "JJ
 
 
 def parse_oni(path: Path) -> tuple[list[tuple[int, int]], np.ndarray]:
+    """Months and values of the Oceanic Nino Index."""
     months, vals = [], []
     for ln in path.read_text(encoding="utf-8").splitlines()[1:]:
         parts = ln.split()
@@ -107,6 +111,7 @@ def enso_events(months: list[tuple[int, int]], oni: np.ndarray) -> list[dict]:
 
 
 def build_enso(cache: Path) -> dict:
+    """ENSO index series."""
     months, oni = parse_oni(fetch_series_file(cache, SOURCES["enso_indices"].urls["oni"], "oni.txt"))
     events = enso_events(months, oni)
     return {"oni": {"name": "Oceanic Nino Index", "start": list(months[0]), "values": _clean(oni, 2),
@@ -116,6 +121,7 @@ def build_enso(cache: Path) -> dict:
 
 # ------------------------------------------------------------------------------ climate change series
 def build_gistemp(cache: Path) -> dict:
+    """GISTEMP global temperature anomaly series."""
     path = fetch_series_file(cache, SOURCES["gistemp"].urls["global"], "gistemp.csv")
     rows = list(csv.reader(path.read_text(encoding="utf-8").splitlines()))
     header = rows[1]
@@ -134,6 +140,7 @@ def build_gistemp(cache: Path) -> dict:
 
 
 def build_co2(cache: Path) -> dict:
+    """Mauna Loa monthly CO2 series."""
     path = fetch_series_file(cache, SOURCES["mauna_loa"].urls["monthly"], "co2.csv")
     start, avg, trend = None, [], []
     for ln in path.read_text(encoding="utf-8").splitlines():
@@ -172,6 +179,7 @@ def build_ice_cores(cache: Path) -> dict:
                 continue
 
     def binned(age: list[float], val: list[float], n: int = 800) -> list:
+        """Mean of ice-core values in n equal age bins."""
         sums, counts = np.zeros(n), np.zeros(n)
         for a, v in zip(age, val):
             k = int(a // 1000)
@@ -190,6 +198,7 @@ def build_ice_cores(cache: Path) -> dict:
 
 
 def build_sea_ice(cache: Path) -> dict:
+    """Arctic and Antarctic sea ice extent series."""
     out = {}
     for hemi, key in (("north", "north"), ("south", "south")):
         path = fetch_series_file(cache, SOURCES["nsidc"].urls[key], f"{hemi}_ice.csv")
@@ -218,6 +227,7 @@ def build_sea_ice(cache: Path) -> dict:
 
 
 def build_sea_level(cache: Path) -> dict:
+    """Global mean sea level series."""
     path = fetch_series_file(cache, SOURCES["sea_level"].urls["gmsl"], "sea_level.csv")
     t, v = [], []
     for ln in path.read_text(encoding="utf-8").splitlines():
@@ -254,6 +264,7 @@ def build_sea_level(cache: Path) -> dict:
 
 # ------------------------------------------------------------------------------ AMOC
 def build_rapid(cache: Path) -> dict:
+    """RAPID Atlantic overturning circulation series."""
     path = fetch_series_file(cache, SOURCES["rapid"].urls["transports"], "rapid_moc_transports.nc")
     days = ncio.read_axis(path, "time")
     fields = {"amoc": "moc_mar_hc10", "floridaCurrent": "t_gs10", "ekman": "t_ek10", "interior": "t_umo10",
@@ -290,6 +301,7 @@ def build_rapid(cache: Path) -> dict:
 
 # ------------------------------------------------------------------------------ main entry
 def build_series(cache: Path) -> dict:
+    """All time series of the atlas."""
     log("time series")
     indices = {
         "nino34": monthly_index(cache, "nino34", "Nino 3.4 sea-surface temperature anomaly (degC)"),

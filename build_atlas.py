@@ -16,6 +16,7 @@ from pathlib import Path
 
 
 def main(argv=None) -> int:
+    """Command line: refresh the data (--refresh-data) and build the atlas page."""
     if hasattr(sys.stdout, "reconfigure"):
         sys.stdout.reconfigure(encoding="utf-8", errors="replace")
     parser = argparse.ArgumentParser(description="Build the Atmosphere Atlas web page.")

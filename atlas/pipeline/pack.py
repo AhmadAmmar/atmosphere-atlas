@@ -41,13 +41,16 @@ def _numpy_json(obj):
 
 
 class PackWriter:
+    """Writer of a data pack: named arrays, JSON and files in one gzipped blob with an index."""
     def __init__(self) -> None:
+        """An empty pack."""
         self._parts: list[bytes] = []
         self._offset = 0
         self.index: dict[str, dict] = {}
 
     # ------------------------------------------------------------------ internals
     def _append(self, name: str, raw: bytes, entry: dict) -> None:
+        """Add an entry's bytes and index record; error on a repeated name."""
         if name in self.index:
             raise ValueError(f"duplicate pack entry {name!r}")
         pad = (-self._offset) % 4
@@ -62,6 +65,7 @@ class PackWriter:
 
     @staticmethod
     def _shuffle(raw: bytes, width: int) -> bytes:
+        """Bytes regrouped by position within each value (byte shuffle), so they compress better."""
         arr = np.frombuffer(raw, dtype=np.uint8).reshape(-1, width)
         return b"".join(arr[:, k].tobytes() for k in range(width))
 
@@ -105,6 +109,7 @@ class PackWriter:
         return entry
 
     def add_u8(self, name: str, array, *, meta: dict | None = None) -> dict:
+        """Add an array as unsigned 8-bit."""
         a = np.asarray(array)
         if a.size and (a.min() < 0 or a.max() > 255):
             raise ValueError(f"{name}: values outside uint8 range")
@@ -113,36 +118,42 @@ class PackWriter:
         return entry
 
     def add_i16(self, name: str, array, *, meta: dict | None = None) -> dict:
+        """Add an array as little-endian 16-bit integers."""
         a = np.asarray(array)
         entry = {"t": "i16raw", "shape": list(a.shape), "meta": meta or {}}
         self._append(name, a.astype("<i2").tobytes(), entry)
         return entry
 
     def add_u16(self, name: str, array, *, meta: dict | None = None) -> dict:
+        """Add an array as unsigned 16-bit."""
         a = np.asarray(array)
         entry = {"t": "u16", "shape": list(a.shape), "meta": meta or {}}
         self._append(name, a.astype("<u2").tobytes(), entry)
         return entry
 
     def add_f32(self, name: str, array, *, meta: dict | None = None) -> dict:
+        """Add an array as little-endian 32-bit floats."""
         a = np.asarray(array, dtype="<f4")
         entry = {"t": "f32", "shape": list(a.shape), "meta": meta or {}}
         self._append(name, a.tobytes(), entry)
         return entry
 
     def add_json(self, name: str, obj) -> dict:
+        """Add an object as compact JSON."""
         raw = json.dumps(obj, separators=(",", ":"), ensure_ascii=False, default=_numpy_json).encode("utf-8")
         entry = {"t": "json", "meta": {}}
         self._append(name, raw, entry)
         return entry
 
     def add_bytes(self, name: str, raw: bytes, *, mime: str, meta: dict | None = None) -> dict:
+        """Add raw bytes with a media type."""
         entry = {"t": "bytes", "mime": mime, "meta": meta or {}}
         self._append(name, raw, entry)
         return entry
 
     # ------------------------------------------------------------------ output
     def to_bytes(self) -> bytes:
+        """The pack: index and payload."""
         payload = b"".join(self._parts)
         header = json.dumps(self.index, separators=(",", ":"), ensure_ascii=False).encode("utf-8")
         header += b" " * ((-len(header)) % 4)

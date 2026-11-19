@@ -600,7 +600,7 @@ def write_adjustment():
 
     def run(hemi, gamma, tmax, dt=0.01):
         """Path of an air parcel starting at rest under a pressure gradient and Coriolis force (with friction
-                gamma), by hemisphere.
+        gamma), by hemisphere.
         """
         f = f0 * (1 if hemi == "N" else -1)
         Py = P if hemi == "N" else -P
@@ -661,7 +661,7 @@ def write_adjustment():
 # ---------------------------------------------------------------------------------------------------- Figure 6: four systems
 def steady(Px, Py, f, k):
     """Steady wind (u, v) with friction k under pressure gradient (Px, Py) and Coriolis f, and the Coriolis and
-        friction forces.
+    friction forces.
     """
     d = k * k + f * f
     u = (k * Px + f * Py) / d
